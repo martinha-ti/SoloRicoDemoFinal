@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Home() {
+  const { t } = useLanguage();
   const { data: products = [] } = useQuery({
     queryKey: ['/api/products'],
     queryFn: () => api.getProducts(),
@@ -43,13 +45,13 @@ export default function Home() {
                 <div className="carousel-overlay"></div>
                 <div className="carousel-content">
                   <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white text-shadow">
-                    Cultivando soluções para uma agricultura de excelência
+                    {t('hero_title')}
                   </h1>
                   <p className="text-xl md:text-2xl mb-8 text-white text-shadow">
-                    Lado a lado com o produtor rural
+                    {t('hero_subtitle')}
                   </p>
                   <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg">
-                    Conheça
+                    {t('cta_know_more')}
                   </Button>
                 </div>
               </div>
@@ -70,7 +72,7 @@ export default function Home() {
                     Descubra nossas soluções para o agro.
                   </p>
                   <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg">
-                    Saiba Mais
+                    {t('cta_learn_more')}
                   </Button>
                 </div>
               </div>
@@ -91,7 +93,7 @@ export default function Home() {
                     Conheça nossa tecnologia de ponta.
                   </p>
                   <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg">
-                    Ver Mais
+                    {t('cta_see_more')}
                   </Button>
                 </div>
               </div>
@@ -124,37 +126,34 @@ export default function Home() {
 
             {/* Texto (Direita) */}
             <div>
-              <h4 className="section-title">Solo Rico</h4>
-              <h2 className="section-heading">Cultivando soluções para uma agricultura de excelência</h2>
+              <h4 className="section-title">{t('about_title')}</h4>
+              <h2 className="section-heading">{t('about_heading')}</h2>
               <p className="section-subtitle">
-                Solo Rico, a parceira do produtor rural <span className="highlight">no Brasil e no mundo.</span>
+                {t('about_subtitle')} <span className="highlight">{t('about_subtitle_highlight')}</span>
               </p>
               <p className="section-description">
-                Na Solo Rico, acreditamos que o campo é mais do que terra e cultivo — é vida, história e
-                progresso. Desde 1989, nossa missão tem sido apoiar o produtor rural, com foco especial no
-                pequeno e médio agricultor, que impulsiona a economia local e garante a alimentação de inúmeras
-                famílias.
+                {t('about_description')}
               </p>
               <div className="icons-list">
                 <div className="icon-item">
                   <span className="text-green-600 mr-2">✓</span>
-                  <span>Fertilizantes foliares e via solo</span>
+                  <span>{t('about_item1')}</span>
                 </div>
                 <div className="icon-item">
                   <span className="text-green-600 mr-2">✓</span>
-                  <span>Adjuvantes</span>
+                  <span>{t('about_item2')}</span>
                 </div>
                 <div className="icon-item">
                   <span className="text-green-600 mr-2">✓</span>
-                  <span>Respeito ao produtor rural</span>
+                  <span>{t('about_item3')}</span>
                 </div>
                 <div className="icon-item">
                   <span className="text-green-600 mr-2">✓</span>
-                  <span>Cuidado com o solo e com as plantas</span>
+                  <span>{t('about_item4')}</span>
                 </div>
               </div>
               <Button asChild className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 mt-6">
-                <Link href="/empresa">Saiba Mais</Link>
+                <Link href="/empresa">{t('cta_learn_more')}</Link>
               </Button>
             </div>
           </div>
@@ -223,10 +222,10 @@ export default function Home() {
         <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-yellow-400">
-            Há mais de 30 anos espalhando o verde pelo Brasil e agora também pelo mundo!
+            {t('development_title')}
           </h2>
           <p className="text-xl md:text-2xl leading-relaxed">
-            Transformamos o cuidado com o solo em alta produtividade. Confie em quem entende do campo.
+            {t('development_subtitle')}
           </p>
         </div>
       </section>
@@ -235,8 +234,8 @@ export default function Home() {
       <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h4 className="section-title">Solo Rico</h4>
-            <h2 className="section-heading text-gray-800">Linhas de Produtos</h2>
+            <h4 className="section-title">{t('product_lines_title')}</h4>
+            <h2 className="section-heading text-gray-800">{t('product_lines_heading')}</h2>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
@@ -283,8 +282,8 @@ export default function Home() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h4 className="section-title">Solo Rico</h4>
-            <h2 className="section-heading">News & Blogs</h2>
+            <h4 className="section-title">{t('blog_title')}</h4>
+            <h2 className="section-heading">{t('blog_heading')}</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

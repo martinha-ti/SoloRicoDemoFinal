@@ -391,7 +391,7 @@
 }
 
 .blog-badge {
-  display: block;
+  display: inline-block;
   background-color: #28a745;
   color: white;
   font-size: 0.75rem;
@@ -399,6 +399,7 @@
   padding: 4px 8px;
   border-radius: 12px;
   margin-bottom: 8px;
+  width: fit-content;
 }
 
 .blog-title {

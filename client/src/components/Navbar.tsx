@@ -8,25 +8,27 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [location] = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   const navItems = [
-    { name: "HOME", href: "/" },
-    { name: "A EMPRESA", href: "/empresa" },
-    { name: "PARA EMPRESAS", href: "/para-empresas" },
-    { name: "PARA VOCÊ", href: "/para-voce" },
-    { name: "COMEX", href: "/comex" },
-    { name: "BLOG", href: "/blog" },
+    { name: t("home"), href: "/" },
+    { name: t("company"), href: "/empresa" },
+    { name: t("forBusinesses"), href: "/para-empresas" },
+    { name: t("forYou"), href: "/para-voce" },
+    { name: t("comex"), href: "/comex" },
+    { name: t("blog"), href: "/blog" },
   ];
 
   const atendimentoItems = [
-    { name: "SEJA UM FRANQUEADO", href: "https://franquias.gruposolorico.com.br/", external: true },
-    { name: "TRABALHE CONOSCO", href: "/trabalhe-conosco" },
-    { name: "SAC", href: "/sac" },
-    { name: "CONTATOS", href: "/contatos" },
+    { name: t("franchise"), href: "https://franquias.gruposolorico.com.br/", external: true },
+    { name: t("careers"), href: "/trabalhe-conosco" },
+    { name: t("sac"), href: "/sac" },
+    { name: t("contact"), href: "/contatos" },
   ];
 
   return (
@@ -37,21 +39,6 @@ export default function Navbar() {
           <Link href="/" className="flex items-center">
             <div className="text-xl font-bold text-white">Solo Rico</div>
           </Link>
-
-          {/* Seletor de Idioma */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <button className="flex items-center space-x-1 text-white hover:text-brand-green-light transition-colors">
-                <span>🇧🇷</span>
-                <span className="text-sm">PT</span>
-              </button>
-              <span className="text-gray-300">|</span>
-              <button className="flex items-center space-x-1 text-white hover:text-brand-green-light transition-colors">
-                <span>🇺🇸</span>
-                <span className="text-sm">EN</span>
-              </button>
-            </div>
-          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
@@ -69,7 +56,7 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="nav-link p-0 h-auto font-medium">
-                  ATENDIMENTO
+                  {t("customer_service")}
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -87,6 +74,24 @@ export default function Navbar() {
                     )}
                   </DropdownMenuItem>
                 ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Seletor de Idioma - Último elemento */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="nav-link p-0 h-auto font-medium">
+                  {language === 'pt' ? '🇧🇷' : '🇺🇸'} {language.toUpperCase()}
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setLanguage('pt')}>
+                  <span className="mr-2">🇧🇷</span> Português
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setLanguage('en')}>
+                  <span className="mr-2">🇺🇸</span> English
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -146,6 +151,22 @@ export default function Navbar() {
                     </Link>
                   )
                 ))}
+              </div>
+
+              {/* Mobile Language Selector */}
+              <div className="border-t border-gray-600 pt-2">
+                <button
+                  onClick={() => setLanguage('pt')}
+                  className="flex items-center w-full px-3 py-2 text-white hover:text-brand-green transition-colors"
+                >
+                  <span className="mr-2">🇧🇷</span> Português
+                </button>
+                <button
+                  onClick={() => setLanguage('en')}
+                  className="flex items-center w-full px-3 py-2 text-white hover:text-brand-green transition-colors"
+                >
+                  <span className="mr-2">🇺🇸</span> English
+                </button>
               </div>
             </div>
           </div>
