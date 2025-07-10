@@ -80,6 +80,27 @@ export default function Navbar() {
             </DropdownMenu>
 
             <Link href="#" className="nav-link">LOJA</Link>
+            
+            {/* Language Selector */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="nav-link p-0 h-auto font-medium flex items-center">
+                  <img src="https://flagcdn.com/w20/br.png" alt="Brasil" className="w-5 h-auto mr-2" />
+                  Brasil
+                  <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <img src="https://flagcdn.com/w20/br.png" alt="Brasil" className="w-4 h-auto mr-2" />
+                  Português
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <img src="https://flagcdn.com/w20/us.png" alt="English" className="w-4 h-auto mr-2" />
+                  English
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           {/* Mobile menu button */}
@@ -139,6 +160,14 @@ export default function Navbar() {
               <Link href="#" className="nav-link" onClick={() => setIsOpen(false)}>
                 LOJA
               </Link>
+              
+              {/* Language selector for mobile */}
+              <div className="border-t pt-4">
+                <div className="flex items-center space-x-2 text-white py-2">
+                  <img src="https://flagcdn.com/w20/br.png" alt="Brasil" className="w-5 h-auto" />
+                  <span className="text-sm">Brasil</span>
+                </div>
+              </div>
             </div>
           </div>
         )}
