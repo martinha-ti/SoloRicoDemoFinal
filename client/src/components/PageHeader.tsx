@@ -11,17 +11,17 @@ export default function PageHeader({
 }: PageHeaderProps) {
   return (
     <section 
-      className="page-header"
+      className="page-header relative bg-cover bg-center bg-no-repeat flex items-center justify-center"
       style={{
         backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${backgroundImage}')`
       }}
     >
       <div className="container mx-auto px-4 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 text-shadow">
+        <h1 className="text-2xl md:text-3xl font-bold text-white mb-2 text-shadow">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto text-shadow">
+          <p className="text-sm md:text-base text-gray-200 max-w-2xl mx-auto text-shadow">
             {subtitle}
           </p>
         )}

@@ -68,9 +68,17 @@
     padding-top: 0 !important;
   }
 
-  /* Compensar altura da navbar fixa em todas as páginas */
+  /* Compensar altura da navbar fixa apenas para conteúdo não-PageHeader */
   main {
     padding-top: 85px; /* 5px (top-bar) + 80px (navbar height) */
+  }
+  
+  /* PageHeader deve ficar por baixo da navbar */
+  .page-header {
+    margin-top: -85px;
+    padding-top: 85px;
+    height: 60vh; /* Altura maior para a estrutura */
+    min-height: 400px;
   }
 
   h1, h2, h3, h4, h5, h6 {
