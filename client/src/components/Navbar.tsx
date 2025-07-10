@@ -36,9 +36,9 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img 
-              src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=120&h=60&fit=crop" 
+              src="https://www.solorico.com.br/assets/img/logo-branco-solo-rico-topo.png" 
               alt="Solo Rico Logo" 
-              className="h-12 w-auto"
+              className="h-12 w-auto max-w-[120px]"
             />
           </Link>
 

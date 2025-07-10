@@ -25,9 +25,9 @@ export default function Home() {
           <CarouselContent>
             <CarouselItem>
               <div 
-                className="relative h-96 lg:h-[500px] bg-cover bg-center flex items-center justify-center"
+                className="relative h-[95vh] bg-cover bg-center flex items-center justify-center"
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1920&h=800&fit=crop')`
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1920&h=1080&fit=crop')`
                 }}
               >
                 <div className="text-center text-white px-4">
@@ -47,9 +47,9 @@ export default function Home() {
             </CarouselItem>
             <CarouselItem>
               <div 
-                className="relative h-96 lg:h-[500px] bg-cover bg-center flex items-center justify-center"
+                className="relative h-[95vh] bg-cover bg-center flex items-center justify-center"
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=800&fit=crop')`
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1920&h=1080&fit=crop')`
                 }}
               >
                 <div className="text-center text-white px-4">
@@ -69,9 +69,9 @@ export default function Home() {
             </CarouselItem>
             <CarouselItem>
               <div 
-                className="relative h-96 lg:h-[500px] bg-cover bg-center flex items-center justify-center"
+                className="relative h-[95vh] bg-cover bg-center flex items-center justify-center"
                 style={{
-                  backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1920&h=800&fit=crop')`
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1920&h=1080&fit=crop')`
                 }}
               >
                 <div className="text-center text-white px-4">
