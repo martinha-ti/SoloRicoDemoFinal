@@ -1,0 +1,385 @@
+   /* Banner */
+   .carousel-item {
+       height: 95vh;
+       background-size: cover;
+       background-position: center;
+       position: relative;
+   }
+
+   .carousel-overlay {
+       background: rgba(0, 0, 0, 0.5);
+       position: absolute;
+       width: 100%;
+       height: 100%;
+       top: 0;
+       left: 0;
+       z-index: 1;
+   }
+
+   .carousel-content {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       color: white;
+       text-align: center;
+       z-index: 2;
+   }
+
+   /* Ajuste das caixinhas sobre o banner */
+   .cards-over-banner {
+       margin-top: -40px;
+       /* Menor sobreposição no banner */
+       position: relative;
+       z-index: 10;
+   }
+
+   .card {
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       border-radius: 8px;
+       padding: 15px;
+       max-width: 200px;
+       /* Limita o tamanho dos cards */
+       margin: 0 auto;
+       /* Centraliza os cards */
+   }
+
+   .card-icon {
+       width: 60px;
+       /* Ícone menor */
+       height: 60px;
+       margin: 0 auto 15px;
+       /* Espaço abaixo do ícone */
+   }
+
+   .card-icon img {
+       width: 100%;
+       height: auto;
+       object-fit: contain;
+   }
+
+   .card-title {
+       font-size: 0.9rem;
+       /* Tamanho menor do texto */
+       font-weight: bold;
+       color: #333;
+       margin-top: 10px;
+       text-align: center;
+   }
+
+
+   /* Nova seção: Agricultura e Produtos */
+   .agriculture-section {
+       background-color: #f9f9f9;
+       /* Cor de fundo */
+   }
+
+   .image-container {
+       position: relative;
+   }
+
+   .image-container .main-image {
+       width: 100%;
+       border-radius: 10px;
+   }
+
+   .image-container .small-image {
+       position: absolute;
+       bottom: -20px;
+       left: 20px;
+       width: 40%;
+       border-radius: 50%;
+       border: 4px solid white;
+       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+   }
+
+   .section-title {
+       color: #f4a51c;
+       font-size: 1.25rem;
+       font-weight: 600;
+       margin-bottom: 10px;
+   }
+
+   .section-heading {
+       font-size: 2rem;
+       font-weight: bold;
+       color: #333;
+       margin-bottom: 15px;
+   }
+
+   .section-subtitle {
+       font-size: 1.25rem;
+       color: #666;
+       margin-bottom: 15px;
+   }
+
+   .section-subtitle .highlight {
+       color: #28a745;
+       /* Verde destacado */
+       font-weight: bold;
+   }
+
+   .section-description {
+       color: #777;
+       margin-bottom: 20px;
+   }
+
+   .icons-list {
+       margin-bottom: 20px;
+   }
+
+   .icon-item {
+       display: flex;
+       align-items: center;
+       margin-bottom: 10px;
+   }
+
+   .icon-item .icon {
+       width: 24px;
+       height: 24px;
+       margin-right: 10px;
+   }
+
+   .benefits-list {
+       list-style: none;
+       padding: 0;
+       color: #28a745;
+   }
+
+   .benefits-list li {
+       margin-bottom: 8px;
+   }
+
+   /* Seção de Destaques */
+   .highlights-section {
+       background-color: #fafafa;
+       /* Fundo claro */
+   }
+
+   .highlights-section .section-title {
+       color: #f4a51c;
+       font-size: 1.25rem;
+       font-weight: bold;
+   }
+
+   .highlights-section .section-heading {
+       font-size: 2rem;
+       font-weight: bold;
+       color: #333;
+       margin-bottom: 30px;
+   }
+
+   .highlight-card {
+       background-color: white;
+       border-radius: 8px;
+       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       overflow: hidden;
+       margin-bottom: 20px;
+   }
+
+   .highlight-card .card-image {
+       width: 100%;
+       height: auto;
+       object-fit: cover;
+   }
+
+   .highlight-card .card-body {
+       padding: 15px;
+       text-align: center;
+   }
+
+   .highlight-card .card-icon {
+       width: 40px;
+       height: 40px;
+       margin-bottom: 10px;
+   }
+
+   .highlight-card .card-title {
+       font-size: 1rem;
+       font-weight: bold;
+       color: #333;
+   }
+
+
+   .development-section .section-heading {
+       font-size: 2rem;
+       font-weight: bold;
+       color: #ffc107;
+   }
+
+   .development-section::before {
+       content: '';
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background-color: rgba(0, 0, 0, 0.1);
+       /* Sobreposição escura para contraste */
+       z-index: 1;
+       /* Mantém o texto acima */
+   }
+
+   .development-section .container {
+       position: relative;
+       /* Garante que o texto fique acima da sobreposição */
+       z-index: 2;
+   }
+
+   .development-section .section-heading {
+       font-size: 2rem;
+       font-weight: bold;
+       margin-bottom: 20px;
+   }
+
+   .development-text {
+       font-size: 1.125rem;
+       line-height: 1.8;
+       margin-bottom: 20px;
+   }
+
+
+
+   /* Seção: Linhas de Produtos */
+   /* Custom 5-colunas com Bootstrap */
+   .custom-col-5 {
+       flex: 0 0 20%;
+       max-width: 20%;
+   }
+
+   /* Garante responsividade para telas menores */
+   @media (max-width: 768px) {
+       .custom-col-5 {
+           flex: 0 0 50%;
+           max-width: 50%;
+       }
+   }
+
+   /* Cartão com imagem e texto sobreposto */
+   .image-wrapper {
+       position: relative;
+       overflow: hidden;
+       border-radius: 12px;
+       box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+       margin-bottom: 20px;
+       transition: transform 0.3s;
+   }
+
+   .image-wrapper:hover {
+       transform: scale(1.03);
+   }
+
+   .product-image {
+       width: 100%;
+       height: auto;
+       display: block;
+       border-radius: 12px;
+   }
+
+   /* Texto sobre a imagem */
+   .product-title-overlay {
+       position: absolute;
+       bottom: 0px;
+       left: 0;
+       right: 0;
+       padding: 10px;
+       color: white;
+       font-weight: bold;
+       text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+       background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+       font-size: 1rem;
+   }
+
+   /* Seção: News & Blogs */
+   .news-blogs-section {
+       background-color: #f9f9f9;
+       /* Fundo claro */
+   }
+
+   .news-blogs-section .section-title {
+       color: #f4a51c;
+       font-size: 1.25rem;
+       font-weight: bold;
+   }
+
+   .news-blogs-section .section-heading {
+       font-size: 2rem;
+       font-weight: bold;
+       color: #333;
+       margin-bottom: 30px;
+   }
+
+.blog-body {
+  padding: 15px;
+  text-align: left; /* Alinha tudo à esquerda */
+  position: relative;
+}
+
+.blog-badge {
+  display: block;
+  background-color: #28a745;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.blog-title {
+  margin-top: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.blog-card .blog-description {
+  font-size: 0.875rem;
+  color: #888;
+  text-align: left;
+}
+.blog-card img {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-top: 8px; /* ADICIONE ISSO */
+}
+
+
+
+   .footer-heading {
+       margin-bottom: 1.5rem;
+   }
+
+   .footer-section ul li a {
+       font-weight: 500;
+   }
+
+   .footer-section small {
+       font-size: 0.85rem;
+       color: #bbb;
+   }
+
+   .footer-date {
+       color: #ccc;
+       font-size: 0.85rem;
+   }
+
+
+   /*header mobile*/
+   @media (max-width: 991.98px) {
+       .navbar-custom {
+           background-color: rgba(26, 26, 26, 0.6) !important;
+       }
+   }
+
+   @media (min-width: 992px) {
+       .navbar-custom {
+           background-color: rgba(43, 43, 43, 0.2) !important;
+       }
+   }

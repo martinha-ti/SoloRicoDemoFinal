@@ -35,12 +35,23 @@ export default function Navbar() {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img 
-              src="https://www.solorico.com.br/assets/img/logo-branco-solo-rico-topo.png" 
-              alt="Solo Rico Logo" 
-              className="h-12 w-auto max-w-[120px]"
-            />
+            <div className="text-xl font-bold text-white">Solo Rico</div>
           </Link>
+
+          {/* Seletor de Idioma */}
+          <div className="hidden md:flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <button className="flex items-center space-x-1 text-white hover:text-brand-green-light transition-colors">
+                <span>🇧🇷</span>
+                <span className="text-sm">PT</span>
+              </button>
+              <span className="text-gray-300">|</span>
+              <button className="flex items-center space-x-1 text-white hover:text-brand-green-light transition-colors">
+                <span>🇺🇸</span>
+                <span className="text-sm">EN</span>
+              </button>
+            </div>
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
@@ -78,95 +89,63 @@ export default function Navbar() {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
-
-            <Link href="#" className="nav-link">LOJA</Link>
-            
-            {/* Language Selector */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="nav-link p-0 h-auto font-medium flex items-center">
-                  <img src="https://flagcdn.com/w20/br.png" alt="Brasil" className="w-5 h-auto mr-2" />
-                  Brasil
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <img src="https://flagcdn.com/w20/br.png" alt="Brasil" className="w-4 h-auto mr-2" />
-                  Português
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <img src="https://flagcdn.com/w20/us.png" alt="English" className="w-4 h-auto mr-2" />
-                  English
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="lg:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden p-2"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? (
+              <X className="h-6 w-6 text-white" />
+            ) : (
+              <Menu className="h-6 w-6 text-white" />
+            )}
+          </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden mt-4 pb-4 border-t">
-            <div className="flex flex-col space-y-4 mt-4">
+          <div className="lg:hidden bg-black bg-opacity-80 backdrop-blur-sm">
+            <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`nav-link ${location === item.href ? 'active' : ''}`}
+                  className={`block px-3 py-2 text-white hover:text-brand-green transition-colors ${
+                    location === item.href ? 'text-brand-green font-semibold' : ''
+                  }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
               
-              <div className="border-t pt-4">
-                <p className="text-brand-green font-medium mb-2">ATENDIMENTO</p>
+              {/* Mobile Atendimento Items */}
+              <div className="border-t border-gray-600 pt-2">
                 {atendimentoItems.map((item) => (
-                  <div key={item.name} className="ml-4">
-                    {item.external ? (
-                      <a 
-                        href={item.href} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="nav-link block py-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
-                      </a>
-                    ) : (
-                      <Link 
-                        href={item.href} 
-                        className="nav-link block py-2"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    )}
-                  </div>
+                  item.external ? (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-3 py-2 text-white hover:text-brand-green transition-colors"
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      className="block px-3 py-2 text-white hover:text-brand-green transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )
                 ))}
-              </div>
-              
-              <Link href="#" className="nav-link" onClick={() => setIsOpen(false)}>
-                LOJA
-              </Link>
-              
-              {/* Language selector for mobile */}
-              <div className="border-t pt-4">
-                <div className="flex items-center space-x-2 text-white py-2">
-                  <img src="https://flagcdn.com/w20/br.png" alt="Brasil" className="w-5 h-auto" />
-                  <span className="text-sm">Brasil</span>
-                </div>
               </div>
             </div>
           </div>
