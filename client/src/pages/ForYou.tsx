@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { User, Home, Sprout, Heart, CheckCircle, Star } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function ForYou() {
+  const { t } = useLanguage();
   const { data: products = [] } = useQuery({
     queryKey: ['/api/products'],
     queryFn: () => api.getProducts(),
@@ -15,8 +17,8 @@ export default function ForYou() {
   return (
     <div>
       <PageHeader
-        title="Para Você"
-        subtitle="Soluções especiais para pequenos produtores e uso doméstico"
+        title={t("for_you_title")}
+        subtitle={t("for_you_subtitle")}
       />
 
       {/* Hero Section */}
@@ -24,11 +26,10 @@ export default function ForYou() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-brand-green mb-4">
-              Cuidando do Seu Pequeno Plantio
+              {t("for_you_hero_title")}
             </h2>
             <p className="text-gray-600 max-w-3xl mx-auto text-lg">
-              Desenvolvemos produtos especiais para pequenos produtores, hortas domésticas e jardins, 
-              mantendo a mesma qualidade e eficiência dos nossos produtos profissionais.
+              {t("for_you_hero_description")}
             </p>
           </div>
           
@@ -297,18 +298,18 @@ export default function ForYou() {
       <section className="py-20 bg-brand-green text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Comece Hoje Mesmo!
+            {t("for_you_cta_title")}
           </h2>
           <p className="text-green-100 max-w-3xl mx-auto mb-8 text-lg">
-            Descubra como nossos produtos podem transformar sua horta ou jardim
+            {t("for_you_cta_description")}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button asChild variant="secondary" className="bg-white text-brand-green hover:bg-gray-100">
-              <Link href="/contatos">Fale Conosco</Link>
+            <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-brand-green">
+              <Link href="/contatos">{t("contact_us")}</Link>
             </Button>
             <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-brand-green">
               <a href="https://wa.me/551732316000" target="_blank" rel="noopener noreferrer">
-                WhatsApp
+                {t("whatsapp")}
               </a>
             </Button>
           </div>

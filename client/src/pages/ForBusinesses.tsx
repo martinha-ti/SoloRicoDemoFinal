@@ -226,7 +226,7 @@ export default function ForBusinesses() {
             Entre em contato conosco e descubra como podemos ajudar sua empresa a crescer no agronegócio
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button asChild variant="secondary" className="bg-white text-brand-green hover:bg-gray-100">
+            <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-brand-green">
               <Link href="/contatos">Fale Conosco</Link>
             </Button>
             <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-brand-green">

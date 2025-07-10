@@ -324,7 +324,7 @@ export default function Comex() {
             levar a qualidade Solo Rico para seu país
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button asChild className="bg-brand-green hover:bg-brand-green-dark text-white">
+            <Button asChild variant="outline" className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white">
               <Link href="/contatos">Fale Conosco</Link>
             </Button>
             <Button asChild variant="outline" className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white">

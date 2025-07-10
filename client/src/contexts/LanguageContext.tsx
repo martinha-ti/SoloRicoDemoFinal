@@ -57,7 +57,39 @@ const translations = {
     
     // Blog
     blog_title: "Solo Rico",
-    blog_heading: "News & Blogs"
+    blog_heading: "News & Blogs",
+    
+    // For You Page
+    for_you_title: "Para Você",
+    for_you_subtitle: "Soluções especiais para pequenos produtores e uso doméstico",
+    for_you_hero_title: "Cuidando do Seu Pequeno Plantio",
+    for_you_hero_description: "Desenvolvemos produtos especiais para pequenos produtores, hortas domésticas e jardins, mantendo a mesma qualidade e eficiência dos nossos produtos profissionais.",
+    for_you_cta_title: "Comece Hoje Mesmo!",
+    for_you_cta_description: "Descubra como nossos produtos podem transformar sua horta ou jardim",
+    
+    // For Businesses Page
+    for_businesses_title: "Para Empresas",
+    for_businesses_subtitle: "Soluções completas para o agronegócio empresarial",
+    for_businesses_hero_title: "Parceiro Estratégico do Seu Negócio",
+    for_businesses_hero_description: "Há mais de 30 anos, a Solo Rico oferece soluções completas para empresas do agronegócio, combinando qualidade, inovação e suporte técnico especializado.",
+    for_businesses_cta_title: "Pronto para Fazer Parte da Nossa Rede?",
+    for_businesses_cta_description: "Entre em contato conosco e descubra como podemos ajudar sua empresa a crescer no agronegócio",
+    
+    // Comex Page
+    comex_title: "Comércio Exterior",
+    comex_subtitle: "Expandindo fronteiras, levando qualidade brasileira para o mundo",
+    comex_hero_title: "Solo Rico Global",
+    comex_hero_description: "Expandindo nossa presença internacional, levamos a qualidade e inovação dos fertilizantes Solo Rico para produtores rurais em diversos países, contribuindo para o desenvolvimento da agricultura mundial.",
+    comex_stats_title: "Solo Rico no Mundo",
+    comex_stats_description: "Números que demonstram nosso crescimento no mercado internacional",
+    comex_cta_title: "Interessado em Nossos Produtos?",
+    comex_cta_description: "Entre em contato conosco para conhecer nossas soluções de exportação e levar a qualidade Solo Rico para seu país",
+    
+    // Common
+    contact_us: "Fale Conosco",
+    whatsapp: "WhatsApp",
+    see_details: "Ver Detalhes",
+    our_products: "Nossos Produtos"
   },
   en: {
     // Navbar
@@ -101,7 +133,39 @@ const translations = {
     
     // Blog
     blog_title: "Solo Rico",
-    blog_heading: "News & Blogs"
+    blog_heading: "News & Blogs",
+    
+    // For You Page
+    for_you_title: "For You",
+    for_you_subtitle: "Special solutions for small producers and home use",
+    for_you_hero_title: "Caring for Your Small Planting",
+    for_you_hero_description: "We develop special products for small producers, home gardens and gardens, maintaining the same quality and efficiency of our professional products.",
+    for_you_cta_title: "Start Today!",
+    for_you_cta_description: "Discover how our products can transform your garden or yard",
+    
+    // For Businesses Page
+    for_businesses_title: "For Businesses",
+    for_businesses_subtitle: "Complete solutions for business agribusiness",
+    for_businesses_hero_title: "Strategic Partner of Your Business",
+    for_businesses_hero_description: "For over 30 years, Solo Rico offers complete solutions for agribusiness companies, combining quality, innovation and specialized technical support.",
+    for_businesses_cta_title: "Ready to Join Our Network?",
+    for_businesses_cta_description: "Contact us and discover how we can help your company grow in agribusiness",
+    
+    // Comex Page
+    comex_title: "Foreign Trade",
+    comex_subtitle: "Expanding borders, bringing Brazilian quality to the world",
+    comex_hero_title: "Solo Rico Global",
+    comex_hero_description: "Expanding our international presence, we bring the quality and innovation of Solo Rico fertilizers to rural producers in several countries, contributing to the development of world agriculture.",
+    comex_stats_title: "Solo Rico in the World",
+    comex_stats_description: "Numbers that demonstrate our growth in the international market",
+    comex_cta_title: "Interested in Our Products?",
+    comex_cta_description: "Contact us to learn about our export solutions and bring Solo Rico quality to your country",
+    
+    // Common
+    contact_us: "Contact Us",
+    whatsapp: "WhatsApp",
+    see_details: "See Details",
+    our_products: "Our Products"
   }
 };
 

@@ -80,17 +80,26 @@ export default function Navbar() {
             {/* Seletor de Idioma - Último elemento */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="nav-link p-0 h-auto font-medium">
-                  {language === 'pt' ? '🇧🇷' : '🇺🇸'} {language.toUpperCase()}
+                <Button variant="ghost" className="nav-link p-0 h-auto font-medium flex items-center">
+                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold bg-white text-gray-800 rounded border">
+                    {language === 'pt' ? 'BR' : 'US'}
+                  </div>
+                  {language.toUpperCase()}
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem onClick={() => setLanguage('pt')}>
-                  <span className="mr-2">🇧🇷</span> Português
+                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold bg-green-600 text-white rounded">
+                    BR
+                  </div>
+                  Português
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setLanguage('en')}>
-                  <span className="mr-2">🇺🇸</span> English
+                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold bg-blue-600 text-white rounded">
+                    US
+                  </div>
+                  English
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
