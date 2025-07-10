@@ -68,6 +68,11 @@
     padding-top: 0 !important;
   }
 
+  /* Compensar altura da navbar fixa em todas as páginas */
+  main {
+    padding-top: 85px; /* 5px (top-bar) + 80px (navbar height) */
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
     color: var(--brand-green);
@@ -181,6 +186,8 @@
   background-size: cover;
   background-position: center;
   position: relative;
+  margin-top: -85px; /* Compensar padding do main para o carousel ocupar toda a altura */
+  padding-top: 85px;
 }
 
 .carousel-overlay {
