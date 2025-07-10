@@ -9,58 +9,52 @@ export default function Company() {
         subtitle="Conheça nossa história, missão e valores que nos guiam há mais de 30 anos"
       />
 
-      {/* About Section with Circular Images */}
-      <section className="py-20 bg-gray-50">
+      {/* About Section with Circular Images - Same as Home */}
+      <section className="agriculture-section">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <img 
-                src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=400&fit=crop" 
-                alt="Solo Rico Facility" 
-                className="rounded-lg shadow-lg w-full"
-              />
-              <img 
-                src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&h=200&fit=crop" 
-                alt="Plant Detail" 
-                className="absolute -bottom-8 -left-8 w-32 h-32 rounded-full border-4 border-white shadow-lg"
-              />
-            </div>
-            <div className="space-y-6">
-              <div>
-                <h4 className="text-brand-yellow font-semibold text-lg mb-2">Solo Rico</h4>
-                <h2 className="text-3xl md:text-4xl font-bold text-brand-green mb-4">
-                  Nossa História
-                </h2>
+            {/* Imagens Redondas (Esquerda) */}
+            <div className="text-center lg:text-left">
+              <div className="image-container">
+                <img 
+                  src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=400&fit=crop" 
+                  alt="Solo Rico Facility" 
+                  className="main-image w-full rounded-full"
+                />
+                <img 
+                  src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=200&h=200&fit=crop" 
+                  alt="Plant Detail" 
+                  className="small-image rounded-full"
+                />
               </div>
-              
-              <p className="text-gray-600 leading-relaxed">
-                Fundada em 1989, a Solo Rico Agrociências nasceu com o propósito de revolucionar o 
-                agronegócio brasileiro. Começamos como uma pequena empresa familiar em São José do Rio Preto, 
-                interior de São Paulo, com a visão de que o campo brasileiro tinha potencial para muito mais.
+            </div>
+
+            {/* Texto (Direita) */}
+            <div>
+              <h4 className="section-title">Solo Rico</h4>
+              <h2 className="section-heading">Nossa História</h2>
+              <p className="section-subtitle">
+                Fundada em 1989, a Solo Rico Agrociências nasceu com o propósito de <span className="highlight">revolucionar o agronegócio brasileiro.</span>
               </p>
-              
-              <p className="text-gray-600 leading-relaxed">
-                Ao longo de mais de três décadas, crescemos e nos expandimos, mas nunca perdemos nosso 
-                compromisso com o pequeno e médio produtor rural. Hoje, somos uma das maiores produtoras 
-                de fertilizantes do Brasil, operando em todos os Estados e no Distrito Federal.
+              <p className="section-description">
+                Começamos como uma pequena empresa familiar em São José do Rio Preto, interior de São Paulo, com a visão de que o campo brasileiro tinha potencial para muito mais. Ao longo de mais de três décadas, crescemos e nos expandimos, mas nunca perdemos nosso compromisso com o pequeno e médio produtor rural.
               </p>
-              
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <CheckCircle className="text-brand-green h-5 w-5 mr-3" />
-                  <span className="text-gray-700">Mais de 30 anos de experiência</span>
+              <div className="icons-list">
+                <div className="icon-item">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span>Mais de 30 anos de experiência</span>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle className="text-brand-green h-5 w-5 mr-3" />
-                  <span className="text-gray-700">Presença nacional</span>
+                <div className="icon-item">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span>Presença nacional</span>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle className="text-brand-green h-5 w-5 mr-3" />
-                  <span className="text-gray-700">Foco no pequeno e médio produtor</span>
+                <div className="icon-item">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span>Foco no pequeno e médio produtor</span>
                 </div>
-                <div className="flex items-center">
-                  <CheckCircle className="text-brand-green h-5 w-5 mr-3" />
-                  <span className="text-gray-700">Inovação constante</span>
+                <div className="icon-item">
+                  <span className="text-green-600 mr-2">✓</span>
+                  <span>Inovação constante</span>
                 </div>
               </div>
             </div>
