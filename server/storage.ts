@@ -240,4 +240,128 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// rewrite MemStorage to DatabaseStorage
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const { db } = await import('./db');
+    const { users } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const { db } = await import('./db');
+    const { users } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const { db } = await import('./db');
+    const { users } = await import('@shared/schema');
+    
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+
+  async getProducts(): Promise<Product[]> {
+    const { db } = await import('./db');
+    const { products } = await import('@shared/schema');
+    
+    return await db.select().from(products);
+  }
+
+  async getProductBySlug(slug: string): Promise<Product | undefined> {
+    const { db } = await import('./db');
+    const { products } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    const [product] = await db.select().from(products).where(eq(products.slug, slug));
+    return product || undefined;
+  }
+
+  async getProductsByCategory(category: string): Promise<Product[]> {
+    const { db } = await import('./db');
+    const { products } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    return await db.select().from(products).where(eq(products.category, category));
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const { db } = await import('./db');
+    const { products } = await import('@shared/schema');
+    
+    const [product] = await db
+      .insert(products)
+      .values(insertProduct)
+      .returning();
+    return product;
+  }
+
+  async getBlogPosts(): Promise<BlogPost[]> {
+    const { db } = await import('./db');
+    const { blogPosts } = await import('@shared/schema');
+    
+    return await db.select().from(blogPosts);
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const { db } = await import('./db');
+    const { blogPosts } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    const [post] = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug));
+    return post || undefined;
+  }
+
+  async getBlogPostsByCategory(category: string): Promise<BlogPost[]> {
+    const { db } = await import('./db');
+    const { blogPosts } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    return await db.select().from(blogPosts).where(eq(blogPosts.category, category));
+  }
+
+  async createBlogPost(insertBlogPost: InsertBlogPost): Promise<BlogPost> {
+    const { db } = await import('./db');
+    const { blogPosts } = await import('@shared/schema');
+    
+    const [post] = await db
+      .insert(blogPosts)
+      .values(insertBlogPost)
+      .returning();
+    return post;
+  }
+
+  async createContactMessage(insertContactMessage: InsertContactMessage): Promise<ContactMessage> {
+    const { db } = await import('./db');
+    const { contactMessages } = await import('@shared/schema');
+    
+    const [message] = await db
+      .insert(contactMessages)
+      .values(insertContactMessage)
+      .returning();
+    return message;
+  }
+
+  async createJobApplication(insertJobApplication: InsertJobApplication): Promise<JobApplication> {
+    const { db } = await import('./db');
+    const { jobApplications } = await import('@shared/schema');
+    
+    const [application] = await db
+      .insert(jobApplications)
+      .values(insertJobApplication)
+      .returning();
+    return application;
+  }
+}
+
+export const storage = new DatabaseStorage();
