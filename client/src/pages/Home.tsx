@@ -292,24 +292,26 @@ export default function Home() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.slice(0, 3).map((post) => (
-              <article key={post.id} className="blog-card">
-                <img 
-                  src={post.imageUrl || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=250&fit=crop'} 
-                  alt={post.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="blog-body">
-                  <span className="blog-badge">
-                    {post.category}
-                  </span>
-                  <h3 className="blog-title">
-                    {post.title}
-                  </h3>
-                  <p className="blog-description">
-                    {post.excerpt}
-                  </p>
-                </div>
-              </article>
+              <Link key={post.id} href={`/blog/${post.slug}`}>
+                <article className="blog-card cursor-pointer hover:shadow-lg transition-shadow">
+                  <img 
+                    src={post.imageUrl || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=250&fit=crop'} 
+                    alt={post.title}
+                    className="w-full h-48 object-cover"
+                  />
+                  <div className="blog-body">
+                    <span className="blog-badge">
+                      {post.category}
+                    </span>
+                    <h3 className="blog-title">
+                      {post.title}
+                    </h3>
+                    <p className="blog-description">
+                      {post.excerpt}
+                    </p>
+                  </div>
+                </article>
+              </Link>
             ))}
           </div>
         </div>

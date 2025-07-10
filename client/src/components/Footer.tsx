@@ -23,6 +23,99 @@ export default function Footer() {
       <div className="py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {/* Para Empresas */}
+            <div>
+              <h3 className="text-lg font-bold mb-4 text-white">Para Empresas</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
+                    Produtos Corporativos
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
+                    Soluções Inteligentes
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
+                    Cases de Sucesso
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Ajuda */}
+            <div>
+              <h3 className="text-lg font-bold mb-4 text-white">Ajuda</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/sac" className="text-gray-300 hover:text-green-400 transition-colors">
+                    Perguntas Frequentes
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/sac" className="text-gray-300 hover:text-green-400 transition-colors">
+                    Central de Atendimento
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/politica-de-privacidade" className="text-gray-300 hover:text-green-400 transition-colors">
+                    Política de Privacidade
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Atendimento */}
+            <div>
+              <h3 className="text-lg font-bold mb-4 text-white">Atendimento</h3>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center text-gray-300">
+                  <Phone className="w-4 h-4 mr-2 text-yellow-400" />
+                  <a href="tel:+551732316000" className="hover:text-green-400 transition-colors">
+                    (17) 3231-6000
+                  </a>
+                </li>
+                <li className="flex items-center text-gray-300">
+                  <Mail className="w-4 h-4 mr-2 text-yellow-400" />
+                  <a href="mailto:sac@gruposolorico.com.br" className="hover:text-green-400 transition-colors">
+                    sac@gruposolorico.com.br
+                  </a>
+                </li>
+                <li className="flex items-start text-gray-300">
+                  <MapPin className="w-4 h-4 mr-2 mt-1 text-yellow-400 flex-shrink-0" />
+                  <span className="text-sm">
+                    R. Roque de Campos Teixeira, 180 - Distrito Industrial<br />
+                    São José do Rio Preto - SP, 15035-430, Brasil
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Siga-nos */}
+            <div>
+              <h3 className="text-lg font-bold mb-4 text-white">Siga-nos</h3>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
+                  <Instagram className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
+                  <Facebook className="w-6 h-6" />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
+                  <Linkedin className="w-6 h-6" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Seção Inferior com Grid de 3 Colunas */}
+      <div className="border-t border-gray-700 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Sobre a Solo Rico */}
             <div>
               <h3 className="text-lg font-bold mb-4 text-white">Sobre a Solo Rico</h3>
@@ -124,100 +217,11 @@ export default function Footer() {
                 </p>
               </div>
             </div>
-
-            {/* Seções Para Empresas, Ajuda, Atendimento e Siga-nos */}
-            <div className="space-y-8">
-              {/* Para Empresas */}
-              <div>
-                <h3 className="text-lg font-bold mb-4 text-white">Para Empresas</h3>
-                <ul className="space-y-2 text-sm">
-                  <li>
-                    <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
-                      Produtos Corporativos
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
-                      Soluções Inteligentes
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
-                      Cases de Sucesso
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Ajuda */}
-              <div>
-                <h3 className="text-lg font-bold mb-4 text-white">Ajuda</h3>
-                <ul className="space-y-2 text-sm">
-                  <li>
-                    <Link href="/sac" className="text-gray-300 hover:text-green-400 transition-colors">
-                      Perguntas Frequentes
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/sac" className="text-gray-300 hover:text-green-400 transition-colors">
-                      Central de Atendimento
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/politica-de-privacidade" className="text-gray-300 hover:text-green-400 transition-colors">
-                      Política de Privacidade
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Atendimento */}
-              <div>
-                <h3 className="text-lg font-bold mb-4 text-white">Atendimento</h3>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex items-center text-gray-300">
-                    <Phone className="w-4 h-4 mr-2 text-yellow-400" />
-                    <a href="tel:+551732316000" className="hover:text-green-400 transition-colors">
-                      (17) 3231-6000
-                    </a>
-                  </li>
-                  <li className="flex items-center text-gray-300">
-                    <Mail className="w-4 h-4 mr-2 text-yellow-400" />
-                    <a href="mailto:sac@gruposolorico.com.br" className="hover:text-green-400 transition-colors">
-                      sac@gruposolorico.com.br
-                    </a>
-                  </li>
-                  <li className="flex items-start text-gray-300">
-                    <MapPin className="w-4 h-4 mr-2 mt-1 text-yellow-400 flex-shrink-0" />
-                    <span className="text-sm">
-                      R. Roque de Campos Teixeira, 180 - Distrito Industrial<br />
-                      São José do Rio Preto - SP, 15035-430, Brasil
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Siga-nos */}
-              <div>
-                <h3 className="text-lg font-bold mb-4 text-white">Siga-nos</h3>
-                <div className="flex space-x-4">
-                  <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
-                    <Instagram className="w-6 h-6" />
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
-                    <Facebook className="w-6 h-6" />
-                  </a>
-                  <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
-                    <Linkedin className="w-6 h-6" />
-                  </a>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* Seção Inferior */}
+      {/* Seção Final */}
       <div className="border-t border-gray-700 py-6">
         <div className="container mx-auto px-4">
           <div className="text-center text-sm text-gray-400">
