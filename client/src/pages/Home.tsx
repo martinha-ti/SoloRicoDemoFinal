@@ -6,6 +6,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useEffect, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Droplets, Shield, Sprout, Snowflake } from "lucide-react";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -169,42 +170,45 @@ export default function Home() {
                 name: "TOP LIME PRO",
                 subtitle: "LINHA DE ADJUVANTES",
                 image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
-                icon: "💧"
+                icon: Droplets
               },
               {
                 name: "REVOLUTION",
                 subtitle: "LINHA PROTECT",
                 image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
-                icon: "🛡️"
+                icon: Shield
               },
               {
                 name: "GEL DE PLANTIO",
                 subtitle: "LINHA TITANIUM SOLLUS",
                 image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
-                icon: "🌱"
+                icon: Sprout
               },
               {
                 name: "PROTETOR E700",
                 subtitle: "LINHA PROTECT",
                 image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop",
-                icon: "❄️"
+                icon: Snowflake
               }
-            ].map((product) => (
-              <div key={product.name} className="group cursor-pointer">
-                <div className="image-wrapper rounded-lg overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.name} 
-                    className="w-full h-64 object-cover"
-                  />
-                  <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white">
-                    <div className="text-4xl mb-2">{product.icon}</div>
-                    <h3 className="text-lg font-bold text-center">{product.name}</h3>
-                    <p className="text-sm text-center">{product.subtitle}</p>
+            ].map((product) => {
+              const IconComponent = product.icon;
+              return (
+                <div key={product.name} className="group cursor-pointer">
+                  <div className="image-wrapper rounded-lg overflow-hidden">
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-64 object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white">
+                      <IconComponent className="w-12 h-12 mb-2 text-yellow-400" />
+                      <h3 className="text-lg font-bold text-center">{product.name}</h3>
+                      <p className="text-sm text-center">{product.subtitle}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
