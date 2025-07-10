@@ -208,6 +208,16 @@ export default function Footer() {
               </ul>
               
               <div className="mt-8">
+                {/* Botão Provisório Admin */}
+                <div className="mb-4">
+                  <Link 
+                    href="/admin" 
+                    className="inline-block px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded transition-colors"
+                  >
+                    🔧 Painel Admin
+                  </Link>
+                </div>
+                
                 <p className="text-xs text-gray-400">© 2025 Solo Rico Agrociências</p>
                 <p className="text-xs text-gray-500 mt-2">
                   CNPJ: 67.681.007/0001-97 | Endereço: R. Roque de Campos Teixeira, 180 - Distrito Industrial, São José do Rio Preto - SP, 15035-430

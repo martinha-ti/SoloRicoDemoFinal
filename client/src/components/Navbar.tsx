@@ -90,24 +90,20 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="nav-link p-0 h-auto font-medium flex items-center">
-                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold bg-white text-gray-800 rounded border">
-                    {language === 'pt' ? 'BR' : 'US'}
-                  </div>
-                  {language.toUpperCase()}
+                  <span className="text-lg mr-2">
+                    {language === 'pt' ? '🇧🇷' : '🇺🇸'}
+                  </span>
+                  {language === 'pt' ? 'PT' : 'EN'}
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem onClick={() => setLanguage('pt')}>
-                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold bg-green-600 text-white rounded">
-                    BR
-                  </div>
+                  <span className="text-lg mr-2">🇧🇷</span>
                   Português
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setLanguage('en')}>
-                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold bg-blue-600 text-white rounded">
-                    US
-                  </div>
+                  <span className="text-lg mr-2">🇺🇸</span>
                   English
                 </DropdownMenuItem>
               </DropdownMenuContent>
