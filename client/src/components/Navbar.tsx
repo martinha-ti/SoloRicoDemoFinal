@@ -81,6 +81,11 @@ export default function Navbar() {
             {/* Notification Center */}
             <NotificationCenter />
             
+            {/* Admin Panel Link (hidden by default) */}
+            <Link href="/admin" className="nav-link hidden sm:block text-xs opacity-50 hover:opacity-100">
+              Admin
+            </Link>
+            
             {/* Seletor de Idioma - Último elemento */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

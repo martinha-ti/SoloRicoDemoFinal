@@ -161,6 +161,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin routes for contact messages and job applications
+  app.get('/api/contact-messages', async (req, res) => {
+    try {
+      // In a real implementation, this would fetch from database
+      // For now, return empty array since we don't store them persistently
+      res.json([]);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch contact messages' });
+    }
+  });
+
+  app.get('/api/job-applications', async (req, res) => {
+    try {
+      // In a real implementation, this would fetch from database
+      // For now, return empty array since we don't store them persistently
+      res.json([]);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch job applications' });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
