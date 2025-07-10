@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Rico</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /*topo das telas*/
+        .page-header {
+            background: linear-gradient(to right, #3b7d1c, #6bbf34, #f7d51c);
+            height: 250px;
+            /* Altura do banner */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .page-banner {
+            background-image: url('assets/img/banner-about.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            /* Ajuste conforme necessário */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .container h2 {
+            padding-top: 30px;
+        }
+
+        /* Seção Sobre a Empresa */
+        .about-section {
+            background-color: #f9f9f9;
+            padding: 90px 0;
+        }
+
+        .about-image {
+            border-radius: 10px;
+            max-width: 100%;
+        }
+
+        .about-list {
+            list-style: none;
+            padding: 0;
+            color: #333;
+        }
+
+        .about-list li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .about-list i {
+            color: #28a745;
+            margin-right: 8px;
+        }
+        .blog-post img {
+      max-width: 100%;
+      border-radius: 8px;
+    }
+    .related-posts h5 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .related-posts a {
+      text-decoration: none;
+      color: #198754;
+    }
+    .blog-meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .mission-vision-values .card {
+                margin-bottom: 20px;
+            }
+
+            .team-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Barra Superior -->
+    <div class="top-bar text-center">
+        <span><a href="#"></a></span>
+    </div>
+    <!-- Navbar -->
+    <header class="navbar-section" style="padding-top: 30px;">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand" href="#">
+                    <img src="assets/img/logo-preto-solo-rico.png" alt="Logo" class="navbar-logo">
+                    <span class="navbar-subtitle"></span>
+                </a>
+                <!-- Botão de Menu Mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="empresa.html">A EMPRESA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="para-empresas.html">PARA EMPRESAS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="para-voce.html">PARA VOCÊ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="comex.html">COMEX</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-bs-toggle="dropdown"
+                                role="button" aria-expanded="false">
+                                ATENDIMENTO
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown3">
+                                <li><a class="dropdown-item" href="https://franquias.gruposolorico.com.br/"
+                                        target="_blank">SEJA UM FRANQUEADO</a></li>
+                                <li><a class="dropdown-item" href="trabalhe-conosco.html">TRABALHE CONOSCO</a></li>
+                                <li><a class="dropdown-item" href="sac.html">SAC</a></li>
+                                <li><a class="dropdown-item" href="contatos.html">CONTATOS</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link" href="blog.html">BLOG</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">LOJA</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-bs-toggle="dropdown"
+                                role="button" aria-expanded="false">
+                                <img src="assets/img/brasil.png" alt="Brasil" class="navbar-flag"> Brasil
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Country 1</a></li>
+                                <li><a class="dropdown-item" href="#">Country 2</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Cabeçalho -->
+    <!-- <header class="navbar navbar-expand-lg navbar-light">
+    </header> -->
+
+
+
+
+    <!-- BLOG -->
+    <!-- Cabeçalho da Página -->
+    <section class="page-header">
+        <div class="container text-center">
+            <h1>Produtos</h1>
+            <p>Produtos Solo Rico</p>
+        </div>
+    </section>
+
+
+  </header>
+
+  <main class="container my-5">
+    <div class="row">
+      
+      <!-- Conteúdo da Matéria -->
+      <div class="col-lg-12 blog-post">
+        <h1>Políticas de Privacidade Solo Rico</h1>
+        <div class="blog-meta">
+        </div>
+        <!-- <img src="assets/img/blog.jpg" alt="Imagem da matéria" class="mb-4"> -->
+        
+        <h3>Coleta de dados</h3>
+        <p>Quando você compra algum produto na nossa loja, como parte do processo de compra e venda, coletamos as informações pessoais que você nos fornece, tais como seu nome, endereço e e-mail.</p>
+        
+        <h3>Informações de navegação no site</h3>
+        <p>Quando você visita nosso site, é inserido um ‘cookie’ no seu navegador por meio do software Google Analytics, para identificar quantas vezes você retorna ao nosso endereço. São coletadas, anonimamente, informações, como endereço IP, localização geográfica, fonte de referência, tipo de navegador, duração da visita e páginas visitadas.</p>
+        
+        <h3>Marketing por e-mail (quando aplicável)</h3>
+        <p>Com sua permissão, podemos lhe enviar e-mails sobre nossa loja, novos produtos e outras atualizações.</p>
+        
+        <h3>Consentimento</h3>
+        <p>Quando você nos fornece as suas informações pessoais para completar uma transação, verificar seu cartão de crédito, fazer um pedido, providenciar uma entrega ou retornar uma compra, você está concordando com a nossa coleta e uso de informações pessoais apenas para esses fins específicos.</p>
+        <p>Se pedirmos suas informações pessoais por uma razão secundária, como marketing, vamos pedir seu consentimento, ou te dar a oportunidade de dizer não.</p>
+        
+        <h3>Como posso retirar o meu consentimento?</h3>
+        <p>Caso depois de fornecer seus dados você mude de ideia, você pode retirar o seu consentimento quando quiser e assim evitar que entremos em contato para obter ou divulgar informações. Entre em contato conosco através da nossa Central de Atendimento.</p>
+        
+        <h3>Divulgação</h3>
+        <p>Podemos divulgar suas informações pessoais se formos obrigados por lei a fazê-lo ou se você violar nossos Termos de serviço.</p>
+        
+        <h3>Serviços de Terceiros</h3>
+        <p>No geral, nossos fornecedores terceirizados irão coletar, usar e divulgar suas informações apenas na medida do necessário para permitir que eles realizem os serviços que eles nos fornecem.</p>
+        <p>Entretanto, certos prestadores de serviços terceirizados, tais como gateways de pagamento e outros processadores de transações de pagamento, têm suas próprias políticas de privacidade em relação à informação que somos obrigados a fornecer para eles sobre transações relacionadas a compras.</p>
+        <p>Para esses fornecedores, recomendamos que você leia suas políticas de privacidade para que você possa entender de que maneira suas informações pessoais serão usadas por esses fornecedores.</p>
+        <p>Uma vez que você sair do site da nossa loja ou for redirecionado para um aplicativo ou site de terceiros, você não será mais regido por essa Política de privacidade ou pelos Termos de serviço do nosso site.</p>
+        
+        <h3>Links</h3>
+        <p>Quando você clicar em links na nossa loja, eles podem lhe direcionar para fora do nosso site. Não somos responsáveis pelas práticas de privacidade de outros sites e lhe incentivamos a ler as políticas de privacidade deles.</p>
+        
+        <h3>Segurança</h3>
+        <p>Para proteger suas informações pessoais, tomamos precauções e seguimos as melhores práticas da indústria para nos certificar que elas não sejam perdidas, usurpadas, acessadas, divulgadas, alteradas ou destruídas.</p>
+        <p>Para você comprar tranquilo e com total segurança utilizamos um certificado de segurança, com reconhecimento mundial em segurança pela Internet.</p>
+        <p>Não divulgamos ou comercializamos seus dados pessoais. Entendemos que essas informações foram fornecidas pela confiança em nossa empresa e que, cabe a nós, devolver à você o mesmo respeito.</p>
+        <p>Suas informações são utilizadas somente por nós, para uma variedade de finalidades como conferir o pedido, facilitar preenchimento de pedido, fazer análise de perfis e estatísticas, melhoria das operações do site e envio de conteúdo, comunicados, materiais promocionais e informações.</p>
+        
+        <h3>Idade de Consentimento</h3>
+        <p>Ao usar esse site, você confirma que você é maior de idade em seu estado ou província de residência e que você nos deu seu consentimento para permitir que qualquer um dos seus dependentes menores de idade usem esse site.</p>
+        
+        <h3>Alterações na Política de Privacidade</h3>
+        <p>Reservamos o direito de modificar essa política de privacidade a qualquer momento. Portanto, por favor, leia-a com frequência. As alterações e esclarecimentos surtem efeito imediatamente após serem publicadas no site. Caso façamos alterações na política de privacidade, iremos notificá-lo sobre a atualização. Assim, você saberá quais informações coletamos, como as usamos, e sob que circunstâncias, caso aplicável, as utilizaremos e/ou divulgaremos.</p>
+    </body>
+    </html>
+        <a href="index.html" class="btn btn-success mt-4">
+            ← Voltar à Home
+          </a>
+      </div>
+
+      <!-- Lateral com Notícias Relacionadas -->
+      <!-- <div class="col-lg-4 related-posts">
+        <h4 class="mb-4">Veja também</h4>
+
+        <div class="mb-3">
+          <a href="produto1.html">
+            <h5>Produto 1</h5>
+            <p class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda magni asperiores maxime laborum dolorem, neque blanditiis molestiae repellendus voluptates aut odit veritatis quis officiis, eos est consequatur voluptas sed officia!</p>
+          </a>
+        </div>
+
+        <div class="mb-3">
+            <a href="produto1.html">
+                <h5>Produto 1</h5>
+                <p class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda magni asperiores maxime laborum dolorem, neque blanditiis molestiae repellendus voluptates aut odit veritatis quis officiis, eos est consequatur voluptas sed officia!</p>
+              </a>
+            </div>
+
+        <div class="mb-3">
+            <a href="produto1.html">
+                <h5>Produto 1</h5>
+                <p class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Assumenda magni asperiores maxime laborum dolorem, neque blanditiis molestiae repellendus voluptates aut odit veritatis quis officiis, eos est consequatur voluptas sed officia!</p>
+              </a>
+          </div> -->
+
+    </div>
+  </main>
+    <!-- Botão de Voltar ao Topo -->
+    <div class="back-to-top">
+        <a href="#" class="btn btn-purple"><i class="fas fa-arrow-up"></i></a>
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer-section py-5">
+        <div class="container">
+            <!-- Logo e Descrição -->
+            <div class="row text-center mb-4">
+                <div class="col-12">
+                    <img src="assets/img/div.elementor-element.png" alt="Logo Solo Rico" class="footer-logo mb-3">
+                    <p class="footer-description mx-auto">
+                        A Solo Rico Agrociências é uma empresa 100% brasileira, com sede em São José do Rio Preto,
+                        considerada uma das maiores produtoras de fertilizantes do Brasil. Atualmente, opera em todos os
+                        Estados e no Distrito Federal.
+
+
+                        <br> Atendimento aos clientes, colaboradores e empresas de segunda à sexta-feira das 09h às 18h
+                        (exceto feriados).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Menus e Informações -->
+            <div class="row">
+
+
+                <!-- Blog -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <h5 class="footer-heading">Assuntos mais lidos</h5>
+                    <ul class="footer-blog list-unstyled">
+                        <li>
+                            <a href="#">Agronegócio Brasileiro: Descubra o que irá Impulsionar o Crescimento em
+                                2024...</a>
+                            <span>Jul, 2024</span>
+                        </li>
+                        <li>
+                            <a href="#">Tendências da Volatilidade dos Preços das Commodities Agrícolas em 2024...</a>
+                            <span>Jan, 2025</span>
+                        </li>
+                        <li>
+                            <a href="#">Novos Mercados: Abrindo Portas para Pequenos e Médios Produtores
+                                Brasileiros...</a>
+                            <span>Jan, 2025</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Menu -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <h5 class="footer-heading">Menu</h5>
+                    <ul class="footer-menu list-unstyled">
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="#">A EMPRESA</a></li>
+                        <li><a href="#">PARA EMPRESAS</a></li>
+                        <li><a href="#">PARA VOCÊ</a></li>
+                        <li><a href="#">COMEX</a></li>
+                        <li><a href="#">CONTATOS</a></li>
+                        <li><a href="#">LOJA</a></li>
+                    </ul>
+                </div>
+
+                <!-- Atendimento -->
+                <div class="col-lg-5 col-md-12 col-12">
+                    <h5 class="footer-heading">Atendimento</h5>
+                    <ul class="footer-contact list-unstyled">
+                        <li><i class="fas fa-phone"></i><a style="color: #f9f9f9; text-decoration: none;"
+                                href="https://wa.me/551732316000" target="_blank">(17) 3231-6000</a></li>
+                        <li><i class="fas fa-phone"></i><a style="color: #f9f9f9; text-decoration: none;"
+                                href="mailto:sac@gruposolorico.com.br" target="_blank">sac@gruposolorico.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> R. Roque de Campos Teixeira, 180 - Distrito
+                            Industrial<br> São José do Rio Preto - SP, 15035-430, Brasil
+                        </li>
+                    </ul>
+                    <form class="footer-form mt-3">
+                        <input type="text" class="form-control" placeholder="Dúvidas?">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+
+                    <!-- ícones -->
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/soloricoagrociencias" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/soloricoagrociencias" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/soloricoagrociencias" target="_blank"
+                            aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="footer-bottom text-center mt-4">
+                <p>SOLO RICO &reg; 2025 Todos os direitos reservados | Desenvolvimento Martinha TI</p>
+                <a href="politica-de-privacidade.html" target="_blank">Política e Privacidade</a> | <a href="politica-de-seguranca.html">Política de Segurança</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão flutuante do WhatsApp -->
+    <!-- Botão flutuante do WhatsApp -->
+
+    <a href="https://wa.me/551732316000" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp"
+        style="color: #f9f9f9; text-decoration: none;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    </a>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Alterar o cabeçalho ao rolar
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > document.querySelector('.carousel').offsetHeight) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

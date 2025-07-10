@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Rico</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /*topo das telas*/
+        .page-header {
+            background: linear-gradient(to right, #3b7d1c, #6bbf34, #f7d51c);
+            height: 250px;
+            /* Altura do banner */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .page-banner {
+            background-image: url('assets/img/banner-about.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            /* Ajuste conforme necessário */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .container h2 {
+            padding-top: 30px;
+        }
+
+        /* Seção Sobre a Empresa */
+        .about-section {
+            background-color: #f9f9f9;
+            padding: 90px 0;
+        }
+
+        .about-image {
+            border-radius: 10px;
+            max-width: 100%;
+        }
+
+        .about-list {
+            list-style: none;
+            padding: 0;
+            color: #333;
+        }
+
+        .about-list li {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .about-list i {
+            color: #28a745;
+            margin-right: 8px;
+        }
+
+                /* Seção: Linhas de Produtos */
+        /* Custom 5-colunas com Bootstrap */
+        .custom-col-5 {
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+
+        /* Garante responsividade para telas menores */
+        @media (max-width: 768px) {
+            .custom-col-5 {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+        /* Cartão com imagem e texto sobreposto */
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.03);
+        }
+
+        .product-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        /* Texto sobre a imagem */
+        .product-title-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+            font-size: 1rem;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <!-- Barra Superior -->
+    <div class="top-bar text-center">
+        <span><a href="#"></a></span>
+    </div>
+    <!-- Navbar -->
+    <header class="navbar-section" style="padding-top: 30px;">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand" href="#">
+                    <img src="assets/img/logo-preto-solo-rico.png" alt="Logo" class="navbar-logo">
+                    <span class="navbar-subtitle"></span>
+                </a>
+                <!-- Botão de Menu Mobile -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="empresa.html">A EMPRESA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="para-empresas.html">PARA EMPRESAS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="para-voce.html">PARA VOCÊ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="comex.html">COMEX</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-bs-toggle="dropdown"
+                                role="button" aria-expanded="false">
+                                ATENDIMENTO
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdown3">
+                                <li><a class="dropdown-item" href="https://franquias.gruposolorico.com.br/"
+                                        target="_blank">SEJA UM FRANQUEADO</a></li>
+                                <li><a class="dropdown-item" href="trabalhe-conosco.html">TRABALHE CONOSCO</a></li>
+                                <li><a class="dropdown-item" href="sac.html">SAC</a></li>
+                                <li><a class="dropdown-item" href="contatos.html">CONTATOS</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link" href="blog.html">BLOG</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">LOJA</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdown3" data-bs-toggle="dropdown"
+                                role="button" aria-expanded="false">
+                                <img src="assets/img/brasil.png" alt="Brasil" class="navbar-flag"> Brasil
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Country 1</a></li>
+                                <li><a class="dropdown-item" href="#">Country 2</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Cabeçalho -->
+    <!-- <header class="navbar navbar-expand-lg navbar-light">
+    </header> -->
+
+
+
+
+    <!-- BLOG -->
+    <!-- Cabeçalho da Página -->
+    <section class="page-header">
+        <div class="container text-center">
+            <h1>Linhas de Produtos</h1>
+            <p>Confira nossas linhas de produtos e fique por dentro das novidades do mundo agro.</p>
+        </div>
+    </section>
+
+    <!-- Seção: Linhas de Produtos  -->
+    <section class="product-lines-section py-5">
+        <div class="container text-center">
+            <h4 class="section-title text-warning fw-bold">Solo Rico</h4>
+            <h2 class="section-heading fw-bold">Linhas de Produtos</h2>
+            <div class="row mt-5 justify-content-center">
+                <!-- Produto 1 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto-interna.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-titaniun-folicular-solo-rico.jpg" alt="Produto 1"
+                                class="product-image">
+                            <div class="product-title-overlay">TITANIUM FOLIAR</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto-interna.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linha-de-produtos-titaniun-sollus-solo-rico.jpg" alt="Produto 2"
+                                class="product-image">
+                            <div class="product-title-overlay">TITANIUM SOLLUS</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto-interna.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-titaniun-protect-solo-rico.jpg" alt="Produto 3"
+                                class="product-image">
+                            <div class="product-title-overlay">PROTECT</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto-interna.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-adjuvantes-solo-rico.jpg" alt="Produto 4"
+                                class="product-image">
+                            <div class="product-title-overlay">ADJUVANTES</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto-interna.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linha-de-produtos-vigor-solo-rico.jpg" alt="Produto 5"
+                                class="product-image">
+                            <div class="product-title-overlay">VIGOR</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Seção: Linhas de Produtos  -->
+    <section class="product-lines-section py-5">
+        <div class="container text-center">
+            <!-- <h4 class="section-title text-warning fw-bold">Solo Rico</h4>
+            <h2 class="section-heading fw-bold">Linhas de Produtos</h2> -->
+            <div class="row mt-5 justify-content-center">
+                <!-- Produto 1 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto1.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-titaniun-folicular-solo-rico.jpg" alt="Produto 1"
+                                class="product-image">
+                            <div class="product-title-overlay">TITANIUM FOLIAR</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto2.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linha-de-produtos-titaniun-sollus-solo-rico.jpg" alt="Produto 2"
+                                class="product-image">
+                            <div class="product-title-overlay">TITANIUM SOLLUS</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto3.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-titaniun-protect-solo-rico.jpg" alt="Produto 3"
+                                class="product-image">
+                            <div class="product-title-overlay">PROTECT</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto4.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-adjuvantes-solo-rico.jpg" alt="Produto 4"
+                                class="product-image">
+                            <div class="product-title-overlay">ADJUVANTES</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produto5.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linha-de-produtos-vigor-solo-rico.jpg" alt="Produto 5"
+                                class="product-image">
+                            <div class="product-title-overlay">VIGOR</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botão de Voltar ao Topo -->
+    <div class="back-to-top">
+        <a href="#" class="btn btn-purple"><i class="fas fa-arrow-up"></i></a>
+    </div>
+
+
+
+
+    <!-- Footer -->
+    <footer class="footer-section py-5">
+        <div class="container">
+            <!-- Logo e Descrição -->
+            <div class="row text-center mb-4">
+                <div class="col-12">
+                    <img src="assets/img/div.elementor-element.png" alt="Logo Solo Rico" class="footer-logo mb-3">
+                    <p class="footer-description mx-auto">
+                        A Solo Rico Agrociências é uma empresa 100% brasileira, com sede em São José do Rio Preto,
+                        considerada uma das maiores produtoras de fertilizantes do Brasil. Atualmente, opera em todos os
+                        Estados e no Distrito Federal.
+
+
+                        <br> Atendimento aos clientes, colaboradores e empresas de segunda à sexta-feira das 09h às 18h
+                        (exceto feriados).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Menus e Informações -->
+            <div class="row">
+
+
+                <!-- Blog -->
+                <div class="col-lg-4 col-md-6 col-12">
+                    <h5 class="footer-heading">Assuntos mais lidos</h5>
+                    <ul class="footer-blog list-unstyled">
+                        <li>
+                            <a href="#">Agronegócio Brasileiro: Descubra o que irá Impulsionar o Crescimento em
+                                2024...</a>
+                            <span>Jul, 2024</span>
+                        </li>
+                        <li>
+                            <a href="#">Tendências da Volatilidade dos Preços das Commodities Agrícolas em 2024...</a>
+                            <span>Jan, 2025</span>
+                        </li>
+                        <li>
+                            <a href="#">Novos Mercados: Abrindo Portas para Pequenos e Médios Produtores
+                                Brasileiros...</a>
+                            <span>Jan, 2025</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Menu -->
+                <div class="col-lg-3 col-md-6 col-12">
+                    <h5 class="footer-heading">Menu</h5>
+                    <ul class="footer-menu list-unstyled">
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="#">A EMPRESA</a></li>
+                        <li><a href="#">PARA EMPRESAS</a></li>
+                        <li><a href="#">PARA VOCÊ</a></li>
+                        <li><a href="#">COMEX</a></li>
+                        <li><a href="#">CONTATOS</a></li>
+                        <li><a href="#">LOJA</a></li>
+                    </ul>
+                </div>
+
+                <!-- Atendimento -->
+                <div class="col-lg-5 col-md-12 col-12">
+                    <h5 class="footer-heading">Atendimento</h5>
+                    <ul class="footer-contact list-unstyled">
+                        <li><i class="fas fa-phone"></i><a style="color: #f9f9f9; text-decoration: none;"
+                                href="https://wa.me/551732316000" target="_blank">(17) 3231-6000</a></li>
+                        <li><i class="fas fa-phone"></i><a style="color: #f9f9f9; text-decoration: none;"
+                                href="mailto:sac@gruposolorico.com.br" target="_blank">sac@gruposolorico.com.br</li>
+                        <li><i class="fas fa-map-marker-alt"></i> R. Roque de Campos Teixeira, 180 - Distrito
+                            Industrial<br> São José do Rio Preto - SP, 15035-430, Brasil
+                        </li>
+                    </ul>
+                    <form class="footer-form mt-3">
+                        <input type="text" class="form-control" placeholder="Dúvidas?">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+
+                    <!-- ícones -->
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/soloricoagrociencias" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/soloricoagrociencias" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/company/soloricoagrociencias" target="_blank"
+                            aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="footer-bottom text-center mt-4">
+                <p>SOLO RICO &reg; 2025 Todos os direitos reservados | Desenvolvimento Martinha TI</p>
+                <a href="politica-de-privacidade.html" target="_blank">Política e Privacidade</a> | <a href="politica-de-seguranca.html">Política de Segurança</a>
+                   </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão flutuante do WhatsApp -->
+    <!-- Botão flutuante do WhatsApp -->
+
+    <a href="https://wa.me/551732316000" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp"
+        style="color: #f9f9f9; text-decoration: none;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    </a>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Alterar o cabeçalho ao rolar
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > document.querySelector('.carousel').offsetHeight) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

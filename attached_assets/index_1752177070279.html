@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Rico</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/home.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- FAVICON -->
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+
+    <!-- METAS DE SEO -->
+    <meta name="description"
+        content="A Solo Rico é referência em soluções agrícolas desde 1989. Oferecemos fertilizantes, adjuvantes e tecnologias para o campo.">
+    <meta name="keywords" content="Solo Rico, agricultura, fertilizantes, adjuvantes, soluções agrícolas, agronegócio">
+    <meta name="author" content="Solo Rico Agrociências">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO para redes sociais (Open Graph / Facebook) -->
+    <meta property="og:title" content="Solo Rico | Cultivando resultados desde 1989">
+    <meta property="og:description"
+        content="Conheça as soluções da Solo Rico para o agronegócio. Fertilizantes, tecnologia e cuidado com o solo.">
+    <meta property="og:image" content="https://www.solorico.com.br/assets/img/logo-branco-solo-rico-topo">
+    <meta property="og:url" content="https://www.solorico.com.br">
+    <meta property="og:type" content="website">
+
+
+    <style>
+        /**/
+        /* Seção de Desenvolvimento */
+        .development-section {
+            background-image: url('assets/img/germinando1-solo-rico.jpg');
+            /* Caminho para a imagem de fundo */
+            background-size: cover;
+            /* Faz a imagem cobrir toda a seção */
+            background-position: center;
+            /* Centraliza a imagem */
+            background-repeat: no-repeat;
+            /* Evita repetição */
+            padding: 80px 0;
+            /* Espaçamento interno */
+            color: white;
+            /* Texto branco para contraste */
+            position: relative;
+            /* Para adicionar camadas, se necessário */
+            height: 600px;
+        }
+
+        .navbar-nav .nav-link.active {
+            border-bottom: 2px solid #28a745;
+            /* cor verde Solo Rico */
+            padding-bottom: 4px;
+        }
+
+        .navbar-nav .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .navbar-nav .nav-link:hover {
+            text-decoration: none !important;
+        }
+
+        @media (max-width: 991.98px) {
+            .navbar-custom {
+                background-color: rgba(0, 0, 0, 0.7) !important;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .navbar-custom {
+                background-color: rgba(0, 0, 0, 0.2) !important;
+            }
+        }
+
+        footer {
+            background-color: #2c1654;
+            color: #fff;
+        }
+
+        footer h5 {
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        footer ul li a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        footer ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-logo {
+            max-width: 180px;
+        }
+
+        .footer-section .row>div {
+            margin-bottom: 30px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 20px;
+            font-size: 0.875rem;
+        }
+
+        .image-container {
+            position: relative;
+            margin-bottom: 25px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.getElementById('navbarNav');
+
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const isNavbarExpanded = window.getComputedStyle(navbarToggler).display !== 'none' &&
+                        navbarCollapse.classList.contains('show');
+
+                    if (isNavbarExpanded) {
+                        navbarToggler.click(); // Fecha o menu
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+</head>
+
+<body>
+    <!-- Barra Superior -->
+    <div class="top-bar text-center">
+        <span><a href="#"></a></span>
+    </div>
+
+    <!-- HEADER RESPONSIVO -->
+    <header class="navbar-section fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom py-4">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/img/logo-branco-solo-rico-topo.png" alt="Logo" class="navbar-logo"
+                        style="max-height: 80px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link active" href="index.html">HOME</a></li>
+                        <li class="nav-item"><a class="nav-link" href="empresa.html">A EMPRESA</a></li>
+                        <li class="nav-item"><a class="nav-link" href="para-empresas.html">PARA EMPRESAS</a></li>
+                        <li class="nav-item"><a class="nav-link" href="para-voce.html">PARA VOCÊ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="comex.html">COMEX</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="dropdownAtendimento" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                ATENDIMENTO
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownAtendimento">
+                                <li><a class="dropdown-item" href="https://franquias.gruposolorico.com.br/"
+                                        target="_blank">SEJA UM FRANQUEADO</a></li>
+                                <li><a class="dropdown-item" href="trabalhe-conosco.html">TRABALHE CONOSCO</a></li>
+                                <li><a class="dropdown-item" href="sac.html">SAC</a></li>
+                                <li><a class="dropdown-item" href="contatos.html">CONTATOS</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="blog.html">BLOG</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">LOJA</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="dropdownPais"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="assets/img/brasil.png" alt="Brasil" class="navbar-flag me-1"> Brasil
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownPais">
+                                <li><a class="dropdown-item" href="#">Country 1</a></li>
+                                <li><a class="dropdown-item" href="#">Country 2</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <!-- Banner Slider -->
+    <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active"
+                style="background-image: url('assets/img/Carrossel-Cultivando-solucoes1.jpg');">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                    <h1>Cultivando soluções para uma agricultura de excelência</h1>
+                    <p>Lado a lado com o produtor rural</p>
+                    <a href="https://wa.me/551732316000" target="_blank" class="btn btn-success">Conheça</a>
+
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-item"
+                style="background-image: url('assets/img/carrossel-transforme-seu-negocio-solo-rico1.jpg');">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                    <h1>Transforme Seu Negócio</h1>
+                    <p>Descubra nossas soluções para o agro.</p>
+                    <a href="https://wa.me/551732316000" target="_blank" class="btn btn-success">Saiba Mais</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-item"
+                style="background-image: url('assets/img/carrossel-inovacao-no-campo-banner-solo-rico.jpg');">
+                <div class="carousel-overlay"></div>
+                <div class="carousel-content">
+                    <h1>Inovação no Campo</h1>
+                    <p>Conheça nossa tecnologia de ponta.</p>
+                    <a href="https://wa.me/551732316000" target="_blank" class="btn btn-success">Ver Mais</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Próximo</span>
+        </button>
+    </div>
+
+    <!-- Agricultura & Produtos -->
+    <section class="agriculture-section py-5" style="padding: 5rem 0 !important;">
+        <div class="container">
+            <div class="row align-items-center">
+                <!-- Imagens (Esquerda) -->
+                <div class="col-lg-6 text-center text-lg-start">
+                    <div class="image-container">
+                        <img src="assets/img/imagem-circular-maior-home-solo-rico.png" alt="Agriculture"
+                            class="main-image rounded-circle">
+
+                        <img src="assets/img/circulo-menor-home-solo-rico.png" alt="Products" class="small-image">
+                    </div>
+                </div>
+
+                <!-- Texto (Direita) -->
+                <div class="col-lg-6">
+                    <h4 class="section-title">Solo Rico</h4>
+                    <h2 class="section-heading">Cultivando soluções para uma agricultura de excelência</h2>
+                    <p class="section-subtitle">Solo Rico, a parceira do produtor rural <span class="highlight">no
+                            Brasil e no mundo. </span>.</p>
+                    <p class="section-description">
+                        Na Solo Rico, acreditamos que o campo é mais do que terra e cultivo — é vida, história e
+                        progresso. Desde 1989, nossa missão tem sido apoiar o produtor rural, com foco especial no
+                        pequeno e médio agricultor, que impulsiona a economia local e garante a alimentação de inúmeras
+                        famílias.
+                    </p>
+                    <div class="icons-list">
+                        <div class="icon-item">
+                            <i class="fas fa-seedling" style="color: #28a745; padding-right: 5px;"></i>
+                            <span> Fertilizantes foliares e via solo</span>
+                        </div>
+                        <div class="icon-item">
+                            <i class="fas fa-seedling" style="color: #28a745; padding-right: 5px;"></i>
+                            <span> Adjuvantes</span>
+                        </div>
+                    </div>
+                    <ul class="benefits-list">
+                        <li><i class="fas fa-check-circle" style="color: #28a745; padding-right: 5px;"></i> Respeito ao
+                            produtor rural</li>
+                        <li><i class="fas fa-check-circle" style="color: #28a745; padding-right: 5px;"></i> Cuidado com
+                            o solo e com as plantas</li>
+                    </ul>
+                    <a href="#" class="btn btn-success mt-3">Saiba Mais</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Seção de Cards -->
+    <div class="container py-4" style="padding: 5rem 0 !important;">
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-3">
+                <a href="#" class="text-decoration-none">
+                    <div class="card-custom">
+                        <img src="assets/img/top-lime-pro-solo-rico.jpg" class="card-img" alt="Maçãs">
+                        <div class="icon-top"><img src="assets/img/icones/icone1-solorico.png" width="60" alt="Ícone"></div>
+                        <div class="text-overlay">
+                            <h5 class="fw-bold">TOP LIME PRO</h5>
+                        </div>
+                        <div class="icon-bottom">LINHA DE ADJUVANTES</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-3">
+                <a href="#" class="text-decoration-none">
+                    <div class="card-custom">
+                        <img src="assets/img/revolution-solo-rico.jpg" class="card-img" alt="Cesta de frutas">
+                        <div class="icon-top"><img src="assets/img/icones/icone-revolution2-solorico.png" width="60" alt="Ícone"></div>
+                        <div class="text-overlay">
+                            <h5 class="fw-bold">REVOLUTION</h5>
+                        </div>
+                        <div class="icon-bottom">LINHA PROTECT</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-3">
+                <a href="#" class="text-decoration-none">
+                    <div class="card-custom">
+                        <img src="assets/img/terra.jpg" class="card-img" alt="Planta na mão">
+                        <div class="icon-top"><img src="assets/img/icones/icone-gel-de-plantio3-solorico.png" width="60" alt="Ícone">
+                        </div>
+                        <div class="text-overlay">
+                            <h5 class="fw-bold">GEL DE PLANTIO</h5>
+                        </div>
+                        <div class="icon-bottom">LINHA TITANIUM SOLLUS</div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-md-3">
+                <a href="#" class="text-decoration-none">
+                    <div class="card-custom">
+                        <img src="assets/img/uvas.jpg" class="card-img" alt="Uvas">
+                        <div class="icon-top"><img src="assets/img/icones/icone-protetor-e700--solorico.png" width="60" alt="Ícone"></div>
+                        <div class="text-overlay">
+                            <h5 class="fw-bold">PROTETOR E700</h5>
+                        </div>
+                        <div class="icon-bottom">LINHA PROTECT</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.getElementById('navbarNav');
+
+            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+                link.addEventListener('click', function () {
+                    const isNavbarExpanded = window.getComputedStyle(navbarToggler).display !== 'none' &&
+                        navbarCollapse.classList.contains('show');
+                    if (isNavbarExpanded) {
+                        navbarToggler.click();
+                    }
+                });
+            });
+        });
+    </script>
+
+
+    <!-- Seção de Desenvolvimento Agricultura-->
+    <section class="development-section py-5" style="padding: 5rem 0 !important;">
+        <div class="container text-center">
+            <h2 class="section-heading">Há mais de 30 anos espalhando o verde pelo Brasil e agora também pelo mundo.
+            </h2>
+            <div class="row justify-content-center">
+                <!-- Texto -->
+                <div class="col-lg-8">
+                    <p class="development-text">
+                        Transformamos o cuidado com o solo em alta produtividade. Confie em quem entende do campo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Seção: Linhas de Produtos  -->
+    <!-- Seção: Linhas de Produtos  -->
+    <section class="product-lines-section py-5" style="padding: 5rem 0 !important;">
+        <div class="container text-center">
+            <h4 class="section-title text-warning fw-bold">Solo Rico</h4>
+            <h2 class="section-heading fw-bold">Linhas de Produtos</h2>
+            <div class="row mt-5 justify-content-center">
+                <!-- Produto 1 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produtos-linhas-solo-rico.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-titaniun-folicular-solo-rico.jpg" alt="Produto 1"
+                                class="product-image">
+                            <div class="product-title-overlay">TITANIUM FOLIAR</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 2 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produtos-linhas-solo-rico.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linha-de-produtos-titaniun-sollus-solo-rico.jpg" alt="Produto 2"
+                                class="product-image">
+                            <div class="product-title-overlay">TITANIUM SOLLUS</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 3 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produtos-linhas-solo-rico.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-titaniun-protect-solo-rico.jpg" alt="Produto 3"
+                                class="product-image">
+                            <div class="product-title-overlay">PROTECT</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 4 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produtos-linhas-solo-rico.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linhas-de-produtos-adjuvantes-solo-rico.jpg" alt="Produto 4"
+                                class="product-image">
+                            <div class="product-title-overlay">ADJUVANTES</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Produto 5 -->
+                <div class="col-6 col-md custom-col-5">
+                    <a href="produtos-linhas-solo-rico.html" class="product-card">
+                        <div class="image-wrapper">
+                            <img src="assets/img/linha-de-produtos-vigor-solo-rico.jpg" alt="Produto 5"
+                                class="product-image">
+                            <div class="product-title-overlay">VIGOR</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <!-- Seção: News & Blogs -->
+<section class="news-blogs-section py-5">
+  <div class="container">
+    <h4 class="section-title text-center">Solo Rico</h4>
+    <h2 class="section-heading text-center">News & Blogs</h2>
+    <div class="row mt-4 gx-4">
+  <!-- Blog Post 1 -->
+  <div class="col-12 col-md-4 mb-4">
+    <div class="blog-card border rounded h-100">
+      <a href="#" class="text-decoration-none text-dark d-block h-100">
+        <img src="assets/img/div.master-news.png" alt="Notícia 1" class="img-fluid w-100 blog-image">
+        <div class="blog-body">
+          <span class="blog-badge">AGRONEGÓCIO</span>
+          <h5 class="blog-title">Agronegócio Brasileiro: Descubra o que irá Impulsionar o Crescimento em 2024...</h5>
+          <p class="blog-description">Análise do cenário atual e as principais forças que vão moldar o futuro do agronegócio brasileiro.</p>
+          <small style="color: #ccc;">24 Junho 2024</small>
+        </div>
+      </a>
+    </div>
+  </div>
+  <!-- Blog Post 2 -->
+  <div class="col-12 col-md-4 mb-4">
+    <div class="blog-card border rounded h-100">
+      <a href="#" class="text-decoration-none text-dark d-block h-100">
+        <img src="assets/img/div.master-news(1).png" alt="Notícia 2" class="img-fluid w-100 blog-image">
+        <div class="blog-body">
+          <span class="blog-badge">AGRÍCOLAS</span>
+          <h5 class="blog-title">Tendências da Volatilidade dos Preços das Commodities Agrícolas em 2024...</h5>
+          <p class="blog-description">Entenda os fatores econômicos e climáticos que impactam os preços das commodities.</p>
+          <small style="color: #ccc;">20 Junho 2024</small>
+        </div>
+      </a>
+    </div>
+  </div>
+  <!-- Blog Post 3 -->
+  <div class="col-12 col-md-4 mb-4">
+    <div class="blog-card border rounded h-100">
+      <a href="#" class="text-decoration-none text-dark d-block h-100">
+        <img src="assets/img/div.master-news(2).png" alt="Notícia 3" class="img-fluid w-100 blog-image">
+        <div class="blog-body">
+          <span class="blog-badge">MERCADO</span>
+          <h5 class="blog-title">Novos Mercados: Abrindo Portas para Pequenos e Médios Produtores Brasileiros...</h5>
+          <p class="blog-description">Como a Solo Rico está ajudando produtores a alcançar novos mercados com inovação e apoio técnico.</p>
+          <small style="color: #ccc;">15 Junho 2024</small>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="footer-section py-5" style="padding: 5rem 0;">
+        <div class="container">
+            <div class="row text-center mb-4">
+                <div class="col-12">
+                    <img src="assets/img/div.elementor-element.png" alt="Logo Solo Rico" class="footer-logo mb-3">
+                    <p class="footer-description mx-auto">
+                        A Solo Rico Agrociências é uma empresa 100% brasileira, com sede em São José do Rio Preto,
+                        considerada uma das maiores produtoras de fertilizantes do Brasil. Atua em todos os Estados e no Distrito Federal.<br>
+                        Atendimento de segunda à sexta-feira, das 09h às 18h (exceto feriados).
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <h5 class="footer-heading">Para Empresas</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Produtos Corporativos</a></li>
+                        <li><a href="#">Soluções Inteligentes</a></li>
+                        <li><a href="#">Cases de Sucesso</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h5 class="footer-heading">Ajuda</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Perguntas Frequentes</a></li>
+                        <li><a href="#">Central de Atendimento</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h5 class="footer-heading">Atendimento</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone" style="color: #f7d51c;"></i> (17) 3231-6000</li>
+                        <li><i class="fas fa-envelope" style="color: #f7d51c;"></i> sac@gruposolorico.com.br</li>
+                        <li><i class="fas fa-map-marker-alt" style="color: #f7d51c;"></i> R. Roque de Campos Teixeira,
+                            180 - Distrito Industrial <br>São José do Rio Preto - SP, 15035-430, Brasil</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h5 class="footer-heading">Siga-nos</h5>
+                    <!-- <a href="#">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" style="width: 120px;">
+        </a> -->
+                    <div class="social-icons mt-3">
+                        <a href="https://www.instagram.com/soloricoagrociencias" target="_blank"><i
+                                class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/soloricoagrociencias" target="_blank"><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/company/soloricoagrociencias" target="_blank"><i
+                                class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-5">
+                <hr style="border-color: #555;">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <h5 class="footer-heading">Sobre a Solo Rico</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Conexa + Solo Rico</a></li>
+                            <li><a href="#">Trabalhe conosco</a></li>
+                            <li><a href="#">Blog</a></li>
+                        </ul>
+                        <h6 class="mt-3">Imprensa</h6>
+                        <p><a href="mailto:contato@solorico.com.br" style="color: #ccc;">contato@solorico.com.br</a></p>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <h5 class="footer-heading">Assuntos mais lidos</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <a href="#">Agronegócio Brasileiro: Descubra o que irá Impulsionar o Crescimento em
+                                    2024...</a><br>
+                                <small class="footer-date">Junho 2024</small>
+                            </li>
+                            <li class="mb-3">
+                                <a href="#">Tendências da Volatilidade dos Preços das Commodities Agrícolas em
+                                    2024...</a><br>
+                                <small class="footer-date">Maio 2024</small>
+                            </li>
+                            <li class="mb-3">
+                                <a href="#">Novos Mercados: Abrindo Portas para Pequenos e Médios Produtores
+                                    Brasileiros...</a><br>
+                                <small class="footer-date">Abril 2024</small>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6">
+                        <h5 class="footer-heading">Categorias</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="#">Solo</a></li>
+                            <li><a href="#">Tecnologia</a></li>
+                            <li><a href="#">Comex</a></li>
+                            <li><a href="#">Mercados</a></li>
+                            <li><a href="#">Tendências</a></li>
+                        </ul>
+                        <p class="small mt-3">© 2025 Solo Rico Agrociências</p>
+                        <p class="small">
+                            CNPJ: 67.681.007/0001-97 | Endereço: R. Roque de Campos Teixeira, 180 - Distrito Industrial,
+                            São José do Rio Preto - SP, 15035-430<br>
+                            Proibida a reprodução total ou parcial de conteúdos deste site.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="footer-bottom text-center mt-4">
+                    <p>SOLO RICO &copy; 2025 Todos os direitos reservados | Desenvolvido por Martinha TI</p>
+                    <a href="politica-de-privacidade.html">Política de Privacidade</a> |
+                    <a href="politica-de-seguranca.html">Política de Segurança</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão flutuante do WhatsApp -->
+
+    <a href="https://wa.me/551732316000" class="whatsapp-float" target="_blank" aria-label="Fale conosco no WhatsApp"
+        style="color: #f9f9f9; text-decoration: none;">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    </a>
+
+
+    <script>
+        // Alterar o cabeçalho ao rolar
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > document.querySelector('.carousel').offsetHeight) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>
