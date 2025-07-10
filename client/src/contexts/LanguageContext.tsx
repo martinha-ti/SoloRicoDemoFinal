@@ -89,7 +89,14 @@ const translations = {
     contact_us: "Fale Conosco",
     whatsapp: "WhatsApp",
     see_details: "Ver Detalhes",
-    our_products: "Nossos Produtos"
+    our_products: "Nossos Produtos",
+    
+    // Notifications
+    notifications: "Notificações",
+    markAllAsRead: "Marcar todas como lidas",
+    noNotifications: "Nenhuma notificação",
+    loading: "Carregando",
+    view: "Ver"
   },
   en: {
     // Navbar
@@ -165,7 +172,14 @@ const translations = {
     contact_us: "Contact Us",
     whatsapp: "WhatsApp",
     see_details: "See Details",
-    our_products: "Our Products"
+    our_products: "Our Products",
+    
+    // Notifications
+    notifications: "Notifications",
+    markAllAsRead: "Mark all as read",
+    noNotifications: "No notifications",
+    loading: "Loading",
+    view: "View"
   }
 };
 

@@ -4,6 +4,7 @@ import {
   blogPosts, 
   contactMessages, 
   jobApplications,
+  notifications,
   type User, 
   type InsertUser, 
   type Product, 
@@ -13,7 +14,9 @@ import {
   type ContactMessage,
   type InsertContactMessage,
   type JobApplication,
-  type InsertJobApplication
+  type InsertJobApplication,
+  type Notification,
+  type InsertNotification
 } from "@shared/schema";
 
 export interface IStorage {
@@ -33,6 +36,13 @@ export interface IStorage {
   
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   createJobApplication(application: InsertJobApplication): Promise<JobApplication>;
+  
+  getNotifications(userId?: number): Promise<Notification[]>;
+  getNotificationById(id: number): Promise<Notification | undefined>;
+  createNotification(notification: InsertNotification): Promise<Notification>;
+  markNotificationAsRead(id: number): Promise<void>;
+  markAllNotificationsAsRead(userId?: number): Promise<void>;
+  deleteNotification(id: number): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -41,12 +51,14 @@ export class MemStorage implements IStorage {
   private blogPosts: Map<number, BlogPost>;
   private contactMessages: Map<number, ContactMessage>;
   private jobApplications: Map<number, JobApplication>;
+  private notifications: Map<number, Notification>;
   
   private currentUserId: number;
   private currentProductId: number;
   private currentBlogPostId: number;
   private currentContactMessageId: number;
   private currentJobApplicationId: number;
+  private currentNotificationId: number;
 
   constructor() {
     this.users = new Map();
@@ -54,12 +66,14 @@ export class MemStorage implements IStorage {
     this.blogPosts = new Map();
     this.contactMessages = new Map();
     this.jobApplications = new Map();
+    this.notifications = new Map();
     
     this.currentUserId = 1;
     this.currentProductId = 1;
     this.currentBlogPostId = 1;
     this.currentContactMessageId = 1;
     this.currentJobApplicationId = 1;
+    this.currentNotificationId = 1;
     
     this.seedData();
   }
@@ -142,6 +156,38 @@ export class MemStorage implements IStorage {
 
     sampleBlogPosts.forEach(post => {
       this.createBlogPost(post);
+    });
+
+    // Seed notifications
+    const sampleNotifications: InsertNotification[] = [
+      {
+        userId: null,
+        title: "Bem-vindo à Solo Rico!",
+        message: "Explore nossos produtos e soluções para aumentar sua produtividade.",
+        type: "info",
+        actionUrl: "/produtos",
+        isRead: false
+      },
+      {
+        userId: null,
+        title: "Novos Produtos Disponíveis",
+        message: "Confira nossa nova linha de adjuvantes para maximizar sua aplicação.",
+        type: "success",
+        actionUrl: "/para-voce",
+        isRead: false
+      },
+      {
+        userId: null,
+        title: "Dicas de Aplicação",
+        message: "Veja nosso blog para dicas sobre como aplicar corretamente nossos produtos.",
+        type: "info",
+        actionUrl: "/blog",
+        isRead: false
+      }
+    ];
+
+    sampleNotifications.forEach(notification => {
+      this.createNotification(notification);
     });
   }
 
@@ -237,6 +283,54 @@ export class MemStorage implements IStorage {
     };
     this.jobApplications.set(id, jobApplication);
     return jobApplication;
+  }
+
+  async getNotifications(userId?: number): Promise<Notification[]> {
+    const allNotifications = Array.from(this.notifications.values());
+    if (userId) {
+      return allNotifications.filter(n => n.userId === userId || n.userId === null);
+    }
+    return allNotifications.filter(n => n.userId === null);
+  }
+
+  async getNotificationById(id: number): Promise<Notification | undefined> {
+    return this.notifications.get(id);
+  }
+
+  async createNotification(insertNotification: InsertNotification): Promise<Notification> {
+    const id = this.currentNotificationId++;
+    const notification: Notification = { 
+      ...insertNotification, 
+      id, 
+      createdAt: new Date(),
+      userId: insertNotification.userId ?? null,
+      actionUrl: insertNotification.actionUrl ?? null,
+      isRead: insertNotification.isRead ?? false
+    };
+    this.notifications.set(id, notification);
+    return notification;
+  }
+
+  async markNotificationAsRead(id: number): Promise<void> {
+    const notification = this.notifications.get(id);
+    if (notification) {
+      notification.isRead = true;
+      this.notifications.set(id, notification);
+    }
+  }
+
+  async markAllNotificationsAsRead(userId?: number): Promise<void> {
+    const notifications = await this.getNotifications(userId);
+    notifications.forEach(notification => {
+      if (!notification.isRead) {
+        notification.isRead = true;
+        this.notifications.set(notification.id, notification);
+      }
+    });
+  }
+
+  async deleteNotification(id: number): Promise<void> {
+    this.notifications.delete(id);
   }
 }
 
@@ -362,6 +456,82 @@ export class DatabaseStorage implements IStorage {
       .returning();
     return application;
   }
+
+  async getNotifications(userId?: number): Promise<Notification[]> {
+    const { db } = await import('./db');
+    const { notifications } = await import('@shared/schema');
+    const { eq, or, isNull } = await import('drizzle-orm');
+    
+    if (userId) {
+      return await db.select()
+        .from(notifications)
+        .where(or(eq(notifications.userId, userId), isNull(notifications.userId)));
+    }
+    return await db.select()
+      .from(notifications)
+      .where(isNull(notifications.userId));
+  }
+
+  async getNotificationById(id: number): Promise<Notification | undefined> {
+    const { db } = await import('./db');
+    const { notifications } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    const [notification] = await db.select()
+      .from(notifications)
+      .where(eq(notifications.id, id));
+    return notification || undefined;
+  }
+
+  async createNotification(insertNotification: InsertNotification): Promise<Notification> {
+    const { db } = await import('./db');
+    const { notifications } = await import('@shared/schema');
+    
+    const [notification] = await db
+      .insert(notifications)
+      .values(insertNotification)
+      .returning();
+    return notification;
+  }
+
+  async markNotificationAsRead(id: number): Promise<void> {
+    const { db } = await import('./db');
+    const { notifications } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    await db
+      .update(notifications)
+      .set({ isRead: true })
+      .where(eq(notifications.id, id));
+  }
+
+  async markAllNotificationsAsRead(userId?: number): Promise<void> {
+    const { db } = await import('./db');
+    const { notifications } = await import('@shared/schema');
+    const { eq, or, isNull } = await import('drizzle-orm');
+    
+    if (userId) {
+      await db
+        .update(notifications)
+        .set({ isRead: true })
+        .where(or(eq(notifications.userId, userId), isNull(notifications.userId)));
+    } else {
+      await db
+        .update(notifications)
+        .set({ isRead: true })
+        .where(isNull(notifications.userId));
+    }
+  }
+
+  async deleteNotification(id: number): Promise<void> {
+    const { db } = await import('./db');
+    const { notifications } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    await db
+      .delete(notifications)
+      .where(eq(notifications.id, id));
+  }
 }
 
-export const storage = new DatabaseStorage();
+export const storage = new MemStorage();

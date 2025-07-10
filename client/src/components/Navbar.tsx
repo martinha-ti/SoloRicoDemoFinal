@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLanguage } from "@/contexts/LanguageContext";
+import NotificationCenter from "./NotificationCenter";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -77,6 +78,9 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* Notification Center */}
+            <NotificationCenter />
+            
             {/* Seletor de Idioma - Último elemento */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

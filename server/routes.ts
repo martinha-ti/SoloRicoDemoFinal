@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { sendContactEmail, sendJobApplicationEmail } from "./services/emailService";
-import { insertContactMessageSchema, insertJobApplicationSchema } from "@shared/schema";
+import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Products routes
@@ -96,6 +96,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Job application error:', error);
       res.status(400).json({ error: 'Failed to send job application' });
+    }
+  });
+
+  // Notification routes
+  app.get('/api/notifications', async (req, res) => {
+    try {
+      const userId = req.query.userId ? parseInt(req.query.userId as string) : undefined;
+      const notifications = await storage.getNotifications(userId);
+      res.json(notifications);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch notifications' });
+    }
+  });
+
+  app.get('/api/notifications/:id', async (req, res) => {
+    try {
+      const notification = await storage.getNotificationById(parseInt(req.params.id));
+      if (!notification) {
+        return res.status(404).json({ error: 'Notification not found' });
+      }
+      res.json(notification);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch notification' });
+    }
+  });
+
+  app.post('/api/notifications', async (req, res) => {
+    try {
+      const validatedData = insertNotificationSchema.parse(req.body);
+      const notification = await storage.createNotification(validatedData);
+      res.status(201).json(notification);
+    } catch (error) {
+      console.error('Create notification error:', error);
+      res.status(400).json({ error: 'Failed to create notification' });
+    }
+  });
+
+  app.patch('/api/notifications/:id/read', async (req, res) => {
+    try {
+      await storage.markNotificationAsRead(parseInt(req.params.id));
+      res.json({ message: 'Notification marked as read' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to mark notification as read' });
+    }
+  });
+
+  app.patch('/api/notifications/read-all', async (req, res) => {
+    try {
+      const userId = req.query.userId ? parseInt(req.query.userId as string) : undefined;
+      await storage.markAllNotificationsAsRead(userId);
+      res.json({ message: 'All notifications marked as read' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to mark all notifications as read' });
+    }
+  });
+
+  app.delete('/api/notifications/:id', async (req, res) => {
+    try {
+      await storage.deleteNotification(parseInt(req.params.id));
+      res.json({ message: 'Notification deleted' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to delete notification' });
     }
   });
 
