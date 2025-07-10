@@ -1,148 +1,228 @@
 import { Link } from "wouter";
-import { Facebook, Instagram, Linkedin, Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer className="bg-gray-800 text-white py-12">
       <div className="container mx-auto px-4">
-        {/* Logo and Description */}
-        <div className="text-center mb-8">
-          <img 
-            src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=150&h=75&fit=crop" 
-            alt="Solo Rico Logo" 
-            className="footer-logo mx-auto"
-          />
-          <p className="text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            A Solo Rico Agrociências é uma empresa 100% brasileira, com sede em São José do Rio Preto,
-            considerada uma das maiores produtoras de fertilizantes do Brasil. Atualmente, opera em todos os
-            Estados e no Distrito Federal.
-            <br />
-            <br />
-            Atendimento aos clientes, colaboradores e empresas de segunda à sexta-feira das 09h às 18h
-            (exceto feriados).
-          </p>
-        </div>
-
-        {/* Grid Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Blog Posts */}
+          {/* Sobre a Solo Rico */}
           <div>
-            <h3>Assuntos mais lidos</h3>
-            <ul className="space-y-4 text-sm">
-              <li>
-                <Link href="/blog" className="hover:text-brand-green">
-                  Agronegócio Brasileiro: Descubra o que irá Impulsionar o Crescimento em 2024...
-                </Link>
-                <span className="block text-gray-500 text-xs mt-1">Jul, 2024</span>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-brand-green">
-                  Tendências da Volatilidade dos Preços das Commodities Agrícolas em 2024...
-                </Link>
-                <span className="block text-gray-500 text-xs mt-1">Jan, 2025</span>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-brand-green">
-                  Novos Mercados: Abrindo Portas para Pequenos e Médios Produtores Brasileiros...
-                </Link>
-                <span className="block text-gray-500 text-xs mt-1">Jan, 2025</span>
-              </li>
-            </ul>
-          </div>
-
-          {/* Menu */}
-          <div>
-            <h3>Menu</h3>
+            <h3 className="text-lg font-bold mb-4">Sobre a Solo Rico</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/">HOME</Link></li>
-              <li><Link href="/empresa">A EMPRESA</Link></li>
-              <li><Link href="/para-empresas">PARA EMPRESAS</Link></li>
-              <li><Link href="/para-voce">PARA VOCÊ</Link></li>
-              <li><Link href="/comex">COMEX</Link></li>
-              <li><Link href="/contatos">CONTATOS</Link></li>
-              <li><Link href="#">LOJA</Link></li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div className="lg:col-span-2">
-            <h3>Atendimento</h3>
-            <ul className="space-y-4 text-sm">
-              <li className="flex items-center">
-                <Phone className="h-4 w-4 mr-3 text-brand-yellow" />
-                <a href="https://wa.me/551732316000" target="_blank" rel="noopener noreferrer">
-                  (17) 3231-6000
+              <li>
+                <Link href="/" className="hover:text-green-400 transition-colors">
+                  Conheça a Solo Rico
+                </Link>
+              </li>
+              <li>
+                <Link href="/trabalhe-conosco" className="hover:text-green-400 transition-colors">
+                  Trabalhe conosco
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-green-400 transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="/empresa" className="hover:text-green-400 transition-colors">
+                  Imprensa
+                </Link>
+              </li>
+              <li>
+                <a 
+                  href="mailto:contato@solorico.com.br" 
+                  className="hover:text-green-400 transition-colors"
+                >
+                  contato@solorico.com.br
                 </a>
               </li>
-              <li className="flex items-center">
-                <Mail className="h-4 w-4 mr-3 text-brand-yellow" />
-                <a href="mailto:sac@gruposolorico.com.br">sac@gruposolorico.com.br</a>
+            </ul>
+          </div>
+
+          {/* Assuntos mais lidos */}
+          <div>
+            <h3 className="text-lg font-bold mb-4">Assuntos mais lidos</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/blog" className="hover:text-green-400 transition-colors">
+                  Agronegócio Brasileiro: Descubra o que irá impulsionar o Crescimento em 2024...
+                </Link>
+                <p className="text-xs text-gray-400 mt-1">Junho 2024</p>
               </li>
-              <li className="flex items-start">
-                <MapPin className="h-4 w-4 mr-3 text-brand-yellow mt-1" />
-                <span>
-                  R. Roque de Campos Teixeira, 180 - Distrito Industrial<br />
-                  São José do Rio Preto - SP, 15035-430, Brasil
-                </span>
+              <li>
+                <Link href="/blog" className="hover:text-green-400 transition-colors">
+                  Tendências da Volatilidade dos Preços das Commodities Agrícolas em 2024...
+                </Link>
+                <p className="text-xs text-gray-400 mt-1">Maio 2024</p>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-green-400 transition-colors">
+                  Novos Mercados: Abrindo Portas para Pequenos e Médios Produtores Brasileiros...
+                </Link>
+                <p className="text-xs text-gray-400 mt-1">Abril 2024</p>
               </li>
             </ul>
+          </div>
 
-            {/* Contact Form */}
-            <form className="mt-6 flex">
-              <input
-                type="text"
-                placeholder="Dúvidas?"
-                className="flex-1 px-4 py-2 bg-gray-800 text-white rounded-l-md focus:outline-none focus:ring-2 focus:ring-brand-green"
-              />
-              <button
-                type="submit"
-                className="bg-brand-green text-white px-4 py-2 rounded-r-md hover:bg-brand-green-dark transition-colors"
-              >
-                <Mail className="h-4 w-4" />
-              </button>
-            </form>
+          {/* Categorias */}
+          <div>
+            <h3 className="text-lg font-bold mb-4">Categorias</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/blog" className="hover:text-green-400 transition-colors">
+                  Solo
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-green-400 transition-colors">
+                  Tecnologia
+                </Link>
+              </li>
+              <li>
+                <Link href="/comex" className="hover:text-green-400 transition-colors">
+                  Comex
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-green-400 transition-colors">
+                  Mercados
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-green-400 transition-colors">
+                  Tendências
+                </Link>
+              </li>
+            </ul>
+          </div>
 
-            {/* Social Icons */}
-            <div className="flex space-x-4 mt-6">
-              <a
-                href="https://www.instagram.com/soloricoagrociencias"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-brand-green transition-colors"
-              >
-                <Instagram className="h-6 w-6" />
-              </a>
-              <a
-                href="https://www.facebook.com/soloricoagrociencias"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-brand-green transition-colors"
-              >
-                <Facebook className="h-6 w-6" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/soloricoagrociencias"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-brand-green transition-colors"
-              >
-                <Linkedin className="h-6 w-6" />
-              </a>
+          {/* Informações da Empresa */}
+          <div>
+            <div className="text-center mb-6">
+              <div className="text-xl font-bold">Solo Rico</div>
+              <div className="text-xs text-gray-400">AGROCIÊNCIAS</div>
+            </div>
+            <p className="text-sm text-gray-300 mb-4">
+              A Solo Rico Agrociências é uma empresa 100% brasileira, com sede em São José do Rio Preto, considerada
+              uma das maiores produtoras de fertilizantes do Brasil. Atua em todos os Estados e no Distrito Federal.
+              Atendimento de segunda a sexta-feira, das 09h às 18h (exceto feriados).
+            </p>
+            <div className="text-sm text-gray-300 mb-4">
+              <p>© 2025 Solo Rico Agrociências</p>
+              <p>CNPJ: 67.681.007/0001-97 | Endereço: R. Roque de Campos Teixeira, 180 - Distrito Industrial, São José do Rio Preto - SP, 15035-430</p>
+              <p>Proibida a reprodução total ou parcial de conteúdos deste site.</p>
             </div>
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
-          <p>SOLO RICO ® 2025 Todos os direitos reservados | Desenvolvimento Martinha TI</p>
-          <div className="mt-2">
-            <a href="https://wa.me/551732316000" target="_blank" rel="noopener noreferrer" className="hover:text-brand-green">
-              Política e Privacidade
-            </a>
-            {" | "}
-            <Link href="/sac" className="hover:text-brand-green">
-              Central de Atendimento
-            </Link>
+        {/* Seção Empresa */}
+        <div className="border-t border-gray-700 mt-8 pt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Para Empresas */}
+            <div>
+              <h3 className="text-lg font-bold mb-4">Para Empresas</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/para-empresas" className="hover:text-green-400 transition-colors">
+                    Produtos Corporativos
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/para-empresas" className="hover:text-green-400 transition-colors">
+                    Soluções Inteligentes
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/para-empresas" className="hover:text-green-400 transition-colors">
+                    Cases de Sucesso
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Ajuda */}
+            <div>
+              <h3 className="text-lg font-bold mb-4">Ajuda</h3>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/sac" className="hover:text-green-400 transition-colors">
+                    Perguntas Frequentes
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/sac" className="hover:text-green-400 transition-colors">
+                    Central de Atendimento
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/politica-de-privacidade" className="hover:text-green-400 transition-colors">
+                    Política de Privacidade
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Atendimento */}
+            <div>
+              <h3 className="text-lg font-bold mb-4">Atendimento</h3>
+              <ul className="space-y-2 text-sm">
+                <li className="flex items-center">
+                  <span className="mr-2">📞</span>
+                  <a href="tel:+551732316000" className="hover:text-green-400 transition-colors">
+                    (17) 3231-6000
+                  </a>
+                </li>
+                <li className="flex items-center">
+                  <span className="mr-2">📧</span>
+                  <a href="mailto:sac@gruposolorico.com.br" className="hover:text-green-400 transition-colors">
+                    sac@gruposolorico.com.br
+                  </a>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 mt-1">📍</span>
+                  <span>
+                    R. Roque de Campos Teixeira, 180 - Distrito Industrial
+                    <br />
+                    São José do Rio Preto - SP, 15035-430, Brasil
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Seção Siga-nos */}
+        <div className="border-t border-gray-700 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">
+              <h3 className="text-lg font-bold mb-2">Siga-nos</h3>
+              <div className="flex space-x-4">
+                <a href="#" className="hover:text-green-400 transition-colors">
+                  <span className="text-2xl">📘</span>
+                </a>
+                <a href="#" className="hover:text-green-400 transition-colors">
+                  <span className="text-2xl">📷</span>
+                </a>
+                <a href="#" className="hover:text-green-400 transition-colors">
+                  <span className="text-2xl">💼</span>
+                </a>
+              </div>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-gray-400">
+                SOLO RICO © 2025 Todos os direitos reservados | Desenvolvido por Martinha TI
+              </p>
+              <div className="mt-2 space-x-4 text-sm">
+                <Link href="/politica-de-privacidade" className="hover:text-green-400 transition-colors">
+                  Política de Privacidade
+                </Link>
+                <span className="text-gray-500">|</span>
+                <Link href="/politica-de-seguranca" className="hover:text-green-400 transition-colors">
+                  Política de Segurança
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
