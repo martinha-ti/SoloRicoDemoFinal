@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { sendContactEmail, sendJobApplicationEmail } from "./services/emailService";
-import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema } from "@shared/schema";
+import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema, loginSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Products routes
@@ -158,6 +158,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ message: 'Notification deleted' });
     } catch (error) {
       res.status(500).json({ error: 'Failed to delete notification' });
+    }
+  });
+
+  // Admin authentication routes
+  app.post('/api/admin/login', async (req, res) => {
+    try {
+      const validatedData = loginSchema.parse(req.body);
+      const admin = await storage.verifyAdmin(validatedData.username, validatedData.password);
+      
+      if (!admin) {
+        return res.status(401).json({ error: 'Credenciais inválidas' });
+      }
+      
+      // Em produção, usar JWT ou sessões seguras
+      res.json({ 
+        success: true, 
+        admin: { 
+          id: admin.id, 
+          username: admin.username 
+        } 
+      });
+    } catch (error) {
+      console.error('Login error:', error);
+      res.status(400).json({ error: 'Dados inválidos' });
+    }
+  });
+
+  app.post('/api/admin/logout', async (req, res) => {
+    try {
+      // Em produção, limpar sessão/JWT
+      res.json({ success: true });
+    } catch (error) {
+      res.status(500).json({ error: 'Erro ao fazer logout' });
     }
   });
 

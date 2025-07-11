@@ -5,6 +5,7 @@ import {
   contactMessages, 
   jobApplications,
   notifications,
+  admins,
   type User, 
   type InsertUser, 
   type Product, 
@@ -16,7 +17,10 @@ import {
   type JobApplication,
   type InsertJobApplication,
   type Notification,
-  type InsertNotification
+  type InsertNotification,
+  type Admin,
+  type InsertAdmin,
+  type LoginCredentials
 } from "@shared/schema";
 
 export interface IStorage {
@@ -43,6 +47,11 @@ export interface IStorage {
   markNotificationAsRead(id: number): Promise<void>;
   markAllNotificationsAsRead(userId?: number): Promise<void>;
   deleteNotification(id: number): Promise<void>;
+  
+  // Admin methods
+  getAdminByUsername(username: string): Promise<Admin | undefined>;
+  createAdmin(admin: InsertAdmin): Promise<Admin>;
+  verifyAdmin(username: string, password: string): Promise<Admin | null>;
 }
 
 export class MemStorage implements IStorage {
@@ -52,6 +61,7 @@ export class MemStorage implements IStorage {
   private contactMessages: Map<number, ContactMessage>;
   private jobApplications: Map<number, JobApplication>;
   private notifications: Map<number, Notification>;
+  private admins: Map<number, Admin>;
   
   private currentUserId: number;
   private currentProductId: number;
@@ -59,6 +69,7 @@ export class MemStorage implements IStorage {
   private currentContactMessageId: number;
   private currentJobApplicationId: number;
   private currentNotificationId: number;
+  private currentAdminId: number;
 
   constructor() {
     this.users = new Map();
@@ -67,6 +78,7 @@ export class MemStorage implements IStorage {
     this.contactMessages = new Map();
     this.jobApplications = new Map();
     this.notifications = new Map();
+    this.admins = new Map();
     
     this.currentUserId = 1;
     this.currentProductId = 1;
@@ -74,6 +86,7 @@ export class MemStorage implements IStorage {
     this.currentContactMessageId = 1;
     this.currentJobApplicationId = 1;
     this.currentNotificationId = 1;
+    this.currentAdminId = 1;
     
     this.seedData();
   }
@@ -189,6 +202,14 @@ export class MemStorage implements IStorage {
     sampleNotifications.forEach(notification => {
       this.createNotification(notification);
     });
+
+    // Seed admin user
+    const defaultAdmin: InsertAdmin = {
+      username: "admin",
+      password: "admin123" // Em produção, usar hash bcrypt
+    };
+
+    this.createAdmin(defaultAdmin);
   }
 
   async getUser(id: number): Promise<User | undefined> {
@@ -331,6 +352,38 @@ export class MemStorage implements IStorage {
 
   async deleteNotification(id: number): Promise<void> {
     this.notifications.delete(id);
+  }
+
+  // Admin methods
+  async getAdminByUsername(username: string): Promise<Admin | undefined> {
+    return Array.from(this.admins.values()).find(
+      (admin) => admin.username === username,
+    );
+  }
+
+  async createAdmin(insertAdmin: InsertAdmin): Promise<Admin> {
+    const id = this.currentAdminId++;
+    const admin: Admin = { 
+      ...insertAdmin, 
+      id, 
+      createdAt: new Date()
+    };
+    this.admins.set(id, admin);
+    return admin;
+  }
+
+  async verifyAdmin(username: string, password: string): Promise<Admin | null> {
+    const admin = await this.getAdminByUsername(username);
+    if (!admin) {
+      return null;
+    }
+    
+    // Em produção, usar bcrypt para comparar hash
+    if (admin.password === password) {
+      return admin;
+    }
+    
+    return null;
   }
 }
 
@@ -531,6 +584,41 @@ export class DatabaseStorage implements IStorage {
     await db
       .delete(notifications)
       .where(eq(notifications.id, id));
+  }
+
+  // Admin methods
+  async getAdminByUsername(username: string): Promise<Admin | undefined> {
+    const { db } = await import('./db');
+    const { admins } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    
+    const [admin] = await db.select().from(admins).where(eq(admins.username, username));
+    return admin || undefined;
+  }
+
+  async createAdmin(insertAdmin: InsertAdmin): Promise<Admin> {
+    const { db } = await import('./db');
+    const { admins } = await import('@shared/schema');
+    
+    const [admin] = await db
+      .insert(admins)
+      .values(insertAdmin)
+      .returning();
+    return admin;
+  }
+
+  async verifyAdmin(username: string, password: string): Promise<Admin | null> {
+    const admin = await this.getAdminByUsername(username);
+    if (!admin) {
+      return null;
+    }
+    
+    // Em produção, usar bcrypt para comparar hash
+    if (admin.password === password) {
+      return admin;
+    }
+    
+    return null;
   }
 }
 

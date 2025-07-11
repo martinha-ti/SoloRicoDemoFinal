@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocation } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -20,16 +21,44 @@ import {
   Edit,
   Trash2,
   Eye,
-  Save
+  Save,
+  LogOut
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 import type { Product, BlogPost, Notification, ContactMessage, JobApplication } from '@shared/schema';
 
 export default function Admin() {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [, setLocation] = useLocation();
+  const { toast } = useToast();
   const queryClient = useQueryClient();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Verificar se o admin está autenticado
+    const adminAuth = localStorage.getItem("adminAuth");
+    if (!adminAuth) {
+      setLocation("/admin-login");
+      return;
+    }
+    setIsAuthenticated(true);
+  }, [setLocation]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminAuth");
+    toast({
+      title: "Logout realizado",
+      description: "Você foi desconectado com sucesso.",
+    });
+    setLocation("/admin-login");
+  };
+
+  if (!isAuthenticated) {
+    return null; // ou um loading spinner
+  }
 
   // Fetch data
   const { data: products = [] } = useQuery<Product[]>({
@@ -120,9 +149,15 @@ export default function Admin() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-6">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Painel Administrativo</h1>
-          <p className="text-gray-600 mt-2">Gerencie o conteúdo e configurações do site Solo Rico</p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Painel Administrativo</h1>
+            <p className="text-gray-600 mt-2">Gerencie o conteúdo e configurações do site Solo Rico</p>
+          </div>
+          <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
+            <LogOut className="h-4 w-4" />
+            Sair
+          </Button>
         </div>
 
         {/* Tabs */}
