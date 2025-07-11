@@ -1,96 +1,54 @@
-import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { z } from "zod";
-import { api } from "@/lib/api";
+import { useParams, Link } from "wouter";
+import { useLanguage } from "@/contexts/LanguageContext";
+import PageHeader from "@/components/PageHeader";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { useToast } from "@/hooks/use-toast";
-import { ArrowLeft, CheckCircle, Phone, Mail, MessageCircle, Star, Leaf } from "lucide-react";
-import { Link } from "wouter";
-
-const contactSchema = z.object({
-  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
-  email: z.string().email("E-mail inválido"),
-  phone: z.string().optional(),
-  message: z.string().min(10, "Mensagem deve ter pelo menos 10 caracteres"),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
+import { 
+  ChevronRight, 
+  Leaf, 
+  Shield, 
+  Droplets, 
+  Zap, 
+  CheckCircle, 
+  Download,
+  Phone,
+  MessageCircle
+} from "lucide-react";
+import type { Product } from "@shared/schema";
 
 export default function ProductDetail() {
-  const { slug } = useParams();
-  const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const { data: product, isLoading, error } = useQuery({
+  const { slug } = useParams<{ slug: string }>();
+  const { t } = useLanguage();
+  
+  const { data: product, isLoading } = useQuery<Product>({
     queryKey: ['/api/products', slug],
-    queryFn: () => api.getProduct(slug as string),
-    enabled: !!slug,
-  });
-
-  const form = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
+    queryFn: async () => {
+      const response = await fetch(`/api/products/${slug}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch product');
+      }
+      return response.json();
     },
   });
-
-  const contactMutation = useMutation({
-    mutationFn: (data: ContactFormData) => api.sendContact({
-      ...data,
-      subject: `Interesse no produto: ${product?.name}`,
-      productId: product?.id,
-    }),
-    onSuccess: () => {
-      toast({
-        title: "Solicitação enviada com sucesso!",
-        description: "Entraremos em contato em breve com mais informações.",
-      });
-      form.reset();
-      setIsSubmitting(false);
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Erro ao enviar solicitação",
-        description: "Tente novamente ou entre em contato por telefone.",
-        variant: "destructive",
-      });
-      setIsSubmitting(false);
-    },
-  });
-
-  const onSubmit = (data: ContactFormData) => {
-    setIsSubmitting(true);
-    contactMutation.mutate(data);
-  };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div>
+        <PageHeader
+          title="Carregando produto..."
+          subtitle="Aguarde enquanto carregamos as informações"
+        />
         <div className="container mx-auto px-4 py-20">
           <div className="animate-pulse">
-            <div className="h-8 bg-gray-300 rounded w-1/4 mb-8"></div>
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="h-64 bg-gray-300"></div>
-              <div className="p-8">
-                <div className="h-6 bg-gray-300 rounded w-3/4 mb-4"></div>
-                <div className="h-4 bg-gray-300 rounded w-1/2 mb-6"></div>
-                <div className="space-y-2">
-                  <div className="h-4 bg-gray-300 rounded"></div>
-                  <div className="h-4 bg-gray-300 rounded w-5/6"></div>
-                  <div className="h-4 bg-gray-300 rounded w-4/6"></div>
-                </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              <div className="bg-gray-300 h-96 rounded-lg"></div>
+              <div className="space-y-4">
+                <div className="h-8 bg-gray-300 rounded w-3/4"></div>
+                <div className="h-6 bg-gray-300 rounded w-1/2"></div>
+                <div className="h-4 bg-gray-300 rounded"></div>
+                <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+                <div className="h-4 bg-gray-300 rounded w-4/6"></div>
               </div>
             </div>
           </div>
@@ -99,306 +57,220 @@ export default function ProductDetail() {
     );
   }
 
-  if (error || !product) {
+  if (!product) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Card className="max-w-md mx-4">
-          <CardContent className="pt-6 text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Produto não encontrado</h1>
-            <p className="text-gray-600 mb-6">
-              O produto que você está procurando não foi encontrado ou não está mais disponível.
-            </p>
-            <Button asChild>
-              <Link href="/">Voltar ao início</Link>
+      <div>
+        <PageHeader
+          title="Produto não encontrado"
+          subtitle="O produto que você está procurando não foi encontrado"
+        />
+        <div className="container mx-auto px-4 py-20 text-center">
+          <Leaf className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-xl font-semibold text-gray-600 mb-2">
+            Produto não encontrado
+          </h3>
+          <p className="text-gray-500 mb-6">
+            O produto que você está procurando não existe ou foi removido.
+          </p>
+          <Link href="/products">
+            <Button className="bg-brand-green hover:bg-brand-green-dark text-white">
+              Ver todos os produtos
             </Button>
-          </CardContent>
-        </Card>
+          </Link>
+        </div>
       </div>
     );
   }
+
+  const features = product.features ? product.features.split(',').map(f => f.trim()) : [];
+  const benefits = product.benefits ? product.benefits.split(',').map(b => b.trim()) : [];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div>
+      <PageHeader
+        title={product.name}
+        subtitle={product.category}
+        backgroundImage={product.imageUrl || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1200&h=400&fit=crop'}
+      />
+
       {/* Breadcrumb */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-4">
-          <Button asChild variant="ghost" className="text-brand-green hover:text-brand-green-dark">
-            <Link href="/">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Voltar
-            </Link>
-          </Button>
-        </div>
-      </div>
-
-      {/* Product Detail */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-          {/* Product Header */}
-          <div className="relative">
-            <img 
-              src={product.imageUrl || 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&h=400&fit=crop'} 
-              alt={product.name} 
-              className="w-full h-64 md:h-80 object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
-              <div className="absolute bottom-6 left-6">
-                <Badge className="bg-brand-green text-white mb-4">
-                  {product.category}
-                </Badge>
-                <h1 className="text-white text-3xl md:text-4xl font-bold">{product.name}</h1>
-              </div>
-            </div>
-          </div>
-
-          <div className="p-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Product Information */}
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-2xl font-bold text-brand-green mb-4 flex items-center">
-                    <Leaf className="h-6 w-6 mr-2" />
-                    Descrição do Produto
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed text-lg">
-                    {product.description}
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold text-brand-green mb-4">Principais Benefícios</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {product.benefits.map((benefit, index) => (
-                      <div key={index} className="flex items-start p-4 bg-gray-50 rounded-lg">
-                        <CheckCircle className="h-5 w-5 text-brand-green mt-0.5 mr-3 flex-shrink-0" />
-                        <span className="text-gray-700">{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Product Features */}
-                <div>
-                  <h3 className="text-xl font-bold text-brand-green mb-4">Características</h3>
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <h4 className="font-semibold text-gray-800 mb-2">Categoria</h4>
-                        <p className="text-gray-600">{product.category}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-800 mb-2">Aplicação</h4>
-                        <p className="text-gray-600">Foliar e via solo</p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-800 mb-2">Formulação</h4>
-                        <p className="text-gray-600">Líquida concentrada</p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-800 mb-2">Embalagem</h4>
-                        <p className="text-gray-600">1L, 5L, 20L</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Customer Reviews */}
-                <div>
-                  <h3 className="text-xl font-bold text-brand-green mb-4">Avaliações dos Clientes</h3>
-                  <div className="space-y-4">
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <div className="flex items-center mb-2">
-                        <div className="flex mr-2">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 text-brand-yellow fill-current" />
-                          ))}
-                        </div>
-                        <span className="text-sm text-gray-600">João Silva - Produtor Rural</span>
-                      </div>
-                      <p className="text-gray-700 text-sm">
-                        "Excelente produto! Notei melhora significativa na produtividade da minha lavoura."
-                      </p>
-                    </div>
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <div className="flex items-center mb-2">
-                        <div className="flex mr-2">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 text-brand-yellow fill-current" />
-                          ))}
-                        </div>
-                        <span className="text-sm text-gray-600">Maria Santos - Agrônoma</span>
-                      </div>
-                      <p className="text-gray-700 text-sm">
-                        "Produto de alta qualidade, fácil aplicação e resultados consistentes."
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Contact Form */}
-              <div>
-                <div className="sticky top-8">
-                  <Card className="shadow-lg">
-                    <CardHeader>
-                      <CardTitle className="text-2xl text-brand-green">Solicite Mais Informações</CardTitle>
-                      <p className="text-gray-600">
-                        Preencha o formulário abaixo e nossa equipe técnica entrará em contato com você.
-                      </p>
-                    </CardHeader>
-                    <CardContent>
-                      <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                          <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Nome Completo *</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="Seu nome completo" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>E-mail *</FormLabel>
-                                <FormControl>
-                                  <Input type="email" placeholder="seu@email.com" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="phone"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Telefone</FormLabel>
-                                <FormControl>
-                                  <Input placeholder="(11) 99999-9999" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <FormField
-                            control={form.control}
-                            name="message"
-                            render={({ field }) => (
-                              <FormItem>
-                                <FormLabel>Mensagem *</FormLabel>
-                                <FormControl>
-                                  <Textarea
-                                    rows={4}
-                                    placeholder="Conte-nos sobre seu interesse no produto, tamanho da propriedade, cultura, etc..."
-                                    {...field}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-
-                          <Button 
-                            type="submit" 
-                            className="w-full bg-brand-green hover:bg-brand-green-dark text-white"
-                            disabled={isSubmitting}
-                          >
-                            {isSubmitting ? (
-                              <>
-                                <div className="loading mr-2"></div>
-                                Enviando Solicitação...
-                              </>
-                            ) : (
-                              "Enviar Solicitação"
-                            )}
-                          </Button>
-                        </form>
-                      </Form>
-
-                      {/* Quick Contact Options */}
-                      <div className="mt-6 pt-6 border-t">
-                        <p className="text-sm text-gray-600 mb-4">Ou entre em contato diretamente:</p>
-                        <div className="space-y-3">
-                          <a 
-                            href="https://wa.me/5517981863298" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="flex items-center p-3 bg-green-50 text-green-700 rounded-lg hover:bg-green-100 transition-colors"
-                          >
-                            <MessageCircle className="h-5 w-5 mr-3" />
-                            <span className="font-medium">WhatsApp: (17) 98186-3298</span>
-                          </a>
-                          <a 
-                            href="tel:+551732316000"
-                            className="flex items-center p-3 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition-colors"
-                          >
-                            <Phone className="h-5 w-5 mr-3" />
-                            <span className="font-medium">Telefone: (17) 3231-6000</span>
-                          </a>
-                          <a 
-                            href="mailto:contato@solorico.com.br"
-                            className="flex items-center p-3 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
-                          >
-                            <Mail className="h-5 w-5 mr-3" />
-                            <span className="font-medium">contato@solorico.com.br</span>
-                          </a>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Related Products */}
-      <section className="py-20 bg-white">
+      <div className="bg-gray-50 py-4">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-green mb-4">
-              Produtos Relacionados
-            </h2>
-            <p className="text-gray-600 max-w-3xl mx-auto">
-              Conheça outros produtos da linha {product.category}
-            </p>
-          </div>
+          <nav className="flex items-center space-x-2 text-sm text-gray-600">
+            <Link href="/" className="hover:text-brand-green">
+              Home
+            </Link>
+            <ChevronRight className="h-4 w-4" />
+            <Link href="/products" className="hover:text-brand-green">
+              Produtos
+            </Link>
+            <ChevronRight className="h-4 w-4" />
+            <Link href={`/products/${product.category.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-brand-green">
+              {product.category}
+            </Link>
+            <ChevronRight className="h-4 w-4" />
+            <span className="text-brand-green font-medium">
+              {product.name}
+            </span>
+          </nav>
+        </div>
+      </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* This would be populated with related products from the same category */}
-            {[1, 2, 3].map((item) => (
-              <Card key={item} className="hover:shadow-lg transition-shadow cursor-pointer">
-                <div className="relative overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=200&fit=crop" 
-                    alt="Produto Relacionado" 
-                    className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <Badge className="bg-brand-green text-white mb-2">{product.category}</Badge>
-                  <h3 className="font-bold text-brand-green mb-2">Produto Relacionado {item}</h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    Descrição do produto relacionado na mesma categoria.
-                  </p>
-                  <Button variant="outline" className="w-full border-brand-green text-brand-green hover:bg-brand-green hover:text-white">
-                    Ver Produto
-                  </Button>
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Product Image */}
+            <div className="relative">
+              <img 
+                src={product.imageUrl || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop'} 
+                alt={product.name} 
+                className="w-full h-96 object-cover rounded-lg shadow-lg"
+              />
+              <div className="absolute top-4 right-4">
+                <span className="bg-white/90 backdrop-blur-sm text-brand-green px-3 py-1 rounded-full text-sm font-medium">
+                  {product.category}
+                </span>
+              </div>
+            </div>
+
+            {/* Product Info */}
+            <div className="space-y-6">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  {product.name}
+                </h1>
+                <p className="text-xl text-brand-green font-semibold">
+                  {product.category}
+                </p>
+              </div>
+
+              <div className="prose prose-gray max-w-none">
+                <p className="text-gray-600 text-lg leading-relaxed">
+                  {product.description}
+                </p>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <Button className="bg-brand-green hover:bg-brand-green-dark text-white">
+                  <Phone className="mr-2 h-4 w-4" />
+                  Entrar em contato
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white"
+                >
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  WhatsApp
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download PDF
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features & Benefits */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Features */}
+            {features.length > 0 && (
+              <Card>
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-6">
+                    <Zap className="h-6 w-6 text-brand-green mr-3" />
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Características
+                    </h3>
+                  </div>
+                  <ul className="space-y-3">
+                    {features.map((feature, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-5 w-5 text-brand-green mr-3 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
-            ))}
+            )}
+
+            {/* Benefits */}
+            {benefits.length > 0 && (
+              <Card>
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-6">
+                    <Shield className="h-6 w-6 text-brand-green mr-3" />
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Benefícios
+                    </h3>
+                  </div>
+                  <ul className="space-y-3">
+                    {benefits.map((benefit, index) => (
+                      <li key={index} className="flex items-start">
+                        <CheckCircle className="h-5 w-5 text-brand-green mr-3 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Usage Instructions */}
+      {product.usage && (
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <Card>
+              <CardContent className="p-8">
+                <div className="flex items-center mb-6">
+                  <Droplets className="h-6 w-6 text-brand-green mr-3" />
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    Modo de Uso
+                  </h3>
+                </div>
+                <div className="prose prose-gray max-w-none">
+                  <p className="text-gray-700 leading-relaxed">
+                    {product.usage}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+      )}
+
+      {/* Related Products */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Produtos Relacionados
+            </h3>
+            <p className="text-gray-600">
+              Explore outros produtos da mesma categoria
+            </p>
+          </div>
+          <div className="flex justify-center">
+            <Link href={`/products/${product.category.toLowerCase().replace(/\s+/g, '-')}`}>
+              <Button 
+                variant="outline" 
+                className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white"
+              >
+                Ver todos os produtos da categoria
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

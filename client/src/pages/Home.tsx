@@ -167,43 +167,49 @@ export default function Home() {
                 name: "TOP LIME PRO",
                 subtitle: "LINHA DE ADJUVANTES",
                 image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
-                icon: Droplets
+                icon: Droplets,
+                category: "adjuvantes"
               },
               {
                 name: "REVOLUTION",
                 subtitle: "LINHA PROTECT",
                 image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
-                icon: Shield
+                icon: Shield,
+                category: "linha-protect"
               },
               {
                 name: "GEL DE PLANTIO",
                 subtitle: "LINHA TITANIUM SOLLUS",
                 image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
-                icon: Sprout
+                icon: Sprout,
+                category: "nutricao-especial"
               },
               {
                 name: "PROTETOR E700",
                 subtitle: "LINHA PROTECT",
                 image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop",
-                icon: Snowflake
+                icon: Snowflake,
+                category: "linha-protect"
               }
             ].map((product) => {
               const IconComponent = product.icon;
               return (
-                <div key={product.name} className="group cursor-pointer">
-                  <div className="image-wrapper rounded-lg overflow-hidden">
-                    <img 
-                      src={product.image} 
-                      alt={product.name} 
-                      className="w-full h-64 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white">
-                      <IconComponent className="w-12 h-12 mb-2 text-yellow-400" />
-                      <h3 className="text-lg font-bold text-center">{product.name}</h3>
-                      <p className="text-sm text-center">{product.subtitle}</p>
+                <Link key={product.name} href={`/produtos/${product.category || 'outros'}`}>
+                  <div className="group cursor-pointer">
+                    <div className="image-wrapper rounded-lg overflow-hidden">
+                      <img 
+                        src={product.image} 
+                        alt={product.name} 
+                        className="w-full h-64 object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white">
+                        <IconComponent className="w-12 h-12 mb-2 text-yellow-400" />
+                        <h3 className="text-lg font-bold text-center">{product.name}</h3>
+                        <p className="text-sm text-center">{product.subtitle}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -243,37 +249,44 @@ export default function Home() {
             {[
               {
                 name: "TITANIUM FOLIAR",
-                image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300&h=300&fit=crop"
+                image: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=300&h=300&fit=crop",
+                category: "fertilizantes-foliares"
               },
               {
                 name: "TITANIUM SOLLUS",
-                image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&h=300&fit=crop"
+                image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&h=300&fit=crop",
+                category: "nutricao-especial"
               },
               {
                 name: "PROTECT",
-                image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=300&h=300&fit=crop"
+                image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=300&h=300&fit=crop",
+                category: "linha-protect"
               },
               {
                 name: "ADJUVANTES",
-                image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=300&h=300&fit=crop"
+                image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=300&h=300&fit=crop",
+                category: "adjuvantes"
               },
               {
                 name: "VIGOR",
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop"
+                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
+                category: "defensivos"
               }
             ].map((line) => (
-              <div key={line.name} className="group cursor-pointer">
-                <div className="image-wrapper">
-                  <img 
-                    src={line.image} 
-                    alt={line.name} 
-                    className="product-image"
-                  />
-                  <div className="product-title-overlay">
-                    <h3 className="text-sm font-bold">{line.name}</h3>
+              <Link key={line.name} href={`/produtos/${line.category}`}>
+                <div className="group cursor-pointer">
+                  <div className="image-wrapper">
+                    <img 
+                      src={line.image} 
+                      alt={line.name} 
+                      className="product-image"
+                    />
+                    <div className="product-title-overlay">
+                      <h3 className="text-sm font-bold">{line.name}</h3>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

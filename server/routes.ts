@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { sendContactEmail, sendJobApplicationEmail } from "./services/emailService";
-import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema, loginSchema, insertBlogPostSchema } from "@shared/schema";
+import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema, loginSchema, insertBlogPostSchema, insertProductSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Products routes
