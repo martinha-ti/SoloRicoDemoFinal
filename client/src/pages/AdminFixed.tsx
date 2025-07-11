@@ -96,12 +96,14 @@ export default function AdminFixed() {
       name: product.name,
       slug: product.slug,
       description: product.description || '',
-      shortDescription: product.shortDescription || '',
-      price: product.price || 0,
+      features: product.features || '',
+      benefits: Array.isArray(product.benefits) ? product.benefits : [],
+      usage: product.usage || '',
+      composition: product.composition || '',
+      technicalSpecs: product.technicalSpecs || '',
       category: product.category || '',
-      benefits: product.benefits || [],
       imageUrl: product.imageUrl || '',
-      featured: product.featured || false,
+      gallery: Array.isArray(product.gallery) ? product.gallery : [],
       active: product.active !== false,
     });
     setIsProductDialogOpen(true);
@@ -122,6 +124,11 @@ export default function AdminFixed() {
     // Parse benefits if it's a string
     if (typeof data.benefits === 'string') {
       data.benefits = data.benefits.split(',').map(b => b.trim()).filter(Boolean);
+    }
+
+    // Parse gallery if it's a string
+    if (typeof data.gallery === 'string') {
+      data.gallery = data.gallery.split(',').map(g => g.trim()).filter(Boolean);
     }
 
     if (editingProduct) {
