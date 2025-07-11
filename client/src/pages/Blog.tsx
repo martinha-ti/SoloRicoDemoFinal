@@ -5,8 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, ArrowRight } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Blog() {
+  const { t } = useLanguage();
   const { data: blogPosts = [], isLoading } = useQuery({
     queryKey: ['/api/blog'],
     queryFn: () => api.getBlogPosts(),
@@ -16,8 +18,8 @@ export default function Blog() {
     return (
       <div>
         <PageHeader
-          title="Blog"
-          subtitle="Informações, dicas e novidades do agronegócio"
+          title={t('blog')}
+          subtitle={t('blog_subtitle')}
         />
         <div className="container mx-auto px-4 py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -41,8 +43,8 @@ export default function Blog() {
   return (
     <div>
       <PageHeader
-        title="Blog"
-        subtitle="Informações, dicas e novidades do agronegócio"
+        title={t('blog')}
+        subtitle={t('blog_subtitle')}
       />
 
       {/* Featured Post */}
@@ -59,7 +61,7 @@ export default function Blog() {
                   />
                   <div className="absolute top-4 left-4">
                     <Badge className="bg-brand-green text-white">
-                      Destaque
+                      {t('featured')}
                     </Badge>
                   </div>
                 </div>

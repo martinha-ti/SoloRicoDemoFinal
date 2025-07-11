@@ -1,7 +1,9 @@
 import { Link } from "wouter";
 import { Phone, Mail, MapPin, Instagram, Facebook, Linkedin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <footer className="bg-gray-900 text-white">
       {/* Seção Principal com Logo e Descrição */}
@@ -12,9 +14,7 @@ export default function Footer() {
             <div className="text-sm text-gray-400 tracking-wider">AGROCIÊNCIAS</div>
           </div>
           <p className="text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            A Solo Rico Agrociências é uma empresa 100% brasileira, com sede em São José do Rio Preto, considerada
-            uma das maiores produtoras de fertilizantes do Brasil. Atua em todos os Estados e no Distrito Federal.
-            Atendimento de segunda a sexta-feira, das 09h às 18h (exceto feriados).
+            {t('footer_about_text')}
           </p>
         </div>
       </div>
@@ -25,21 +25,21 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Para Empresas */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">Para Empresas</h3>
+              <h3 className="text-lg font-bold mb-4 text-white">{t('for_businesses')}</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
-                    Produtos Corporativos
+                    {t('corporate_products')}
                   </Link>
                 </li>
                 <li>
                   <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
-                    Soluções Inteligentes
+                    {t('smart_solutions')}
                   </Link>
                 </li>
                 <li>
                   <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
-                    Cases de Sucesso
+                    {t('success_cases')}
                   </Link>
                 </li>
               </ul>
@@ -47,21 +47,21 @@ export default function Footer() {
 
             {/* Ajuda */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">Ajuda</h3>
+              <h3 className="text-lg font-bold mb-4 text-white">{t('help')}</h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link href="/sac" className="text-gray-300 hover:text-green-400 transition-colors">
-                    Perguntas Frequentes
+                    {t('faq')}
                   </Link>
                 </li>
                 <li>
                   <Link href="/sac" className="text-gray-300 hover:text-green-400 transition-colors">
-                    Central de Atendimento
+                    {t('support_center')}
                   </Link>
                 </li>
                 <li>
                   <Link href="/politica-de-privacidade" className="text-gray-300 hover:text-green-400 transition-colors">
-                    Política de Privacidade
+                    {t('privacy_policy')}
                   </Link>
                 </li>
               </ul>
@@ -69,7 +69,7 @@ export default function Footer() {
 
             {/* Atendimento */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">Atendimento</h3>
+              <h3 className="text-lg font-bold mb-4 text-white">{t('footer_contact_info')}</h3>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center text-gray-300">
                   <Phone className="w-4 h-4 mr-2 text-yellow-400" />

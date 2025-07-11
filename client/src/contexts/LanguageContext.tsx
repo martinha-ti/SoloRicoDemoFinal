@@ -91,6 +91,33 @@ const translations = {
     see_details: "Ver Detalhes",
     our_products: "Nossos Produtos",
     
+    // Footer
+    footer_about: "Sobre a Solo Rico",
+    footer_about_text: "A Solo Rico Agrociências é uma empresa 100% brasileira, com sede em São José do Rio Preto, considerada uma das maiores produtoras de fertilizantes do Brasil. Atua em todos os Estados e no Distrito Federal. Atendimento de segunda a sexta-feira, das 09h às 18h (exceto feriados).",
+    footer_quick_links: "Links Rápidos",
+    footer_products: "Produtos",
+    footer_contact_info: "Informações de Contato",
+    footer_address: "Endereço",
+    footer_phone: "Telefone",
+    footer_email: "Email",
+    footer_social: "Redes Sociais",
+    footer_rights: "Todos os direitos reservados",
+    help: "Ajuda",
+    faq: "Perguntas Frequentes",
+    support_center: "Central de Atendimento",
+    privacy_policy: "Política de Privacidade",
+    corporate_products: "Produtos Corporativos",
+    smart_solutions: "Soluções Inteligentes",
+    success_cases: "Cases de Sucesso",
+    
+    // Blog
+    blog: "Blog",
+    blog_subtitle: "Informações, dicas e novidades do agronegócio",
+    read_more: "Leia Mais",
+    recent_posts: "Posts Recentes",
+    categories: "Categorias",
+    featured: "Destaque",
+    
     // Notifications
     notifications: "Notificações",
     markAllAsRead: "Marcar todas como lidas",
@@ -173,6 +200,33 @@ const translations = {
     whatsapp: "WhatsApp",
     see_details: "See Details",
     our_products: "Our Products",
+    
+    // Footer
+    footer_about: "About Solo Rico",
+    footer_about_text: "Solo Rico Agrociências is a 100% Brazilian company, based in São José do Rio Preto, considered one of the largest fertilizer producers in Brazil. It operates in all states and the Federal District. Service from Monday to Friday, from 9am to 6pm (except holidays).",
+    footer_quick_links: "Quick Links",
+    footer_products: "Products",
+    footer_contact_info: "Contact Information",
+    footer_address: "Address",
+    footer_phone: "Phone",
+    footer_email: "Email",
+    footer_social: "Social Media",
+    footer_rights: "All rights reserved",
+    help: "Help",
+    faq: "Frequently Asked Questions",
+    support_center: "Support Center",
+    privacy_policy: "Privacy Policy",
+    corporate_products: "Corporate Products",
+    smart_solutions: "Smart Solutions",
+    success_cases: "Success Cases",
+    
+    // Blog
+    blog: "Blog",
+    blog_subtitle: "Information, tips and agribusiness news",
+    read_more: "Read More",
+    recent_posts: "Recent Posts",
+    categories: "Categories",
+    featured: "Featured",
     
     // Notifications
     notifications: "Notifications",
