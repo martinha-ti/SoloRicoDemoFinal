@@ -131,7 +131,7 @@ export default function Admin() {
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="products">Produtos</TabsTrigger>
             <TabsTrigger value="blog">Blog</TabsTrigger>
-            <TabsTrigger value="notifications">Notificações</TabsTrigger>
+            <TabsTrigger value="seo">SEO</TabsTrigger>
             <TabsTrigger value="messages">Mensagens</TabsTrigger>
           </TabsList>
 
@@ -263,95 +263,228 @@ export default function Admin() {
             </Card>
           </TabsContent>
 
-          {/* Notifications Tab */}
-          <TabsContent value="notifications" className="space-y-6">
-            {/* Create Notification */}
+          {/* SEO Tab */}
+          <TabsContent value="seo" className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle>Criar Nova Notificação</CardTitle>
+                <CardTitle>Configurações de SEO</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div>
-                    <Label htmlFor="title">Título</Label>
-                    <Input
-                      id="title"
-                      value={newNotification.title}
-                      onChange={(e) => setNewNotification({...newNotification, title: e.target.value})}
-                      placeholder="Título da notificação"
-                    />
+              <CardContent className="space-y-6">
+                {/* Site Global SEO */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">SEO Global do Site</h3>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="site-title">Título do Site</Label>
+                      <Input
+                        id="site-title"
+                        defaultValue="Solo Rico - Soluções Completas para Agricultura"
+                        placeholder="Título principal do site"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="site-description">Descrição do Site</Label>
+                      <Textarea
+                        id="site-description"
+                        defaultValue="Solo Rico oferece fertilizantes foliares, adjuvantes e soluções completas para agricultura. Há mais de 30 anos espalhando o verde pelo Brasil e pelo mundo."
+                        placeholder="Descrição meta do site"
+                        rows={3}
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="type">Tipo</Label>
-                    <Select value={newNotification.type} onValueChange={(value) => setNewNotification({...newNotification, type: value})}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione o tipo" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="info">Informação</SelectItem>
-                        <SelectItem value="success">Sucesso</SelectItem>
-                        <SelectItem value="warning">Aviso</SelectItem>
-                        <SelectItem value="error">Erro</SelectItem>
-                      </SelectContent>
-                    </Select>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="site-keywords">Palavras-chave</Label>
+                      <Input
+                        id="site-keywords"
+                        defaultValue="fertilizantes, agricultura, agronegócio, solo rico, titanium foliar, adjuvantes, protect"
+                        placeholder="Palavras-chave separadas por vírgula"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="site-author">Autor</Label>
+                      <Input
+                        id="site-author"
+                        defaultValue="Solo Rico Agrociências"
+                        placeholder="Nome do autor/empresa"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <Label htmlFor="message">Mensagem</Label>
-                  <Textarea
-                    id="message"
-                    value={newNotification.message}
-                    onChange={(e) => setNewNotification({...newNotification, message: e.target.value})}
-                    placeholder="Conteúdo da notificação"
-                    rows={3}
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="actionUrl">URL de Ação (opcional)</Label>
-                  <Input
-                    id="actionUrl"
-                    value={newNotification.actionUrl}
-                    onChange={(e) => setNewNotification({...newNotification, actionUrl: e.target.value})}
-                    placeholder="/produtos"
-                  />
-                </div>
-                <Button onClick={handleCreateNotification} disabled={createNotificationMutation.isPending}>
-                  <Save className="h-4 w-4 mr-2" />
-                  {createNotificationMutation.isPending ? 'Criando...' : 'Criar Notificação'}
-                </Button>
-              </CardContent>
-            </Card>
 
-            {/* Existing Notifications */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Notificações Existentes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ScrollArea className="h-96">
-                  <div className="space-y-4">
-                    {notifications.map((notification) => (
-                      <div key={notification.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div className="flex-1">
-                          <h3 className="font-medium">{notification.title}</h3>
-                          <p className="text-sm text-gray-600">{notification.message}</p>
-                          <p className="text-xs text-gray-500 mt-1">
-                            {new Date(notification.createdAt).toLocaleString('pt-BR')}
-                          </p>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Badge variant={notification.isRead ? 'secondary' : 'default'}>
-                            {notification.isRead ? 'Lida' : 'Nova'}
-                          </Badge>
-                          <Badge variant="outline">{notification.type}</Badge>
-                          <Button variant="ghost" size="sm">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
+                {/* Open Graph Settings */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Open Graph (Redes Sociais)</h3>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="og-title">Título Open Graph</Label>
+                      <Input
+                        id="og-title"
+                        defaultValue="Solo Rico - Soluções Completas para Agricultura"
+                        placeholder="Título para compartilhamento"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="og-description">Descrição Open Graph</Label>
+                      <Textarea
+                        id="og-description"
+                        defaultValue="Solo Rico oferece fertilizantes foliares, adjuvantes e soluções completas para agricultura. Há mais de 30 anos espalhando o verde pelo Brasil e pelo mundo."
+                        placeholder="Descrição para compartilhamento"
+                        rows={3}
+                      />
+                    </div>
                   </div>
-                </ScrollArea>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="og-image">Imagem Open Graph (URL)</Label>
+                      <Input
+                        id="og-image"
+                        placeholder="https://exemplo.com/imagem.jpg"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="og-url">URL do Site</Label>
+                      <Input
+                        id="og-url"
+                        defaultValue="https://solorico.com.br/"
+                        placeholder="URL principal do site"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Twitter Card Settings */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Twitter Card</h3>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="twitter-title">Título Twitter</Label>
+                      <Input
+                        id="twitter-title"
+                        defaultValue="Solo Rico - Soluções Completas para Agricultura"
+                        placeholder="Título para Twitter"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="twitter-description">Descrição Twitter</Label>
+                      <Textarea
+                        id="twitter-description"
+                        defaultValue="Solo Rico oferece fertilizantes foliares, adjuvantes e soluções completas para agricultura. Há mais de 30 anos espalhando o verde pelo Brasil e pelo mundo."
+                        placeholder="Descrição para Twitter"
+                        rows={3}
+                      />
+                    </div>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="twitter-image">Imagem Twitter (URL)</Label>
+                      <Input
+                        id="twitter-image"
+                        placeholder="https://exemplo.com/imagem.jpg"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="twitter-card">Tipo de Card</Label>
+                      <Select defaultValue="summary_large_image">
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="summary">Summary</SelectItem>
+                          <SelectItem value="summary_large_image">Summary Large Image</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Analytics & Tracking */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Analytics & Tracking</h3>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="google-analytics">Google Analytics ID</Label>
+                      <Input
+                        id="google-analytics"
+                        placeholder="GA-XXXXXXXXX-X"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="google-tag-manager">Google Tag Manager ID</Label>
+                      <Input
+                        id="google-tag-manager"
+                        placeholder="GTM-XXXXXXX"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="facebook-pixel">Facebook Pixel ID</Label>
+                      <Input
+                        id="facebook-pixel"
+                        placeholder="XXXXXXXXXXXXXXX"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="google-site-verification">Google Site Verification</Label>
+                      <Input
+                        id="google-site-verification"
+                        placeholder="código de verificação"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Schema.org Settings */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Schema.org (Dados Estruturados)</h3>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="organization-name">Nome da Organização</Label>
+                      <Input
+                        id="organization-name"
+                        defaultValue="Solo Rico Agrociências"
+                        placeholder="Nome da empresa"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="organization-logo">Logo da Organização (URL)</Label>
+                      <Input
+                        id="organization-logo"
+                        placeholder="https://exemplo.com/logo.jpg"
+                      />
+                    </div>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="organization-phone">Telefone</Label>
+                      <Input
+                        id="organization-phone"
+                        defaultValue="+55 17 3201-1374"
+                        placeholder="Telefone da empresa"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="organization-email">Email</Label>
+                      <Input
+                        id="organization-email"
+                        defaultValue="contato@solorico.com.br"
+                        placeholder="Email da empresa"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex space-x-4">
+                  <Button>
+                    <Save className="h-4 w-4 mr-2" />
+                    Salvar Configurações SEO
+                  </Button>
+                  <Button variant="outline">
+                    <Eye className="h-4 w-4 mr-2" />
+                    Visualizar Prévia
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>

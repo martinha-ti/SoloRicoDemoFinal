@@ -21,12 +21,9 @@ export default function Home() {
   });
 
   return (
-    <div>
-      {/* Barra Superior */}
-      <div className="top-bar"></div>
-
+    <div className="relative">
       {/* 1. Banner Carousel - Automático 5 segundos */}
-      <div className="relative">
+      <div className="relative -mt-20 pt-20">
         <Carousel 
           className="w-full"
           plugins={[

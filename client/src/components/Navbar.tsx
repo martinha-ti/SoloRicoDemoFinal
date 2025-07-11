@@ -9,7 +9,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useLanguage } from "@/contexts/LanguageContext";
-import NotificationCenter from "./NotificationCenter";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,9 +77,6 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Notification Center */}
-            <NotificationCenter />
-            
             {/* Admin Panel Link (hidden by default) */}
             <Link href="/admin" className="nav-link hidden sm:block text-xs opacity-50 hover:opacity-100">
               Admin
@@ -90,20 +86,41 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="nav-link p-0 h-auto font-medium flex items-center">
-                  <span className="text-lg mr-2">
-                    {language === 'pt' ? '🇧🇷' : '🇺🇸'}
-                  </span>
+                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border" style={{
+                    backgroundImage: language === 'pt' ? 
+                      'linear-gradient(to bottom, #00a859 0%, #00a859 33%, #fff 33%, #fff 66%, #ffdf00 66%, #ffdf00 100%)' :
+                      'linear-gradient(to bottom, #b22234 0%, #b22234 7%, #fff 7%, #fff 14%, #b22234 14%, #b22234 21%, #fff 21%, #fff 28%, #b22234 28%, #b22234 35%, #fff 35%, #fff 42%, #b22234 42%, #b22234 49%, #fff 49%, #fff 56%, #b22234 56%, #b22234 63%, #fff 63%, #fff 70%, #b22234 70%, #b22234 77%, #fff 77%, #fff 84%, #b22234 84%, #b22234 91%, #fff 91%, #fff 100%)',
+                    position: 'relative'
+                  }}>
+                    {language === 'pt' ? 'BR' : 'US'}
+                    {language === 'en' && (
+                      <div className="absolute top-0 left-0 w-2 h-2 bg-blue-900" style={{
+                        background: 'linear-gradient(135deg, #002868 0%, #002868 100%)'
+                      }} />
+                    )}
+                  </div>
                   {language === 'pt' ? 'PT' : 'EN'}
                   <ChevronDown className="ml-1 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem onClick={() => setLanguage('pt')}>
-                  <span className="text-lg mr-2">🇧🇷</span>
+                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border" style={{
+                    backgroundImage: 'linear-gradient(to bottom, #00a859 0%, #00a859 33%, #fff 33%, #fff 66%, #ffdf00 66%, #ffdf00 100%)'
+                  }}>
+                    BR
+                  </div>
                   Português
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setLanguage('en')}>
-                  <span className="text-lg mr-2">🇺🇸</span>
+                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border relative" style={{
+                    backgroundImage: 'linear-gradient(to bottom, #b22234 0%, #b22234 7%, #fff 7%, #fff 14%, #b22234 14%, #b22234 21%, #fff 21%, #fff 28%, #b22234 28%, #b22234 35%, #fff 35%, #fff 42%, #b22234 42%, #b22234 49%, #fff 49%, #fff 56%, #b22234 56%, #b22234 63%, #fff 63%, #fff 70%, #b22234 70%, #b22234 77%, #fff 77%, #fff 84%, #b22234 84%, #b22234 91%, #fff 91%, #fff 100%)'
+                  }}>
+                    <div className="absolute top-0 left-0 w-2 h-2 bg-blue-900" style={{
+                      background: 'linear-gradient(135deg, #002868 0%, #002868 100%)'
+                    }} />
+                    US
+                  </div>
                   English
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -173,13 +190,26 @@ export default function Navbar() {
                   onClick={() => setLanguage('pt')}
                   className="flex items-center w-full px-3 py-2 text-white hover:text-brand-green transition-colors"
                 >
-                  <span className="mr-2">🇧🇷</span> Português
+                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border" style={{
+                    backgroundImage: 'linear-gradient(to bottom, #00a859 0%, #00a859 33%, #fff 33%, #fff 66%, #ffdf00 66%, #ffdf00 100%)'
+                  }}>
+                    BR
+                  </div>
+                  Português
                 </button>
                 <button
                   onClick={() => setLanguage('en')}
                   className="flex items-center w-full px-3 py-2 text-white hover:text-brand-green transition-colors"
                 >
-                  <span className="mr-2">🇺🇸</span> English
+                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border relative" style={{
+                    backgroundImage: 'linear-gradient(to bottom, #b22234 0%, #b22234 7%, #fff 7%, #fff 14%, #b22234 14%, #b22234 21%, #fff 21%, #fff 28%, #b22234 28%, #b22234 35%, #fff 35%, #fff 42%, #b22234 42%, #b22234 49%, #fff 49%, #fff 56%, #b22234 56%, #b22234 63%, #fff 63%, #fff 70%, #b22234 70%, #b22234 77%, #fff 77%, #fff 84%, #b22234 84%, #b22234 91%, #fff 91%, #fff 100%)'
+                  }}>
+                    <div className="absolute top-0 left-0 w-2 h-2 bg-blue-900" style={{
+                      background: 'linear-gradient(135deg, #002868 0%, #002868 100%)'
+                    }} />
+                    US
+                  </div>
+                  English
                 </button>
               </div>
             </div>

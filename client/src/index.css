@@ -198,8 +198,7 @@
   background-size: cover;
   background-position: center;
   position: relative;
-  margin-top: -85px; /* Compensar padding do main para o carousel ocupar toda a altura */
-  padding-top: 85px;
+  z-index: 1;
 }
 
 .carousel-overlay {
