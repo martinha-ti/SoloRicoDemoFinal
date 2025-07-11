@@ -149,7 +149,7 @@ export default function ProductCategory() {
                             {product.features?.split(',').length || 0} características
                           </span>
                         </div>
-                        <Link href={`/product/${product.slug}`}>
+                        <Link href={`/produto/${product.slug}`}>
                           <Button 
                             variant="outline" 
                             className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white"

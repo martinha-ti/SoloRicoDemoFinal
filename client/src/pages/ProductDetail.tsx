@@ -34,6 +34,7 @@ export default function ProductDetail() {
       return response.json();
     },
     retry: false,
+    enabled: !!slug,
   });
 
   if (isLoading) {
