@@ -11,7 +11,7 @@ import ForBusinesses from "@/pages/ForBusinesses";
 import ForYou from "@/pages/ForYou";
 import Comex from "@/pages/Comex";
 import Blog from "@/pages/Blog";
-import BlogPost from "@/pages/BlogPost";
+import BlogPostSimple from "@/pages/BlogPostSimple";
 import Contact from "@/pages/Contact";
 import Sac from "@/pages/Sac";
 import WorkWithUs from "@/pages/WorkWithUs";
@@ -30,7 +30,7 @@ function Router() {
         <Route path="/para-voce" component={ForYou} />
         <Route path="/comex" component={Comex} />
         <Route path="/blog" component={Blog} />
-        <Route path="/blog/:slug" component={BlogPost} />
+        <Route path="/blog/:slug" component={BlogPostSimple} />
         <Route path="/contatos" component={Contact} />
         <Route path="/sac" component={Sac} />
         <Route path="/trabalhe-conosco" component={WorkWithUs} />

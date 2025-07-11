@@ -173,8 +173,8 @@ export default function BlogPost() {
             )}
 
             {/* Article Content */}
-            <div className="prose prose-lg max-w-none">
-              <div className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+            <div className="max-w-none">
+              <div className="text-gray-700 leading-relaxed whitespace-pre-wrap text-lg">
                 {post.content}
               </div>
             </div>
@@ -247,12 +247,12 @@ export default function BlogPost() {
                         </span>
                       </div>
                       <Link href={`/blog/${relatedPost.slug}`}>
-                        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-green-600 transition-colors">
+                        <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-green-600 transition-colors" style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
                           {relatedPost.title}
                         </h3>
                       </Link>
                       {relatedPost.excerpt && (
-                        <p className="text-sm text-gray-600 line-clamp-2 mb-4">
+                        <p className="text-sm text-gray-600 mb-4" style={{display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden'}}>
                           {relatedPost.excerpt}
                         </p>
                       )}
