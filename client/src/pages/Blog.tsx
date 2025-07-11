@@ -1,17 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/api";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Link } from "wouter";
+import type { BlogPost } from "@shared/schema";
 
 export default function Blog() {
   const { t } = useLanguage();
-  const { data: blogPosts = [], isLoading } = useQuery({
+  const { data: blogPosts = [], isLoading } = useQuery<BlogPost[]>({
     queryKey: ['/api/blog'],
-    queryFn: () => api.getBlogPosts(),
+    queryFn: async () => {
+      const response = await fetch('/api/blog');
+      if (!response.ok) {
+        throw new Error('Failed to fetch blog posts');
+      }
+      return response.json();
+    },
   });
 
   if (isLoading) {
@@ -140,9 +146,9 @@ export default function Blog() {
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-brand-green text-white text-xs">
+                    <span className="bg-brand-green text-white text-xs px-2 py-1 rounded-full">
                       {post.category}
-                    </Badge>
+                    </span>
                   </div>
                 </div>
                 <CardContent className="p-6">
