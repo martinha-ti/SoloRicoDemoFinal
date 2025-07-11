@@ -15,7 +15,7 @@ import Contact from "@/pages/Contact";
 import Sac from "@/pages/Sac";
 import WorkWithUs from "@/pages/WorkWithUs";
 import ProductDetail from "@/pages/ProductDetail";
-import Admin from "@/pages/Admin";
+import AdminFixed from "@/pages/AdminFixed";
 import AdminLogin from "@/pages/AdminLogin";
 import NotFound from "@/pages/not-found";
 
@@ -34,7 +34,7 @@ function Router() {
         <Route path="/trabalhe-conosco" component={WorkWithUs} />
         <Route path="/produto/:slug" component={ProductDetail} />
         <Route path="/admin-login" component={AdminLogin} />
-        <Route path="/admin" component={Admin} />
+        <Route path="/admin" component={AdminFixed} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
