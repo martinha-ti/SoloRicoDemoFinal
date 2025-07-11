@@ -39,6 +39,8 @@ export interface IStorage {
   getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
   getBlogPostsByCategory(category: string): Promise<BlogPost[]>;
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(id: number, post: InsertBlogPost): Promise<BlogPost>;
+  deleteBlogPost(id: number): Promise<void>;
   
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   createJobApplication(application: InsertJobApplication): Promise<JobApplication>;
@@ -147,7 +149,7 @@ export class MemStorage implements IStorage {
         content: "O agronegócio brasileiro continua sendo um dos pilares da economia nacional...",
         category: "Agronegócio",
         imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=250&fit=crop",
-        isActive: true
+        published: true
       },
       {
         title: "Tendências da Volatilidade dos Preços das Commodities Agrícolas em 2024",
@@ -156,7 +158,7 @@ export class MemStorage implements IStorage {
         content: "A volatilidade dos preços das commodities agrícolas é um fenômeno complexo...",
         category: "Mercado",
         imageUrl: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=250&fit=crop",
-        isActive: true
+        published: true
       },
       {
         title: "Novos Mercados: Abrindo Portas para Pequenos e Médios Produtores Brasileiros",
@@ -165,7 +167,7 @@ export class MemStorage implements IStorage {
         content: "O acesso a novos mercados é fundamental para o crescimento sustentável...",
         category: "Inovação",
         imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=250&fit=crop",
-        isActive: true
+        published: true
       }
     ];
 
@@ -289,15 +291,15 @@ export class MemStorage implements IStorage {
   }
 
   async getBlogPosts(): Promise<BlogPost[]> {
-    return Array.from(this.blogPosts.values()).filter(p => p.isActive);
+    return Array.from(this.blogPosts.values()).filter(p => p.published !== false);
   }
 
   async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
-    return Array.from(this.blogPosts.values()).find(p => p.slug === slug && p.isActive);
+    return Array.from(this.blogPosts.values()).find(p => p.slug === slug && p.published !== false);
   }
 
   async getBlogPostsByCategory(category: string): Promise<BlogPost[]> {
-    return Array.from(this.blogPosts.values()).filter(p => p.category === category && p.isActive);
+    return Array.from(this.blogPosts.values()).filter(p => p.category === category && p.published !== false);
   }
 
   async createBlogPost(insertBlogPost: InsertBlogPost): Promise<BlogPost> {
@@ -305,12 +307,37 @@ export class MemStorage implements IStorage {
     const blogPost: BlogPost = { 
       ...insertBlogPost, 
       id, 
-      publishedAt: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
       imageUrl: insertBlogPost.imageUrl ?? null,
-      isActive: insertBlogPost.isActive ?? true
+      published: insertBlogPost.published ?? true
     };
     this.blogPosts.set(id, blogPost);
     return blogPost;
+  }
+
+  async updateBlogPost(id: number, insertBlogPost: InsertBlogPost): Promise<BlogPost> {
+    const existingPost = this.blogPosts.get(id);
+    if (!existingPost) {
+      throw new Error('Blog post not found');
+    }
+    
+    const blogPost: BlogPost = { 
+      ...existingPost,
+      ...insertBlogPost, 
+      id,
+      updatedAt: new Date(),
+      published: insertBlogPost.published ?? true
+    };
+    this.blogPosts.set(id, blogPost);
+    return blogPost;
+  }
+
+  async deleteBlogPost(id: number): Promise<void> {
+    if (!this.blogPosts.has(id)) {
+      throw new Error('Blog post not found');
+    }
+    this.blogPosts.delete(id);
   }
 
   async createContactMessage(insertContactMessage: InsertContactMessage): Promise<ContactMessage> {

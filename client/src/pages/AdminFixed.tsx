@@ -28,7 +28,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { insertProductSchema, type Product, type InsertProduct } from '@shared/schema';
+import { insertProductSchema, insertBlogPostSchema, type Product, type InsertProduct, type BlogPost, type InsertBlogPost } from '@shared/schema';
 
 export default function AdminFixed() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -38,6 +38,8 @@ export default function AdminFixed() {
   const queryClient = useQueryClient();
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [isProductDialogOpen, setIsProductDialogOpen] = useState(false);
+  const [editingBlogPost, setEditingBlogPost] = useState<BlogPost | null>(null);
+  const [isBlogDialogOpen, setIsBlogDialogOpen] = useState(false);
   const [seoSettings, setSeoSettings] = useState({
     siteTitle: 'Solo Rico - Soluções Completas para Agricultura',
     siteDescription: 'Solo Rico oferece fertilizantes foliares, adjuvantes e soluções completas para agricultura. Há mais de 30 anos espalhando o verde pelo Brasil e pelo mundo.',
@@ -129,9 +131,54 @@ export default function AdminFixed() {
     }
   };
 
+  const handleCreateBlogPost = () => {
+    setEditingBlogPost(null);
+    blogForm.reset();
+    setIsBlogDialogOpen(true);
+  };
+
+  const handleEditBlogPost = (blogPost: BlogPost) => {
+    setEditingBlogPost(blogPost);
+    blogForm.reset({
+      title: blogPost.title,
+      slug: blogPost.slug,
+      excerpt: blogPost.excerpt || '',
+      content: blogPost.content || '',
+      category: blogPost.category || '',
+      imageUrl: blogPost.imageUrl || '',
+      published: blogPost.published !== false,
+    });
+    setIsBlogDialogOpen(true);
+  };
+
+  const handleDeleteBlogPost = (id: number) => {
+    if (confirm('Tem certeza que deseja deletar este post do blog?')) {
+      deleteBlogPostMutation.mutate(id);
+    }
+  };
+
+  const onSubmitBlogPost = (data: InsertBlogPost) => {
+    // Generate slug from title if not provided
+    if (!data.slug) {
+      data.slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    if (editingBlogPost) {
+      updateBlogPostMutation.mutate({ id: editingBlogPost.id, blogPost: data });
+    } else {
+      createBlogPostMutation.mutate(data);
+    }
+  };
+
   // Fetch products data
   const { data: products = [], isLoading: productsLoading } = useQuery<Product[]>({
     queryKey: ['/api/products'],
+    enabled: isAuthenticated,
+  });
+
+  // Fetch blog posts data
+  const { data: blogPosts = [], isLoading: blogPostsLoading } = useQuery<BlogPost[]>({
+    queryKey: ['/api/blog'],
     enabled: isAuthenticated,
   });
 
@@ -149,6 +196,20 @@ export default function AdminFixed() {
       imageUrl: '',
       featured: false,
       active: true,
+    },
+  });
+
+  // Blog post form
+  const blogForm = useForm<InsertBlogPost>({
+    resolver: zodResolver(insertBlogPostSchema),
+    defaultValues: {
+      title: '',
+      slug: '',
+      excerpt: '',
+      content: '',
+      category: '',
+      imageUrl: '',
+      published: true,
     },
   });
 
@@ -240,10 +301,94 @@ export default function AdminFixed() {
     return null;
   }
 
+  // Create blog post mutation
+  const createBlogPostMutation = useMutation({
+    mutationFn: async (blogPost: InsertBlogPost) => {
+      const response = await fetch('/api/blog', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(blogPost),
+      });
+      if (!response.ok) throw new Error('Erro ao criar post do blog');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
+      toast({
+        title: "Post criado",
+        description: "O post do blog foi criado com sucesso.",
+      });
+      setIsBlogDialogOpen(false);
+      blogForm.reset();
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erro",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Update blog post mutation
+  const updateBlogPostMutation = useMutation({
+    mutationFn: async ({ id, blogPost }: { id: number; blogPost: InsertBlogPost }) => {
+      const response = await fetch(`/api/blog/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(blogPost),
+      });
+      if (!response.ok) throw new Error('Erro ao atualizar post do blog');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
+      toast({
+        title: "Post atualizado",
+        description: "O post do blog foi atualizado com sucesso.",
+      });
+      setIsBlogDialogOpen(false);
+      setEditingBlogPost(null);
+      blogForm.reset();
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erro",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Delete blog post mutation
+  const deleteBlogPostMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/blog/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Erro ao deletar post do blog');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/blog'] });
+      toast({
+        title: "Post deletado",
+        description: "O post do blog foi deletado com sucesso.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erro",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
   // Mock data for demonstration
   const mockStats = {
     products: products.length,
-    blogPosts: 8,
+    blogPosts: blogPosts.length,
     contactMessages: 25,
     jobApplications: 15
   };
@@ -537,13 +682,182 @@ export default function AdminFixed() {
           {/* Blog Tab */}
           <TabsContent value="blog" className="space-y-6">
             <Card>
-              <CardHeader>
+              <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Gerenciamento do Blog</CardTitle>
+                <Button onClick={handleCreateBlogPost} className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  Novo Post
+                </Button>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">Funcionalidade em desenvolvimento. Aqui você poderá criar e gerenciar posts do blog.</p>
+                {blogPostsLoading ? (
+                  <div className="flex items-center justify-center p-8">
+                    <div className="text-gray-500">Carregando posts do blog...</div>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {blogPosts.length === 0 ? (
+                      <div className="text-center py-8 text-gray-500">
+                        Nenhum post cadastrado. Clique em "Novo Post" para adicionar.
+                      </div>
+                    ) : (
+                      <div className="grid gap-4">
+                        {blogPosts.map((post) => (
+                          <Card key={post.id} className="p-4">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <h3 className="font-semibold text-lg">{post.title}</h3>
+                                  {!post.published && (
+                                    <Badge variant="outline">Rascunho</Badge>
+                                  )}
+                                </div>
+                                <p className="text-sm text-gray-600 mb-2">{post.excerpt}</p>
+                                <div className="flex items-center gap-4 text-sm text-gray-500">
+                                  <span>Categoria: {post.category}</span>
+                                  <span>Data: {new Date(post.createdAt).toLocaleDateString('pt-BR')}</span>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleEditBlogPost(post)}
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleDeleteBlogPost(post.id)}
+                                  className="text-red-600 hover:text-red-700"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
+
+            {/* Blog Post Dialog */}
+            <Dialog open={isBlogDialogOpen} onOpenChange={setIsBlogDialogOpen}>
+              <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>
+                    {editingBlogPost ? 'Editar Post do Blog' : 'Novo Post do Blog'}
+                  </DialogTitle>
+                </DialogHeader>
+                <form onSubmit={blogForm.handleSubmit(onSubmitBlogPost)} className="space-y-4">
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="title">Título do Post</Label>
+                      <Input
+                        id="title"
+                        {...blogForm.register('title')}
+                        placeholder="Ex: Novas Técnicas de Plantio"
+                      />
+                      {blogForm.formState.errors.title && (
+                        <p className="text-sm text-red-600">{blogForm.formState.errors.title.message}</p>
+                      )}
+                    </div>
+                    <div>
+                      <Label htmlFor="slug">Slug (URL)</Label>
+                      <Input
+                        id="slug"
+                        {...blogForm.register('slug')}
+                        placeholder="novas-tecnicas-plantio"
+                      />
+                      {blogForm.formState.errors.slug && (
+                        <p className="text-sm text-red-600">{blogForm.formState.errors.slug.message}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="excerpt">Resumo</Label>
+                    <Textarea
+                      id="excerpt"
+                      {...blogForm.register('excerpt')}
+                      placeholder="Resumo do post que aparecerá na listagem"
+                      rows={2}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="content">Conteúdo</Label>
+                    <Textarea
+                      id="content"
+                      {...blogForm.register('content')}
+                      placeholder="Conteúdo completo do post"
+                      rows={8}
+                    />
+                  </div>
+
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <Label htmlFor="category">Categoria</Label>
+                      <Select
+                        value={blogForm.watch('category')}
+                        onValueChange={(value) => blogForm.setValue('category', value)}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione a categoria" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="agronegocio">Agronegócio</SelectItem>
+                          <SelectItem value="tecnologia">Tecnologia</SelectItem>
+                          <SelectItem value="sustentabilidade">Sustentabilidade</SelectItem>
+                          <SelectItem value="mercado">Mercado</SelectItem>
+                          <SelectItem value="inovacao">Inovação</SelectItem>
+                          <SelectItem value="dicas">Dicas</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="imageUrl">URL da Imagem</Label>
+                      <Input
+                        id="imageUrl"
+                        {...blogForm.register('imageUrl')}
+                        placeholder="https://exemplo.com/imagem.jpg"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <input
+                      id="published"
+                      type="checkbox"
+                      {...blogForm.register('published')}
+                      className="rounded border-gray-300"
+                    />
+                    <Label htmlFor="published">Publicar post</Label>
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setIsBlogDialogOpen(false)}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
+                      type="submit"
+                      disabled={createBlogPostMutation.isPending || updateBlogPostMutation.isPending}
+                    >
+                      <Save className="h-4 w-4 mr-2" />
+                      {editingBlogPost ? 'Atualizar' : 'Criar'} Post
+                    </Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
           </TabsContent>
 
           {/* SEO Tab */}

@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { sendContactEmail, sendJobApplicationEmail } from "./services/emailService";
-import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema, loginSchema } from "@shared/schema";
+import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema, loginSchema, insertBlogPostSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Products routes
@@ -77,6 +77,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(posts);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch blog posts' });
+    }
+  });
+
+  app.post('/api/blog', async (req, res) => {
+    try {
+      const validatedData = insertBlogPostSchema.parse(req.body);
+      const blogPost = await storage.createBlogPost(validatedData);
+      res.json(blogPost);
+    } catch (error) {
+      console.error('Create blog post error:', error);
+      res.status(400).json({ error: 'Invalid blog post data' });
+    }
+  });
+
+  app.put('/api/blog/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const validatedData = insertBlogPostSchema.parse(req.body);
+      const blogPost = await storage.updateBlogPost(id, validatedData);
+      res.json(blogPost);
+    } catch (error) {
+      console.error('Update blog post error:', error);
+      res.status(400).json({ error: 'Invalid blog post data' });
+    }
+  });
+
+  app.delete('/api/blog/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteBlogPost(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete blog post error:', error);
+      res.status(500).json({ error: 'Failed to delete blog post' });
     }
   });
 
