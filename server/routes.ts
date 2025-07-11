@@ -73,10 +73,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Blog routes
   app.get('/api/blog', async (req, res) => {
     try {
-      const posts = await storage.getBlogPosts();
+      const { category, limit } = req.query;
+      let posts = await storage.getBlogPosts();
+      
+      if (category) {
+        posts = posts.filter(post => post.category === category);
+      }
+      
+      if (limit) {
+        posts = posts.slice(0, parseInt(limit as string));
+      }
+      
       res.json(posts);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch blog posts' });
+    }
+  });
+
+  app.get('/api/blog/:slug', async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const post = await storage.getBlogPostBySlug(slug);
+      
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+      
+      res.json(post);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch blog post' });
     }
   });
 

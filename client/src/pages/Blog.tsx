@@ -85,10 +85,12 @@ export default function Blog() {
                       day: 'numeric'
                     })}
                   </div>
-                  <Button className="bg-brand-green hover:bg-brand-green-dark text-white w-fit">
-                    Ler artigo completo
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
+                  <Link href={`/blog/${featuredPost.slug}`}>
+                    <Button className="bg-brand-green hover:bg-brand-green-dark text-white w-fit">
+                      Ler artigo completo
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -144,9 +146,11 @@ export default function Blog() {
                   </div>
                 </div>
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-bold text-brand-green mb-3 line-clamp-2 group-hover:text-brand-green-dark transition-colors">
-                    {post.title}
-                  </h3>
+                  <Link href={`/blog/${post.slug}`}>
+                    <h3 className="text-lg font-bold text-brand-green mb-3 line-clamp-2 group-hover:text-brand-green-dark transition-colors">
+                      {post.title}
+                    </h3>
+                  </Link>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">
                     {post.excerpt}
                   </p>
@@ -161,10 +165,12 @@ export default function Blog() {
                     </div>
                   </div>
                   <div className="mt-4">
-                    <Button variant="ghost" className="text-brand-green hover:text-brand-green-dark p-0 h-auto font-medium">
-                      Ler mais
-                      <ArrowRight className="h-4 w-4 ml-1" />
-                    </Button>
+                    <Link href={`/blog/${post.slug}`}>
+                      <Button variant="ghost" className="text-brand-green hover:text-brand-green-dark p-0 h-auto font-medium">
+                        Ler mais
+                        <ArrowRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
