@@ -189,12 +189,14 @@ export default function AdminFixed() {
       name: '',
       slug: '',
       description: '',
-      shortDescription: '',
-      price: 0,
-      category: '',
+      features: '',
       benefits: [],
+      usage: '',
+      composition: '',
+      technicalSpecs: '',
+      category: '',
       imageUrl: '',
-      featured: false,
+      gallery: [],
       active: true,
     },
   });
@@ -598,32 +600,35 @@ export default function AdminFixed() {
                           <SelectValue placeholder="Selecione a categoria" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="fertilizantes">Fertilizantes</SelectItem>
-                          <SelectItem value="adjuvantes">Adjuvantes</SelectItem>
-                          <SelectItem value="biofertilizantes">Biofertilizantes</SelectItem>
-                          <SelectItem value="defensivos">Defensivos</SelectItem>
-                          <SelectItem value="sementes">Sementes</SelectItem>
+                          <SelectItem value="Adjuvantes">Adjuvantes</SelectItem>
+                          <SelectItem value="Protect">Protect</SelectItem>
+                          <SelectItem value="Titanium Sollus">Titanium Sollus</SelectItem>
+                          <SelectItem value="Fertilizantes">Fertilizantes</SelectItem>
+                          <SelectItem value="Biofertilizantes">Biofertilizantes</SelectItem>
+                          <SelectItem value="Defensivos">Defensivos</SelectItem>
+                          <SelectItem value="Sementes">Sementes</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     <div>
-                      <Label htmlFor="price">Preço (R$)</Label>
+                      <Label htmlFor="imageUrl">URL da Imagem Principal</Label>
                       <Input
-                        id="price"
-                        type="number"
-                        step="0.01"
-                        {...productForm.register('price', { valueAsNumber: true })}
-                        placeholder="0.00"
+                        id="imageUrl"
+                        {...productForm.register('imageUrl')}
+                        placeholder="https://exemplo.com/imagem.jpg"
                       />
                     </div>
                   </div>
 
+
+
                   <div>
-                    <Label htmlFor="imageUrl">URL da Imagem</Label>
-                    <Input
-                      id="imageUrl"
-                      {...productForm.register('imageUrl')}
-                      placeholder="https://exemplo.com/imagem.jpg"
+                    <Label htmlFor="features">Características (separadas por vírgula)</Label>
+                    <Textarea
+                      id="features"
+                      {...productForm.register('features')}
+                      placeholder="pH neutro, Compatível com defensivos, Baixa espuma, Fácil aplicação"
+                      rows={2}
                     />
                   </div>
 
@@ -637,16 +642,47 @@ export default function AdminFixed() {
                     />
                   </div>
 
+                  <div>
+                    <Label htmlFor="usage">Modo de Uso</Label>
+                    <Textarea
+                      id="usage"
+                      {...productForm.register('usage')}
+                      placeholder="Aplicar 50-100ml por 100 litros de água. Misturar bem antes da aplicação..."
+                      rows={4}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="composition">Composição</Label>
+                    <Textarea
+                      id="composition"
+                      {...productForm.register('composition')}
+                      placeholder="Surfactante não-iônico 25%, Acidificante 15%, Veículo q.s.p. 100%"
+                      rows={3}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="technicalSpecs">Especificações Técnicas</Label>
+                    <Textarea
+                      id="technicalSpecs"
+                      {...productForm.register('technicalSpecs')}
+                      placeholder="pH: 6.5-7.5, Densidade: 1.02 g/cm³, Temperatura de armazenamento: 5-35°C"
+                      rows={3}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="gallery">Galeria de Imagens (URLs separadas por vírgula)</Label>
+                    <Textarea
+                      id="gallery"
+                      {...productForm.register('gallery')}
+                      placeholder="https://exemplo.com/imagem1.jpg, https://exemplo.com/imagem2.jpg"
+                      rows={2}
+                    />
+                  </div>
+
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center space-x-2">
-                      <input
-                        id="featured"
-                        type="checkbox"
-                        {...productForm.register('featured')}
-                        className="rounded border-gray-300"
-                      />
-                      <Label htmlFor="featured">Produto em destaque</Label>
-                    </div>
                     <div className="flex items-center space-x-2">
                       <input
                         id="active"

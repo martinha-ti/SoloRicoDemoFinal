@@ -104,8 +104,13 @@ export class MemStorage implements IStorage {
         slug: "top-lime-pro",
         category: "Adjuvantes",
         description: "Adjuvante premium para maximizar a eficácia de aplicações foliares",
+        features: "pH neutro, Compatible com defensivos, Baixa espuma, Fácil aplicação",
         benefits: ["Melhora a absorção", "Reduz tensão superficial", "Aumenta eficácia"],
+        usage: "Aplicar 50-100ml por 100 litros de água. Misturar bem antes da aplicação. Aplicar preferencialmente nas horas mais frescas do dia.",
+        composition: "Surfactante não-iônico 25%, Acidificante 15%, Veículo q.s.p. 100%",
+        technicalSpecs: "pH: 6.5-7.5, Densidade: 1.02 g/cm³, Temperatura de armazenamento: 5-35°C",
         imageUrl: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&h=600&fit=crop", "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop"],
         active: true
       },
       {
@@ -113,8 +118,13 @@ export class MemStorage implements IStorage {
         slug: "acidificante-plus",
         category: "Adjuvantes",
         description: "Acidificante de alta performance para otimizar pH das soluções",
+        features: "Ação rápida, Estabilizador de pH, Compatível com herbicidas, Não corrosivo",
         benefits: ["Correção de pH", "Melhora eficácia", "Compatibilidade total"],
+        usage: "Aplicar 20-50ml por 100 litros de água. Adicionar primeiro à solução antes dos defensivos.",
+        composition: "Ácido fosfórico 30%, Ácido cítrico 20%, Antioxidante 5%, Veículo q.s.p. 100%",
+        technicalSpecs: "pH: 2.0-3.0, Densidade: 1.15 g/cm³, Validade: 24 meses",
         imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop", "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop"],
         active: true
       },
       {

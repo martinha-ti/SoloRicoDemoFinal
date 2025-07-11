@@ -133,7 +133,8 @@ export default function ProductDetail() {
   }
 
   const features = product.features ? product.features.split(',').map(f => f.trim()) : [];
-  const benefits = product.benefits ? product.benefits.split(',').map(b => b.trim()) : [];
+  const benefits = Array.isArray(product.benefits) ? product.benefits : [];
+  const gallery = Array.isArray(product.gallery) ? product.gallery : [];
 
   return (
     <div>
@@ -169,18 +170,34 @@ export default function ProductDetail() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Product Image */}
-            <div className="relative">
-              <img 
-                src={product.imageUrl || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop'} 
-                alt={product.name} 
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
-              />
-              <div className="absolute top-4 right-4">
-                <span className="bg-white/90 backdrop-blur-sm text-brand-green px-3 py-1 rounded-full text-sm font-medium">
-                  {product.category}
-                </span>
+            {/* Product Image & Gallery */}
+            <div className="space-y-6">
+              <div className="relative">
+                <img 
+                  src={product.imageUrl || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop'} 
+                  alt={product.name} 
+                  className="w-full h-96 object-cover rounded-lg shadow-lg"
+                />
+                <div className="absolute top-4 right-4">
+                  <span className="bg-white/90 backdrop-blur-sm text-brand-green px-3 py-1 rounded-full text-sm font-medium">
+                    {product.category}
+                  </span>
+                </div>
               </div>
+              
+              {/* Gallery */}
+              {gallery.length > 0 && (
+                <div className="grid grid-cols-3 gap-4">
+                  {gallery.map((image, index) => (
+                    <img 
+                      key={index}
+                      src={image}
+                      alt={`${product.name} - ${index + 1}`}
+                      className="w-full h-24 object-cover rounded-lg cursor-pointer hover:opacity-80 transition-opacity"
+                    />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Product Info */}
@@ -277,28 +294,69 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Usage Instructions */}
-      {product.usage && (
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <Card>
-              <CardContent className="p-8">
-                <div className="flex items-center mb-6">
-                  <Droplets className="h-6 w-6 text-brand-green mr-3" />
-                  <h3 className="text-2xl font-bold text-gray-900">
-                    Modo de Uso
-                  </h3>
-                </div>
-                <div className="prose prose-gray max-w-none">
-                  <p className="text-gray-700 leading-relaxed">
-                    {product.usage}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
+      {/* Detailed Information */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Usage Instructions */}
+            {product.usage && (
+              <Card>
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-6">
+                    <Droplets className="h-6 w-6 text-brand-green mr-3" />
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Modo de Uso
+                    </h3>
+                  </div>
+                  <div className="prose prose-gray max-w-none">
+                    <p className="text-gray-700 leading-relaxed">
+                      {product.usage}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Composition */}
+            {product.composition && (
+              <Card>
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-6">
+                    <Shield className="h-6 w-6 text-brand-green mr-3" />
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Composição
+                    </h3>
+                  </div>
+                  <div className="prose prose-gray max-w-none">
+                    <p className="text-gray-700 leading-relaxed">
+                      {product.composition}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Technical Specifications */}
+            {product.technicalSpecs && (
+              <Card>
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-6">
+                    <Zap className="h-6 w-6 text-brand-green mr-3" />
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Especificações Técnicas
+                    </h3>
+                  </div>
+                  <div className="prose prose-gray max-w-none">
+                    <p className="text-gray-700 leading-relaxed">
+                      {product.technicalSpecs}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Sub-produtos */}
       <section className="py-16 bg-gray-50">

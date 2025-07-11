@@ -14,10 +14,16 @@ export const products = pgTable("products", {
   slug: text("slug").notNull().unique(),
   category: text("category").notNull(),
   description: text("description").notNull(),
+  features: text("features"), // Características do produto
   benefits: text("benefits").array().notNull(),
+  usage: text("usage"), // Modo de uso
+  composition: text("composition"), // Composição
+  technicalSpecs: text("technical_specs"), // Especificações técnicas
   imageUrl: text("image_url"),
-  isActive: boolean("is_active").default(true),
+  gallery: text("gallery").array(), // Galeria de imagens
+  active: boolean("active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const blogPosts = pgTable("blog_posts", {
