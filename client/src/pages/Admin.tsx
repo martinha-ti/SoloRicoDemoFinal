@@ -63,27 +63,22 @@ export default function Admin() {
   // Fetch data
   const { data: products = [] } = useQuery<Product[]>({
     queryKey: ['/api/products'],
-    queryFn: () => apiRequest('/api/products'),
   });
 
   const { data: blogPosts = [] } = useQuery<BlogPost[]>({
     queryKey: ['/api/blog'],
-    queryFn: () => apiRequest('/api/blog'),
   });
 
   const { data: notifications = [] } = useQuery<Notification[]>({
     queryKey: ['/api/notifications'],
-    queryFn: () => apiRequest('/api/notifications'),
   });
 
   const { data: contactMessages = [] } = useQuery<ContactMessage[]>({
     queryKey: ['/api/contact-messages'],
-    queryFn: () => apiRequest('/api/contact-messages'),
   });
 
   const { data: jobApplications = [] } = useQuery<JobApplication[]>({
     queryKey: ['/api/job-applications'],
-    queryFn: () => apiRequest('/api/job-applications'),
   });
 
   // Create notification mutation

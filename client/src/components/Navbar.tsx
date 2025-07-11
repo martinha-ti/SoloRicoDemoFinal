@@ -83,48 +83,30 @@ export default function Navbar() {
             </Link>
             
             {/* Seletor de Idioma - Último elemento */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="nav-link p-0 h-auto font-medium flex items-center">
-                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border" style={{
-                    backgroundImage: language === 'pt' ? 
-                      'linear-gradient(to bottom, #00a859 0%, #00a859 33%, #fff 33%, #fff 66%, #ffdf00 66%, #ffdf00 100%)' :
-                      'linear-gradient(to bottom, #b22234 0%, #b22234 7%, #fff 7%, #fff 14%, #b22234 14%, #b22234 21%, #fff 21%, #fff 28%, #b22234 28%, #b22234 35%, #fff 35%, #fff 42%, #b22234 42%, #b22234 49%, #fff 49%, #fff 56%, #b22234 56%, #b22234 63%, #fff 63%, #fff 70%, #b22234 70%, #b22234 77%, #fff 77%, #fff 84%, #b22234 84%, #b22234 91%, #fff 91%, #fff 100%)',
-                    position: 'relative'
-                  }}>
-                    {language === 'pt' ? 'BR' : 'US'}
-                    {language === 'en' && (
-                      <div className="absolute top-0 left-0 w-2 h-2 bg-blue-900" style={{
-                        background: 'linear-gradient(135deg, #002868 0%, #002868 100%)'
-                      }} />
-                    )}
-                  </div>
-                  {language === 'pt' ? 'PT' : 'EN'}
-                  <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setLanguage('pt')}>
-                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border" style={{
-                    backgroundImage: 'linear-gradient(to bottom, #00a859 0%, #00a859 33%, #fff 33%, #fff 66%, #ffdf00 66%, #ffdf00 100%)'
-                  }}>
-                    BR
-                  </div>
-                  Português
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('en')}>
-                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border relative" style={{
-                    backgroundImage: 'linear-gradient(to bottom, #b22234 0%, #b22234 7%, #fff 7%, #fff 14%, #b22234 14%, #b22234 21%, #fff 21%, #fff 28%, #b22234 28%, #b22234 35%, #fff 35%, #fff 42%, #b22234 42%, #b22234 49%, #fff 49%, #fff 56%, #b22234 56%, #b22234 63%, #fff 63%, #fff 70%, #b22234 70%, #b22234 77%, #fff 77%, #fff 84%, #b22234 84%, #b22234 91%, #fff 91%, #fff 100%)'
-                  }}>
-                    <div className="absolute top-0 left-0 w-2 h-2 bg-blue-900" style={{
-                      background: 'linear-gradient(135deg, #002868 0%, #002868 100%)'
-                    }} />
-                    US
-                  </div>
-                  English
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setLanguage('pt')}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+                  language === 'pt' 
+                    ? 'bg-brand-green text-white' 
+                    : 'bg-white/20 text-white hover:bg-white/30'
+                }`}
+                title="Português"
+              >
+                PT
+              </button>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1 rounded-md text-sm font-medium transition-all ${
+                  language === 'en' 
+                    ? 'bg-brand-green text-white' 
+                    : 'bg-white/20 text-white hover:bg-white/30'
+                }`}
+                title="English"
+              >
+                EN
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -188,27 +170,22 @@ export default function Navbar() {
               <div className="border-t border-gray-600 pt-2">
                 <button
                   onClick={() => setLanguage('pt')}
-                  className="flex items-center w-full px-3 py-2 text-white hover:text-brand-green transition-colors"
+                  className={`w-full px-3 py-2 text-left transition-colors ${
+                    language === 'pt' 
+                      ? 'text-brand-green font-semibold' 
+                      : 'text-white hover:text-brand-green'
+                  }`}
                 >
-                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border" style={{
-                    backgroundImage: 'linear-gradient(to bottom, #00a859 0%, #00a859 33%, #fff 33%, #fff 66%, #ffdf00 66%, #ffdf00 100%)'
-                  }}>
-                    BR
-                  </div>
                   Português
                 </button>
                 <button
                   onClick={() => setLanguage('en')}
-                  className="flex items-center w-full px-3 py-2 text-white hover:text-brand-green transition-colors"
+                  className={`w-full px-3 py-2 text-left transition-colors ${
+                    language === 'en' 
+                      ? 'text-brand-green font-semibold' 
+                      : 'text-white hover:text-brand-green'
+                  }`}
                 >
-                  <div className="w-6 h-4 mr-2 flex items-center justify-center text-xs font-bold rounded border relative" style={{
-                    backgroundImage: 'linear-gradient(to bottom, #b22234 0%, #b22234 7%, #fff 7%, #fff 14%, #b22234 14%, #b22234 21%, #fff 21%, #fff 28%, #b22234 28%, #b22234 35%, #fff 35%, #fff 42%, #b22234 42%, #b22234 49%, #fff 49%, #fff 56%, #b22234 56%, #b22234 63%, #fff 63%, #fff 70%, #b22234 70%, #b22234 77%, #fff 77%, #fff 84%, #b22234 84%, #b22234 91%, #fff 91%, #fff 100%)'
-                  }}>
-                    <div className="absolute top-0 left-0 w-2 h-2 bg-blue-900" style={{
-                      background: 'linear-gradient(135deg, #002868 0%, #002868 100%)'
-                    }} />
-                    US
-                  </div>
                   English
                 </button>
               </div>
