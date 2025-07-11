@@ -66,20 +66,22 @@ export default function Blog() {
                     className="w-full h-64 lg:h-full object-cover"
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge className="bg-brand-green text-white">
-                      {t('featured')}
-                    </Badge>
+                    <span className="bg-brand-green text-white px-3 py-1 rounded-full text-sm font-medium">
+                      Destaque
+                    </span>
                   </div>
                 </div>
                 <div className="p-8 flex flex-col justify-center">
                   <div className="mb-4">
-                    <Badge variant="outline" className="border-brand-green text-brand-green mb-2">
+                    <span className="border border-brand-green text-brand-green px-3 py-1 rounded-full text-sm font-medium">
                       {featuredPost.category}
-                    </Badge>
+                    </span>
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-brand-green mb-4">
-                    {featuredPost.title}
-                  </h2>
+                  <Link href={`/blog/${featuredPost.slug}`}>
+                    <h2 className="text-2xl md:text-3xl font-bold text-brand-green mb-4 hover:text-brand-green-dark transition-colors cursor-pointer">
+                      {featuredPost.title}
+                    </h2>
+                  </Link>
                   <p className="text-gray-600 mb-6 leading-relaxed">
                     {featuredPost.excerpt}
                   </p>
