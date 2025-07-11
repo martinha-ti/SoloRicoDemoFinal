@@ -15,6 +15,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post('/api/products', async (req, res) => {
+    try {
+      const validatedData = insertProductSchema.parse(req.body);
+      const product = await storage.createProduct(validatedData);
+      res.json(product);
+    } catch (error) {
+      console.error('Create product error:', error);
+      res.status(400).json({ error: 'Invalid product data' });
+    }
+  });
+
+  app.put('/api/products/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const validatedData = insertProductSchema.parse(req.body);
+      const product = await storage.updateProduct(id, validatedData);
+      res.json(product);
+    } catch (error) {
+      console.error('Update product error:', error);
+      res.status(400).json({ error: 'Invalid product data' });
+    }
+  });
+
+  app.delete('/api/products/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteProduct(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete product error:', error);
+      res.status(500).json({ error: 'Failed to delete product' });
+    }
+  });
+
   app.get('/api/products/:slug', async (req, res) => {
     try {
       const product = await storage.getProductBySlug(req.params.slug);

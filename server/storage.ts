@@ -32,6 +32,8 @@ export interface IStorage {
   getProductBySlug(slug: string): Promise<Product | undefined>;
   getProductsByCategory(category: string): Promise<Product[]>;
   createProduct(product: InsertProduct): Promise<Product>;
+  updateProduct(id: number, product: InsertProduct): Promise<Product>;
+  deleteProduct(id: number): Promise<void>;
   
   getBlogPosts(): Promise<BlogPost[]>;
   getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
@@ -101,7 +103,7 @@ export class MemStorage implements IStorage {
         description: "Adjuvante premium para maximizar a eficácia de aplicações foliares",
         benefits: ["Melhora a absorção", "Reduz tensão superficial", "Aumenta eficácia"],
         imageUrl: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop",
-        isActive: true
+        active: true
       },
       {
         name: "Revolution",
@@ -110,7 +112,7 @@ export class MemStorage implements IStorage {
         description: "Linha protect para proteção avançada das culturas",
         benefits: ["Proteção superior", "Longa duração", "Resistência a pragas"],
         imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
-        isActive: true
+        active: true
       },
       {
         name: "Gel de Plantio",
@@ -119,7 +121,7 @@ export class MemStorage implements IStorage {
         description: "Gel especial para plantio que melhora o estabelecimento das mudas",
         benefits: ["Melhor enraizamento", "Reduz estresse", "Acelera crescimento"],
         imageUrl: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop",
-        isActive: true
+        active: true
       },
       {
         name: "Protetor E700",
@@ -128,7 +130,7 @@ export class MemStorage implements IStorage {
         description: "Protetor avançado para culturas sensíveis",
         benefits: ["Proteção completa", "Fácil aplicação", "Resultados rápidos"],
         imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
-        isActive: true
+        active: true
       }
     ];
 
@@ -230,15 +232,15 @@ export class MemStorage implements IStorage {
   }
 
   async getProducts(): Promise<Product[]> {
-    return Array.from(this.products.values()).filter(p => p.isActive);
+    return Array.from(this.products.values()).filter(p => p.active !== false);
   }
 
   async getProductBySlug(slug: string): Promise<Product | undefined> {
-    return Array.from(this.products.values()).find(p => p.slug === slug && p.isActive);
+    return Array.from(this.products.values()).find(p => p.slug === slug && p.active !== false);
   }
 
   async getProductsByCategory(category: string): Promise<Product[]> {
-    return Array.from(this.products.values()).filter(p => p.category === category && p.isActive);
+    return Array.from(this.products.values()).filter(p => p.category === category && p.active !== false);
   }
 
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
@@ -247,11 +249,43 @@ export class MemStorage implements IStorage {
       ...insertProduct, 
       id, 
       createdAt: new Date(),
+      updatedAt: new Date(),
       imageUrl: insertProduct.imageUrl ?? null,
-      isActive: insertProduct.isActive ?? true
+      active: insertProduct.active ?? true
     };
     this.products.set(id, product);
     return product;
+  }
+
+  async updateProduct(id: number, insertProduct: InsertProduct): Promise<Product> {
+    const existingProduct = this.products.get(id);
+    if (!existingProduct) {
+      throw new Error('Product not found');
+    }
+    
+    const product: Product = { 
+      ...existingProduct,
+      ...insertProduct, 
+      id,
+      updatedAt: new Date(),
+      active: insertProduct.active ?? true
+    };
+    this.products.set(id, product);
+    return product;
+  }
+
+  async deleteProduct(id: number): Promise<void> {
+    if (!this.products.has(id)) {
+      throw new Error('Product not found');
+    }
+    this.products.delete(id);
+  }
+
+  async deleteProduct(id: number): Promise<void> {
+    if (!this.products.has(id)) {
+      throw new Error('Product not found');
+    }
+    this.products.delete(id);
   }
 
   async getBlogPosts(): Promise<BlogPost[]> {
