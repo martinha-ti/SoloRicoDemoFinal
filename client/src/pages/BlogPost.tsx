@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Calendar, User, Tag, Share2, Facebook, Twitter, Linkedin } from 'lucide-react';
 import { Link } from 'wouter';
-import type { BlogPost } from '@shared/schema';
+import type { BlogPost as BlogPostType } from '@shared/schema';
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -16,7 +16,7 @@ export default function BlogPost() {
   const { t } = useLanguage();
 
   // Fetch blog post by slug
-  const { data: post, isLoading, error } = useQuery<BlogPost>({
+  const { data: post, isLoading, error } = useQuery<BlogPostType>({
     queryKey: ['/api/blog', slug],
     queryFn: async () => {
       const response = await fetch(`/api/blog/${slug}`);
@@ -29,13 +29,13 @@ export default function BlogPost() {
   });
 
   // Fetch related posts
-  const { data: relatedPosts = [] } = useQuery<BlogPost[]>({
+  const { data: relatedPosts = [] } = useQuery<BlogPostType[]>({
     queryKey: ['/api/blog', 'related', post?.category],
     queryFn: async () => {
       const response = await fetch(`/api/blog?category=${post?.category}&limit=3`);
       if (!response.ok) return [];
       const posts = await response.json();
-      return posts.filter((p: BlogPost) => p.slug !== slug);
+      return posts.filter((p: BlogPostType) => p.slug !== slug);
     },
     enabled: !!post?.category,
   });
