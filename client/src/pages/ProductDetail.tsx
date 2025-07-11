@@ -21,15 +21,19 @@ export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const { t } = useLanguage();
   
-  const { data: product, isLoading } = useQuery<Product>({
+  const { data: product, isLoading, error } = useQuery<Product>({
     queryKey: ['/api/products', slug],
     queryFn: async () => {
       const response = await fetch(`/api/products/${slug}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch product');
+        if (response.status === 404) {
+          throw new Error('Produto não encontrado');
+        }
+        throw new Error('Erro ao carregar produto');
       }
       return response.json();
     },
+    retry: false,
   });
 
   if (isLoading) {
@@ -51,6 +55,52 @@ export default function ProductDetail() {
                 <div className="h-4 bg-gray-300 rounded w-4/6"></div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div>
+        <PageHeader
+          title="Produto não encontrado"
+          subtitle="O produto que você está procurando não foi encontrado"
+        />
+        <div className="container mx-auto px-4 py-20 text-center">
+          <div className="max-w-md mx-auto">
+            <p className="text-gray-600 mb-8">
+              Verifique se o link está correto ou navegue pelos nossos produtos disponíveis.
+            </p>
+            <Link href="/">
+              <Button className="bg-brand-green hover:bg-brand-green-dark text-white">
+                Voltar ao Início
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div>
+        <PageHeader
+          title="Produto não encontrado"
+          subtitle="O produto que você está procurando não foi encontrado"
+        />
+        <div className="container mx-auto px-4 py-20 text-center">
+          <div className="max-w-md mx-auto">
+            <p className="text-gray-600 mb-8">
+              Verifique se o link está correto ou navegue pelos nossos produtos disponíveis.
+            </p>
+            <Link href="/">
+              <Button className="bg-brand-green hover:bg-brand-green-dark text-white">
+                Voltar ao Início
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

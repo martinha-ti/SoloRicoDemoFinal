@@ -98,6 +98,7 @@ export class MemStorage implements IStorage {
   private seedData() {
     // Seed products
     const sampleProducts: InsertProduct[] = [
+      // Linha Adjuvantes
       {
         name: "Top Lime Pro",
         slug: "top-lime-pro",
@@ -108,6 +109,25 @@ export class MemStorage implements IStorage {
         active: true
       },
       {
+        name: "Acidificante Plus",
+        slug: "acidificante-plus",
+        category: "Adjuvantes",
+        description: "Acidificante de alta performance para otimizar pH das soluções",
+        benefits: ["Correção de pH", "Melhora eficácia", "Compatibilidade total"],
+        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
+        active: true
+      },
+      {
+        name: "Espalhante Adesivo",
+        slug: "espalhante-adesivo",
+        category: "Adjuvantes",
+        description: "Espalhante adesivo de alta tecnologia para aplicações foliares",
+        benefits: ["Maior cobertura", "Reduz deriva", "Aumenta aderência"],
+        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
+        active: true
+      },
+      // Linha Protect
+      {
         name: "Revolution",
         slug: "revolution",
         category: "Protect",
@@ -116,6 +136,25 @@ export class MemStorage implements IStorage {
         imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
         active: true
       },
+      {
+        name: "Protetor E700",
+        slug: "protetor-e700",
+        category: "Protect",
+        description: "Protetor avançado para culturas sensíveis",
+        benefits: ["Proteção completa", "Fácil aplicação", "Resultados rápidos"],
+        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
+        active: true
+      },
+      {
+        name: "Shield Guard",
+        slug: "shield-guard",
+        category: "Protect",
+        description: "Proteção avançada contra estresses ambientais",
+        benefits: ["Resistência ao frio", "Proteção UV", "Fortalece plantas"],
+        imageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop",
+        active: true
+      },
+      // Linha Titanium Sollus
       {
         name: "Gel de Plantio",
         slug: "gel-de-plantio",
@@ -126,12 +165,21 @@ export class MemStorage implements IStorage {
         active: true
       },
       {
-        name: "Protetor E700",
-        slug: "protetor-e700",
-        category: "Protect",
-        description: "Protetor avançado para culturas sensíveis",
-        benefits: ["Proteção completa", "Fácil aplicação", "Resultados rápidos"],
-        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
+        name: "Titanium Raiz",
+        slug: "titanium-raiz",
+        category: "Titanium Sollus",
+        description: "Estimulante de raízes com tecnologia avançada",
+        benefits: ["Desenvolvimento radicular", "Maior absorção", "Resistência a doenças"],
+        imageUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop",
+        active: true
+      },
+      {
+        name: "Sollus Sementes",
+        slug: "sollus-sementes",
+        category: "Titanium Sollus",
+        description: "Tratamento de sementes para melhor germinação",
+        benefits: ["Germinação uniforme", "Proteção inicial", "Vigor das plântulas"],
+        imageUrl: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=300&fit=crop",
         active: true
       }
     ];
