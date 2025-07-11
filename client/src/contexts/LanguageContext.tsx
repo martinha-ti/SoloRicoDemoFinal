@@ -111,7 +111,6 @@ const translations = {
     success_cases: "Cases de Sucesso",
     
     // Blog
-    blog: "Blog",
     blog_subtitle: "Informações, dicas e novidades do agronegócio",
     read_more: "Leia Mais",
     recent_posts: "Posts Recentes",
@@ -221,7 +220,6 @@ const translations = {
     success_cases: "Success Cases",
     
     // Blog
-    blog: "Blog",
     blog_subtitle: "Information, tips and agribusiness news",
     read_more: "Read More",
     recent_posts: "Recent Posts",

@@ -297,10 +297,6 @@ export default function AdminFixed() {
     },
   });
 
-  if (!isAuthenticated) {
-    return null;
-  }
-
   // Create blog post mutation
   const createBlogPostMutation = useMutation({
     mutationFn: async (blogPost: InsertBlogPost) => {
@@ -392,6 +388,10 @@ export default function AdminFixed() {
     contactMessages: 25,
     jobApplications: 15
   };
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   const statsCards = [
     {
