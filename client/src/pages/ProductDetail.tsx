@@ -250,19 +250,54 @@ export default function ProductDetail() {
         </section>
       )}
 
-      {/* Related Products */}
+      {/* Sub-produtos */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Produtos Relacionados
+              Variações do Produto
             </h3>
             <p className="text-gray-600">
-              Explore outros produtos da mesma categoria
+              Explore as diferentes opções disponíveis
             </p>
           </div>
-          <div className="flex justify-center">
-            <Link href={`/products/${product.category.toLowerCase().replace(/\s+/g, '-')}`}>
+          
+          {/* Sub-produtos (simulados baseados no produto principal) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {[
+              { suffix: '1L', description: 'Embalagem de 1 litro - Ideal para pequenas propriedades' },
+              { suffix: '5L', description: 'Embalagem de 5 litros - Melhor custo-benefício' },
+              { suffix: '20L', description: 'Embalagem de 20 litros - Para grandes aplicações' },
+            ].map((variant) => (
+              <Card key={variant.suffix} className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-brand-green rounded-full flex items-center justify-center text-white font-bold mr-4">
+                      {variant.suffix}
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-lg">
+                        {product.name} {variant.suffix}
+                      </h4>
+                      <p className="text-gray-600 text-sm">
+                        {variant.description}
+                      </p>
+                    </div>
+                  </div>
+                  <Button 
+                    className="w-full bg-brand-green hover:bg-brand-green-dark text-white"
+                  >
+                    <Phone className="mr-2 h-4 w-4" />
+                    Solicitar Orçamento
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Link para categoria */}
+          <div className="text-center">
+            <Link href={`/produtos/${product.category.toLowerCase().replace(/\s+/g, '-')}`}>
               <Button 
                 variant="outline" 
                 className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white"

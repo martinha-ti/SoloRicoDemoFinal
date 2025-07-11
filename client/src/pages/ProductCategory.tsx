@@ -14,7 +14,18 @@ export default function ProductCategory() {
   const { data: products = [], isLoading } = useQuery<Product[]>({
     queryKey: ['/api/products/category', category],
     queryFn: async () => {
-      const response = await fetch(`/api/products/category/${category}`);
+      // Converte categoria da URL para o formato do backend
+      const categoryMap: Record<string, string> = {
+        'adjuvantes': 'Adjuvantes',
+        'protect': 'Protect',
+        'titanium-sollus': 'Titanium Sollus',
+        'fertilizantes-foliares': 'Fertilizantes Foliares',
+        'defensivos': 'Defensivos',
+        'nutricao-especial': 'Nutrição Especial',
+      };
+      
+      const backendCategory = categoryMap[category || ''] || category;
+      const response = await fetch(`/api/products/category/${backendCategory}`);
       if (!response.ok) {
         throw new Error('Failed to fetch products');
       }
@@ -23,9 +34,10 @@ export default function ProductCategory() {
   });
 
   const categoryNames: Record<string, { pt: string; en: string }> = {
-    'fertilizantes-foliares': { pt: 'Fertilizantes Foliares', en: 'Foliar Fertilizers' },
     'adjuvantes': { pt: 'Adjuvantes', en: 'Adjuvants' },
-    'linha-protect': { pt: 'Linha Protect', en: 'Protect Line' },
+    'protect': { pt: 'Linha Protect', en: 'Protect Line' },
+    'titanium-sollus': { pt: 'Titanium Sollus', en: 'Titanium Sollus' },
+    'fertilizantes-foliares': { pt: 'Fertilizantes Foliares', en: 'Foliar Fertilizers' },
     'defensivos': { pt: 'Defensivos', en: 'Defensives' },
     'nutricao-especial': { pt: 'Nutrição Especial', en: 'Special Nutrition' },
   };
