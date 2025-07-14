@@ -792,6 +792,331 @@ export default function AdminPanel() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Product Dialog */}
+        <Dialog open={isProductDialogOpen} onOpenChange={setIsProductDialogOpen}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>
+                {editingProduct ? 'Editar Produto' : 'Novo Produto'}
+              </DialogTitle>
+            </DialogHeader>
+            <form onSubmit={productForm.handleSubmit(onSubmitProduct)} className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <Label htmlFor="name">Nome do Produto</Label>
+                  <Input
+                    id="name"
+                    {...productForm.register('name')}
+                    placeholder="Ex: Fertilizante Foliar Premium"
+                  />
+                  {productForm.formState.errors.name && (
+                    <p className="text-sm text-red-600">{productForm.formState.errors.name.message}</p>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="slug">Slug (URL)</Label>
+                  <Input
+                    id="slug"
+                    {...productForm.register('slug')}
+                    placeholder="fertilizante-foliar-premium"
+                  />
+                  {productForm.formState.errors.slug && (
+                    <p className="text-sm text-red-600">{productForm.formState.errors.slug.message}</p>
+                  )}
+                </div>
+              </div>
+              
+              <div>
+                <Label htmlFor="description">Descrição</Label>
+                <Textarea
+                  id="description"
+                  {...productForm.register('description')}
+                  rows={3}
+                  placeholder="Descrição detalhada do produto"
+                />
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <Label htmlFor="category">Categoria</Label>
+                  <Select value={productForm.watch('category')} onValueChange={(value) => productForm.setValue('category', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione a categoria" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="fertilizantes">Fertilizantes</SelectItem>
+                      <SelectItem value="adjuvantes">Adjuvantes</SelectItem>
+                      <SelectItem value="corretivos">Corretivos</SelectItem>
+                      <SelectItem value="inoculantes">Inoculantes</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="imageUrl">URL da Imagem</Label>
+                  <Input
+                    id="imageUrl"
+                    {...productForm.register('imageUrl')}
+                    placeholder="https://exemplo.com/imagem.jpg"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="features">Características</Label>
+                <Textarea
+                  id="features"
+                  {...productForm.register('features')}
+                  rows={3}
+                  placeholder="Principais características do produto"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="benefits">Benefícios (separados por vírgula)</Label>
+                <Textarea
+                  id="benefits"
+                  {...productForm.register('benefits')}
+                  rows={3}
+                  placeholder="Benefício 1, Benefício 2, Benefício 3"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="usage">Modo de Uso</Label>
+                <Textarea
+                  id="usage"
+                  {...productForm.register('usage')}
+                  rows={3}
+                  placeholder="Como usar o produto"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="composition">Composição</Label>
+                <Textarea
+                  id="composition"
+                  {...productForm.register('composition')}
+                  rows={3}
+                  placeholder="Composição química do produto"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="technicalSpecs">Especificações Técnicas</Label>
+                <Textarea
+                  id="technicalSpecs"
+                  {...productForm.register('technicalSpecs')}
+                  rows={3}
+                  placeholder="Especificações técnicas detalhadas"
+                />
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="active"
+                  {...productForm.register('active')}
+                  className="rounded border-gray-300"
+                />
+                <Label htmlFor="active">Produto ativo</Label>
+              </div>
+
+              <div className="flex justify-end space-x-2">
+                <Button type="button" variant="outline" onClick={() => setIsProductDialogOpen(false)}>
+                  Cancelar
+                </Button>
+                <Button type="submit" disabled={createProductMutation.isPending || updateProductMutation.isPending}>
+                  {createProductMutation.isPending || updateProductMutation.isPending ? 'Salvando...' : 'Salvar'}
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Blog Dialog */}
+        <Dialog open={isBlogDialogOpen} onOpenChange={setIsBlogDialogOpen}>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle>
+                {editingBlogPost ? 'Editar Post' : 'Novo Post'}
+              </DialogTitle>
+            </DialogHeader>
+            <form onSubmit={blogForm.handleSubmit(onSubmitBlogPost)} className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <Label htmlFor="title">Título</Label>
+                  <Input
+                    id="title"
+                    {...blogForm.register('title')}
+                    placeholder="Título do post"
+                  />
+                  {blogForm.formState.errors.title && (
+                    <p className="text-sm text-red-600">{blogForm.formState.errors.title.message}</p>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="slug">Slug (URL)</Label>
+                  <Input
+                    id="slug"
+                    {...blogForm.register('slug')}
+                    placeholder="titulo-do-post"
+                  />
+                  {blogForm.formState.errors.slug && (
+                    <p className="text-sm text-red-600">{blogForm.formState.errors.slug.message}</p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="excerpt">Resumo</Label>
+                <Textarea
+                  id="excerpt"
+                  {...blogForm.register('excerpt')}
+                  rows={3}
+                  placeholder="Resumo do post"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="content">Conteúdo</Label>
+                <Textarea
+                  id="content"
+                  {...blogForm.register('content')}
+                  rows={8}
+                  placeholder="Conteúdo completo do post"
+                />
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <Label htmlFor="category">Categoria</Label>
+                  <Select value={blogForm.watch('category')} onValueChange={(value) => blogForm.setValue('category', value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione a categoria" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="agricultura">Agricultura</SelectItem>
+                      <SelectItem value="tecnologia">Tecnologia</SelectItem>
+                      <SelectItem value="sustentabilidade">Sustentabilidade</SelectItem>
+                      <SelectItem value="mercado">Mercado</SelectItem>
+                      <SelectItem value="dicas">Dicas</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="imageUrl">URL da Imagem</Label>
+                  <Input
+                    id="imageUrl"
+                    {...blogForm.register('imageUrl')}
+                    placeholder="https://exemplo.com/imagem.jpg"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="published"
+                  {...blogForm.register('published')}
+                  className="rounded border-gray-300"
+                />
+                <Label htmlFor="published">Publicar post</Label>
+              </div>
+
+              <div className="flex justify-end space-x-2">
+                <Button type="button" variant="outline" onClick={() => setIsBlogDialogOpen(false)}>
+                  Cancelar
+                </Button>
+                <Button type="submit" disabled={createBlogPostMutation.isPending || updateBlogPostMutation.isPending}>
+                  {createBlogPostMutation.isPending || updateBlogPostMutation.isPending ? 'Salvando...' : 'Salvar'}
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
+
+        {/* Admin Dialog */}
+        <Dialog open={isAdminDialogOpen} onOpenChange={setIsAdminDialogOpen}>
+          <DialogContent className="max-w-md">
+            <DialogHeader>
+              <DialogTitle>
+                {editingAdmin ? 'Editar Usuário' : 'Novo Usuário'}
+              </DialogTitle>
+            </DialogHeader>
+            <form onSubmit={adminForm.handleSubmit(onSubmitAdmin)} className="space-y-4">
+              <div>
+                <Label htmlFor="name">Nome</Label>
+                <Input
+                  id="name"
+                  {...adminForm.register('name')}
+                  placeholder="Nome completo"
+                />
+                {adminForm.formState.errors.name && (
+                  <p className="text-sm text-red-600">{adminForm.formState.errors.name.message}</p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="username">Nome de Usuário</Label>
+                <Input
+                  id="username"
+                  {...adminForm.register('username')}
+                  placeholder="nome.usuario"
+                />
+                {adminForm.formState.errors.username && (
+                  <p className="text-sm text-red-600">{adminForm.formState.errors.username.message}</p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="password">Senha</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  {...adminForm.register('password')}
+                  placeholder="Digite a senha"
+                />
+                {adminForm.formState.errors.password && (
+                  <p className="text-sm text-red-600">{adminForm.formState.errors.password.message}</p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="role">Função</Label>
+                <Select value={adminForm.watch('role')} onValueChange={(value) => adminForm.setValue('role', value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecione a função" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="admin">Administrador</SelectItem>
+                    <SelectItem value="editor">Editor</SelectItem>
+                    <SelectItem value="moderator">Moderador</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="isActive"
+                  {...adminForm.register('isActive')}
+                  className="rounded border-gray-300"
+                />
+                <Label htmlFor="isActive">Usuário ativo</Label>
+              </div>
+
+              <div className="flex justify-end space-x-2">
+                <Button type="button" variant="outline" onClick={() => setIsAdminDialogOpen(false)}>
+                  Cancelar
+                </Button>
+                <Button type="submit" disabled={createAdminMutation.isPending || updateAdminMutation.isPending}>
+                  {createAdminMutation.isPending || updateAdminMutation.isPending ? 'Salvando...' : 'Salvar'}
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
