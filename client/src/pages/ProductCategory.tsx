@@ -88,10 +88,6 @@ export default function ProductCategory() {
               Home
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <Link href="/products" className="hover:text-brand-green">
-              Produtos
-            </Link>
-            <ChevronRight className="h-4 w-4" />
             <span className="text-brand-green font-medium">
               {getCategoryName(category || '')}
             </span>
