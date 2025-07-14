@@ -385,6 +385,11 @@ export default function AdminPanel() {
 
   const handleEditBlogPost = (blogPost: BlogPost) => {
     setEditingBlogPost(blogPost);
+    
+    // Format date for datetime-local input
+    const publishedDate = new Date(blogPost.publishedAt);
+    const formattedDate = publishedDate.toISOString().slice(0, 16);
+    
     blogForm.reset({
       title: blogPost.title,
       slug: blogPost.slug,
@@ -392,7 +397,8 @@ export default function AdminPanel() {
       content: blogPost.content || '',
       category: blogPost.category || '',
       imageUrl: blogPost.imageUrl || '',
-      published: blogPost.published !== false,
+      publishedAt: formattedDate,
+      isActive: blogPost.isActive !== false,
     });
     setIsBlogDialogOpen(true);
   };
@@ -407,6 +413,11 @@ export default function AdminPanel() {
     // Generate slug from title if not provided
     if (!data.slug) {
       data.slug = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    // Convert publishedAt string to ISO format for database
+    if (data.publishedAt) {
+      data.publishedAt = new Date(data.publishedAt).toISOString();
     }
 
     if (editingBlogPost) {
@@ -611,6 +622,28 @@ export default function AdminPanel() {
 
           {/* Blog Tab */}
           <TabsContent value="blog" className="space-y-6">
+            {/* Blog Categories Overview */}
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {(() => {
+                const categories = blogPosts.reduce((acc, post) => {
+                  acc[post.category] = (acc[post.category] || 0) + 1;
+                  return acc;
+                }, {} as Record<string, number>);
+                
+                return Object.entries(categories).map(([category, count]) => (
+                  <Card key={category}>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm font-medium">{category}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="text-2xl font-bold">{count}</div>
+                      <p className="text-xs text-gray-500">posts</p>
+                    </CardContent>
+                  </Card>
+                ));
+              })()}
+            </div>
+
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>Gerenciamento de Blog</CardTitle>
@@ -645,7 +678,10 @@ export default function AdminPanel() {
                                 <p className="text-sm text-gray-600 mb-2">{post.excerpt}</p>
                                 <div className="flex items-center gap-4 text-sm text-gray-500">
                                   <span>Categoria: {post.category}</span>
-                                  <span>Data: {new Date(post.createdAt).toLocaleDateString()}</span>
+                                  <span>Publicado: {new Date(post.publishedAt).toLocaleDateString()}</span>
+                                  {!post.isActive && (
+                                    <Badge variant="secondary">Inativo</Badge>
+                                  )}
                                 </div>
                               </div>
                               <div className="flex items-center gap-2">
@@ -1093,11 +1129,14 @@ export default function AdminPanel() {
                       <SelectValue placeholder="Selecione a categoria" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="agricultura">Agricultura</SelectItem>
-                      <SelectItem value="tecnologia">Tecnologia</SelectItem>
-                      <SelectItem value="sustentabilidade">Sustentabilidade</SelectItem>
-                      <SelectItem value="mercado">Mercado</SelectItem>
-                      <SelectItem value="dicas">Dicas</SelectItem>
+                      <SelectItem value="Agronegócio">Agronegócio</SelectItem>
+                      <SelectItem value="Tecnologia Agrícola">Tecnologia Agrícola</SelectItem>
+                      <SelectItem value="Sustentabilidade">Sustentabilidade</SelectItem>
+                      <SelectItem value="Mercado">Mercado</SelectItem>
+                      <SelectItem value="Nutrição de Plantas">Nutrição de Plantas</SelectItem>
+                      <SelectItem value="Pragas e Doenças">Pragas e Doenças</SelectItem>
+                      <SelectItem value="Novidades">Novidades</SelectItem>
+                      <SelectItem value="Dicas">Dicas</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -1111,14 +1150,24 @@ export default function AdminPanel() {
                 </div>
               </div>
 
+              <div>
+                <Label htmlFor="publishedAt">Data de Publicação</Label>
+                <Input
+                  id="publishedAt"
+                  type="datetime-local"
+                  {...blogForm.register('publishedAt')}
+                  placeholder="Data e hora da publicação"
+                />
+              </div>
+
               <div className="flex items-center space-x-2">
                 <input
                   type="checkbox"
-                  id="published"
-                  {...blogForm.register('published')}
+                  id="isActive"
+                  {...blogForm.register('isActive')}
                   className="rounded border-gray-300"
                 />
-                <Label htmlFor="published">Publicar post</Label>
+                <Label htmlFor="isActive">Post ativo</Label>
               </div>
 
               <div className="flex justify-end space-x-2">

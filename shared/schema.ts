@@ -40,6 +40,8 @@ export const blogPosts = pgTable("blog_posts", {
   imageUrl: text("image_url"),
   publishedAt: timestamp("published_at").defaultNow(),
   isActive: boolean("is_active").default(true),
+  createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const contactMessages = pgTable("contact_messages", {
@@ -98,7 +100,8 @@ export const insertProductSchema = createInsertSchema(products).omit({
 
 export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
   id: true,
-  publishedAt: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
