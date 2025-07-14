@@ -72,9 +72,13 @@ export const notifications = pgTable("notifications", {
 
 export const admins = pgTable("admins", {
   id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  role: text("role").notNull(), // 'admin', 'editor', 'viewer'
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
+  isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
+  updatedAt: timestamp("updated_at").defaultNow(),
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
@@ -110,6 +114,7 @@ export const insertNotificationSchema = createInsertSchema(notifications).omit({
 export const insertAdminSchema = createInsertSchema(admins).omit({
   id: true,
   createdAt: true,
+  updatedAt: true,
 });
 
 export const loginSchema = z.object({

@@ -28,7 +28,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { insertProductSchema, insertBlogPostSchema, type Product, type InsertProduct, type BlogPost, type InsertBlogPost } from '@shared/schema';
+import { insertProductSchema, insertBlogPostSchema, insertAdminSchema, type Product, type InsertProduct, type BlogPost, type InsertBlogPost, type Admin, type InsertAdmin } from '@shared/schema';
 
 export default function AdminFixed() {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -40,6 +40,8 @@ export default function AdminFixed() {
   const [isProductDialogOpen, setIsProductDialogOpen] = useState(false);
   const [editingBlogPost, setEditingBlogPost] = useState<BlogPost | null>(null);
   const [isBlogDialogOpen, setIsBlogDialogOpen] = useState(false);
+  const [editingAdmin, setEditingAdmin] = useState<Admin | null>(null);
+  const [isAdminDialogOpen, setIsAdminDialogOpen] = useState(false);
   const [seoSettings, setSeoSettings] = useState({
     siteTitle: 'Solo Rico - Soluções Completas para Agricultura',
     siteDescription: 'Solo Rico oferece fertilizantes foliares, adjuvantes e soluções completas para agricultura. Há mais de 30 anos espalhando o verde pelo Brasil e pelo mundo.',
@@ -177,6 +179,38 @@ export default function AdminFixed() {
     }
   };
 
+  const handleCreateAdmin = () => {
+    setEditingAdmin(null);
+    adminForm.reset();
+    setIsAdminDialogOpen(true);
+  };
+
+  const handleEditAdmin = (admin: Admin) => {
+    setEditingAdmin(admin);
+    adminForm.reset({
+      name: admin.name,
+      role: admin.role,
+      username: admin.username,
+      password: '', // Não carregar senha por segurança
+      isActive: admin.isActive !== false,
+    });
+    setIsAdminDialogOpen(true);
+  };
+
+  const handleDeleteAdmin = (id: number) => {
+    if (confirm('Tem certeza que deseja deletar este usuário?')) {
+      deleteAdminMutation.mutate(id);
+    }
+  };
+
+  const onSubmitAdmin = (data: InsertAdmin) => {
+    if (editingAdmin) {
+      updateAdminMutation.mutate({ id: editingAdmin.id, admin: data });
+    } else {
+      createAdminMutation.mutate(data);
+    }
+  };
+
   // Fetch products data
   const { data: products = [], isLoading: productsLoading } = useQuery<Product[]>({
     queryKey: ['/api/products'],
@@ -186,6 +220,12 @@ export default function AdminFixed() {
   // Fetch blog posts data
   const { data: blogPosts = [], isLoading: blogPostsLoading } = useQuery<BlogPost[]>({
     queryKey: ['/api/blog'],
+    enabled: isAuthenticated,
+  });
+
+  // Fetch admin users data
+  const { data: adminUsers = [], isLoading: adminUsersLoading } = useQuery<Admin[]>({
+    queryKey: ['/api/admin/users'],
     enabled: isAuthenticated,
   });
 
@@ -219,6 +259,18 @@ export default function AdminFixed() {
       category: '',
       imageUrl: '',
       published: true,
+    },
+  });
+
+  // Admin user form
+  const adminForm = useForm<InsertAdmin>({
+    resolver: zodResolver(insertAdminSchema),
+    defaultValues: {
+      name: '',
+      role: 'editor',
+      username: '',
+      password: '',
+      isActive: true,
     },
   });
 
@@ -390,12 +442,96 @@ export default function AdminFixed() {
     },
   });
 
-  // Mock data for demonstration
-  const mockStats = {
+  // Create admin user mutation
+  const createAdminMutation = useMutation({
+    mutationFn: async (admin: InsertAdmin) => {
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(admin),
+      });
+      if (!response.ok) throw new Error('Erro ao criar usuário');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/users'] });
+      toast({
+        title: "Usuário criado",
+        description: "O usuário foi criado com sucesso.",
+      });
+      setIsAdminDialogOpen(false);
+      adminForm.reset();
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erro",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Update admin user mutation
+  const updateAdminMutation = useMutation({
+    mutationFn: async ({ id, admin }: { id: number; admin: InsertAdmin }) => {
+      const response = await fetch(`/api/admin/users/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(admin),
+      });
+      if (!response.ok) throw new Error('Erro ao atualizar usuário');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/users'] });
+      toast({
+        title: "Usuário atualizado",
+        description: "O usuário foi atualizado com sucesso.",
+      });
+      setIsAdminDialogOpen(false);
+      setEditingAdmin(null);
+      adminForm.reset();
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erro",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Delete admin user mutation
+  const deleteAdminMutation = useMutation({
+    mutationFn: async (id: number) => {
+      const response = await fetch(`/api/admin/users/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Erro ao deletar usuário');
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/users'] });
+      toast({
+        title: "Usuário deletado",
+        description: "O usuário foi deletado com sucesso.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Erro",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Stats data
+  const stats = {
     products: products.length,
     blogPosts: blogPosts.length,
-    contactMessages: 25,
-    jobApplications: 15
+    adminUsers: adminUsers.length,
+    notifications: 5
   };
 
   if (!isAuthenticated) {
@@ -405,27 +541,27 @@ export default function AdminFixed() {
   const statsCards = [
     {
       title: 'Produtos',
-      value: mockStats.products,
+      value: stats.products,
       icon: Package,
       color: 'bg-blue-500'
     },
     {
       title: 'Posts do Blog',
-      value: mockStats.blogPosts,
+      value: stats.blogPosts,
       icon: FileText,
       color: 'bg-green-500'
     },
     {
-      title: 'Mensagens de Contato',
-      value: mockStats.contactMessages,
-      icon: MessageSquare,
+      title: 'Usuários',
+      value: stats.adminUsers,
+      icon: Settings,
       color: 'bg-purple-500'
     },
     {
-      title: 'Candidaturas',
-      value: mockStats.jobApplications,
-      icon: Briefcase,
-      color: 'bg-red-500'
+      title: 'Notificações',
+      value: stats.notifications,
+      icon: MessageSquare,
+      color: 'bg-orange-500'
     }
   ];
 
@@ -450,8 +586,8 @@ export default function AdminFixed() {
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="products">Produtos</TabsTrigger>
             <TabsTrigger value="blog">Blog</TabsTrigger>
+            <TabsTrigger value="users">Usuários</TabsTrigger>
             <TabsTrigger value="seo">SEO</TabsTrigger>
-            <TabsTrigger value="messages">Mensagens</TabsTrigger>
           </TabsList>
 
           {/* Dashboard Tab */}
@@ -903,6 +1039,172 @@ export default function AdminFixed() {
             </Dialog>
           </TabsContent>
 
+          {/* Users Tab */}
+          <TabsContent value="users" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle>Usuários Administrativos</CardTitle>
+                    <CardDescription>Gerencie usuários com acesso ao painel administrativo</CardDescription>
+                  </div>
+                  <Button onClick={handleCreateAdmin} className="flex items-center gap-2">
+                    <Plus className="h-4 w-4" />
+                    Novo Usuário
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {adminUsersLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {adminUsers.length === 0 ? (
+                      <div className="text-center py-8 text-gray-500">
+                        Nenhum usuário cadastrado. Clique em "Novo Usuário" para adicionar.
+                      </div>
+                    ) : (
+                      <div className="grid gap-4">
+                        {adminUsers.map((user) => (
+                          <Card key={user.id} className="p-4">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <h3 className="font-semibold text-lg">{user.name}</h3>
+                                  <Badge variant={user.role === 'admin' ? 'default' : 'secondary'}>
+                                    {user.role === 'admin' ? 'Administrador' : 'Editor'}
+                                  </Badge>
+                                  {!user.isActive && (
+                                    <Badge variant="outline">Inativo</Badge>
+                                  )}
+                                </div>
+                                <p className="text-sm text-gray-600 mb-2">@{user.username}</p>
+                                <div className="flex items-center gap-4 text-sm text-gray-500">
+                                  <span>Criado em: {new Date(user.createdAt).toLocaleDateString('pt-BR')}</span>
+                                  <span>Última atualização: {new Date(user.updatedAt).toLocaleDateString('pt-BR')}</span>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleEditAdmin(user)}
+                                >
+                                  <Edit className="h-4 w-4" />
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleDeleteAdmin(user.id)}
+                                  className="text-red-600 hover:text-red-700"
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Admin User Dialog */}
+            <Dialog open={isAdminDialogOpen} onOpenChange={setIsAdminDialogOpen}>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle>
+                    {editingAdmin ? 'Editar Usuário' : 'Novo Usuário'}
+                  </DialogTitle>
+                </DialogHeader>
+                <form onSubmit={adminForm.handleSubmit(onSubmitAdmin)} className="space-y-4">
+                  <div>
+                    <Label htmlFor="name">Nome Completo</Label>
+                    <Input
+                      id="name"
+                      {...adminForm.register('name')}
+                      placeholder="Ex: João Silva"
+                    />
+                    {adminForm.formState.errors.name && (
+                      <p className="text-sm text-red-600">{adminForm.formState.errors.name.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label htmlFor="username">Nome de Usuário</Label>
+                    <Input
+                      id="username"
+                      {...adminForm.register('username')}
+                      placeholder="Ex: joao.silva"
+                    />
+                    {adminForm.formState.errors.username && (
+                      <p className="text-sm text-red-600">{adminForm.formState.errors.username.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label htmlFor="password">Senha</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      {...adminForm.register('password')}
+                      placeholder={editingAdmin ? "Deixe em branco para manter a senha atual" : "Digite uma senha segura"}
+                    />
+                    {adminForm.formState.errors.password && (
+                      <p className="text-sm text-red-600">{adminForm.formState.errors.password.message}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <Label htmlFor="role">Nível de Acesso</Label>
+                    <Select
+                      value={adminForm.watch('role')}
+                      onValueChange={(value) => adminForm.setValue('role', value)}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione o nível de acesso" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="admin">Administrador</SelectItem>
+                        <SelectItem value="editor">Editor</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {adminForm.formState.errors.role && (
+                      <p className="text-sm text-red-600">{adminForm.formState.errors.role.message}</p>
+                    )}
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <input
+                      id="isActive"
+                      type="checkbox"
+                      {...adminForm.register('isActive')}
+                      className="rounded border-gray-300"
+                    />
+                    <Label htmlFor="isActive">Usuário ativo</Label>
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-4">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={() => setIsAdminDialogOpen(false)}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button type="submit">
+                      {editingAdmin ? 'Atualizar' : 'Criar'}
+                    </Button>
+                  </div>
+                </form>
+              </DialogContent>
+            </Dialog>
+          </TabsContent>
+
           {/* SEO Tab */}
           <TabsContent value="seo" className="space-y-6">
             <Card>
@@ -972,28 +1274,7 @@ export default function AdminFixed() {
             </Card>
           </TabsContent>
 
-          {/* Messages Tab */}
-          <TabsContent value="messages" className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Mensagens de Contato</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">Funcionalidade em desenvolvimento. Aqui você poderá visualizar e gerenciar mensagens de contato.</p>
-                </CardContent>
-              </Card>
-              
-              <Card>
-                <CardHeader>
-                  <CardTitle>Candidaturas de Emprego</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">Funcionalidade em desenvolvimento. Aqui você poderá visualizar e gerenciar candidaturas de emprego.</p>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
+
         </Tabs>
       </div>
     </div>

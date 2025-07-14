@@ -53,8 +53,11 @@ export interface IStorage {
   deleteNotification(id: number): Promise<void>;
   
   // Admin methods
+  getAdmins(): Promise<Admin[]>;
   getAdminByUsername(username: string): Promise<Admin | undefined>;
   createAdmin(admin: InsertAdmin): Promise<Admin>;
+  updateAdmin(id: number, admin: InsertAdmin): Promise<Admin>;
+  deleteAdmin(id: number): Promise<void>;
   verifyAdmin(username: string, password: string): Promise<Admin | null>;
 }
 
@@ -265,13 +268,34 @@ export class MemStorage implements IStorage {
       this.createNotification(notification);
     });
 
-    // Seed admin user
-    const defaultAdmin: InsertAdmin = {
-      username: "admin",
-      password: "admin123" // Em produção, usar hash bcrypt
-    };
+    // Seed admin users
+    const defaultAdmins: InsertAdmin[] = [
+      {
+        name: "Administrador Principal",
+        role: "admin",
+        username: "admin",
+        password: "admin123", // Em produção, usar hash bcrypt
+        isActive: true
+      },
+      {
+        name: "Editor de Conteúdo",
+        role: "editor",
+        username: "editor",
+        password: "editor123",
+        isActive: true
+      },
+      {
+        name: "Visualizador",
+        role: "viewer",
+        username: "viewer",
+        password: "viewer123",
+        isActive: true
+      }
+    ];
 
-    this.createAdmin(defaultAdmin);
+    defaultAdmins.forEach(admin => {
+      this.createAdmin(admin);
+    });
   }
 
   async getUser(id: number): Promise<User | undefined> {
@@ -474,6 +498,10 @@ export class MemStorage implements IStorage {
   }
 
   // Admin methods
+  async getAdmins(): Promise<Admin[]> {
+    return Array.from(this.admins.values()).filter(admin => admin.isActive !== false);
+  }
+
   async getAdminByUsername(username: string): Promise<Admin | undefined> {
     return Array.from(this.admins.values()).find(
       (admin) => admin.username === username,
@@ -485,10 +513,36 @@ export class MemStorage implements IStorage {
     const admin: Admin = { 
       ...insertAdmin, 
       id, 
-      createdAt: new Date()
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      isActive: insertAdmin.isActive ?? true
     };
     this.admins.set(id, admin);
     return admin;
+  }
+
+  async updateAdmin(id: number, insertAdmin: InsertAdmin): Promise<Admin> {
+    const existingAdmin = this.admins.get(id);
+    if (!existingAdmin) {
+      throw new Error('Admin not found');
+    }
+    
+    const admin: Admin = { 
+      ...existingAdmin,
+      ...insertAdmin, 
+      id,
+      updatedAt: new Date(),
+      isActive: insertAdmin.isActive ?? true
+    };
+    this.admins.set(id, admin);
+    return admin;
+  }
+
+  async deleteAdmin(id: number): Promise<void> {
+    if (!this.admins.has(id)) {
+      throw new Error('Admin not found');
+    }
+    this.admins.delete(id);
   }
 
   async verifyAdmin(username: string, password: string): Promise<Admin | null> {
@@ -498,7 +552,7 @@ export class MemStorage implements IStorage {
     }
     
     // Em produção, usar bcrypt para comparar hash
-    if (admin.password === password) {
+    if (admin.password === password && admin.isActive) {
       return admin;
     }
     

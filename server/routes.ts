@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { sendContactEmail, sendJobApplicationEmail } from "./services/emailService";
-import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema, loginSchema, insertBlogPostSchema, insertProductSchema } from "@shared/schema";
+import { insertContactMessageSchema, insertJobApplicationSchema, insertNotificationSchema, loginSchema, insertBlogPostSchema, insertProductSchema, insertAdminSchema } from "@shared/schema";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Products routes
@@ -254,6 +254,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Admin user management routes
+  app.get('/api/admin/users', async (req, res) => {
+    try {
+      const admins = await storage.getAdmins();
+      res.json(admins);
+    } catch (error) {
+      console.error('Get admins error:', error);
+      res.status(500).json({ error: 'Failed to fetch admins' });
+    }
+  });
+
+  app.post('/api/admin/users', async (req, res) => {
+    try {
+      const validatedData = insertAdminSchema.parse(req.body);
+      const admin = await storage.createAdmin(validatedData);
+      res.json(admin);
+    } catch (error) {
+      console.error('Create admin error:', error);
+      res.status(400).json({ error: 'Invalid admin data' });
+    }
+  });
+
+  app.put('/api/admin/users/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const validatedData = insertAdminSchema.parse(req.body);
+      const admin = await storage.updateAdmin(id, validatedData);
+      res.json(admin);
+    } catch (error) {
+      console.error('Update admin error:', error);
+      res.status(400).json({ error: 'Invalid admin data' });
+    }
+  });
+
+  app.delete('/api/admin/users/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteAdmin(id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Delete admin error:', error);
+      res.status(500).json({ error: 'Failed to delete admin' });
+    }
+  });
+
   // Admin authentication routes
   app.post('/api/admin/login', async (req, res) => {
     try {
@@ -269,6 +314,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         success: true, 
         admin: { 
           id: admin.id, 
+          name: admin.name,
+          role: admin.role,
           username: admin.username 
         } 
       });
@@ -287,26 +334,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin routes for contact messages and job applications
-  app.get('/api/contact-messages', async (req, res) => {
-    try {
-      // In a real implementation, this would fetch from database
-      // For now, return empty array since we don't store them persistently
-      res.json([]);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch contact messages' });
-    }
-  });
 
-  app.get('/api/job-applications', async (req, res) => {
-    try {
-      // In a real implementation, this would fetch from database
-      // For now, return empty array since we don't store them persistently
-      res.json([]);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch job applications' });
-    }
-  });
 
   const httpServer = createServer(app);
   return httpServer;
