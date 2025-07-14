@@ -39,6 +39,7 @@ function Router() {
         <Route path="/produto/:slug" component={ProductDetail} />
         <Route path="/admin-login" component={AdminLogin} />
         <Route path="/admin" component={AdminFixed} />
+        <Route path="/admin-fixed" component={AdminFixed} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

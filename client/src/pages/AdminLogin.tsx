@@ -44,7 +44,7 @@ export default function AdminLogin() {
       if (data.success) {
         // Armazenar informações do admin (em produção, usar JWT)
         localStorage.setItem("adminAuth", JSON.stringify(data.admin));
-        setLocation("/admin");
+        setLocation("/admin-fixed");
       }
     },
     onError: (error: any) => {
