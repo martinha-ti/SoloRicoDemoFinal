@@ -148,6 +148,11 @@ export default function Footer() {
                     contato@solorico.com.br
                   </a>
                 </li>
+                <li>
+                  <Link href="/admin-login" className="text-gray-500 hover:text-green-400 transition-colors text-xs">
+                    Admin
+                  </Link>
+                </li>
               </ul>
             </div>
 

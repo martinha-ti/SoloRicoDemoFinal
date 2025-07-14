@@ -77,10 +77,7 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Admin Panel Link (hidden by default) */}
-            <Link href="/admin" className="nav-link hidden sm:block text-xs opacity-50 hover:opacity-100">
-              Admin
-            </Link>
+
             
             {/* Seletor de Idioma - Último elemento */}
             <div className="flex items-center space-x-2">
