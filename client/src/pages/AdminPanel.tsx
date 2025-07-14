@@ -25,6 +25,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { insertProductSchema, insertBlogPostSchema, insertAdminSchema, type Product, type InsertProduct, type BlogPost, type InsertBlogPost, type Admin, type InsertAdmin } from '@shared/schema';
 
 export default function AdminPanel() {
@@ -701,8 +702,8 @@ export default function AdminPanel() {
                               </DialogDescription>
                             </DialogHeader>
                             
-                            <Form {...form}>
-                              <form onSubmit={form.handleSubmit((data) => onSubmitProduct({ 
+                            <Form {...productForm}>
+                              <form onSubmit={productForm.handleSubmit((data) => onSubmitProduct({ 
                                 ...data, 
                                 category: 'Fertilizantes', // Categoria padrão para linha Top Lime Pro
                                 parentId: null, // Não usar parent ID por enquanto
@@ -710,7 +711,7 @@ export default function AdminPanel() {
                               }))} className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">
                                   <FormField
-                                    control={form.control}
+                                    control={productForm.control}
                                     name="name"
                                     render={({ field }) => (
                                       <FormItem>
@@ -724,7 +725,7 @@ export default function AdminPanel() {
                                   />
                                   
                                   <FormField
-                                    control={form.control}
+                                    control={productForm.control}
                                     name="slug"
                                     render={({ field }) => (
                                       <FormItem>
@@ -739,7 +740,7 @@ export default function AdminPanel() {
                                 </div>
                                 
                                 <FormField
-                                  control={form.control}
+                                  control={productForm.control}
                                   name="description"
                                   render={({ field }) => (
                                     <FormItem>
@@ -754,7 +755,7 @@ export default function AdminPanel() {
                                 
                                 <div className="grid grid-cols-2 gap-4">
                                   <FormField
-                                    control={form.control}
+                                    control={productForm.control}
                                     name="imageUrl"
                                     render={({ field }) => (
                                       <FormItem>
@@ -768,7 +769,7 @@ export default function AdminPanel() {
                                   />
                                   
                                   <FormField
-                                    control={form.control}
+                                    control={productForm.control}
                                     name="features"
                                     render={({ field }) => (
                                       <FormItem>
