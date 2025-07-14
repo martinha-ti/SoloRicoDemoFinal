@@ -671,17 +671,14 @@ export default function AdminPanel() {
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
                                   <h3 className="font-semibold text-lg">{post.title}</h3>
-                                  {!post.published && (
-                                    <Badge variant="destructive">Rascunho</Badge>
+                                  {!post.isActive && (
+                                    <Badge variant="destructive">Inativo</Badge>
                                   )}
                                 </div>
                                 <p className="text-sm text-gray-600 mb-2">{post.excerpt}</p>
                                 <div className="flex items-center gap-4 text-sm text-gray-500">
                                   <span>Categoria: {post.category}</span>
                                   <span>Publicado: {new Date(post.publishedAt).toLocaleDateString()}</span>
-                                  {!post.isActive && (
-                                    <Badge variant="secondary">Inativo</Badge>
-                                  )}
                                 </div>
                               </div>
                               <div className="flex items-center gap-2">
