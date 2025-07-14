@@ -15,6 +15,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get('/api/products/main-lines', async (req, res) => {
+    try {
+      const mainProducts = await storage.getMainProductLines();
+      res.json(mainProducts);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch main product lines' });
+    }
+  });
+
   app.post('/api/products', async (req, res) => {
     try {
       const validatedData = insertProductSchema.parse(req.body);

@@ -11,8 +11,12 @@ import { Droplets, Shield, Sprout, Snowflake } from "lucide-react";
 export default function Home() {
   const { t } = useLanguage();
   const { data: products = [] } = useQuery({
-    queryKey: ['/api/products'],
-    queryFn: () => api.getProducts(),
+    queryKey: ['/api/products/main-lines'],
+    queryFn: async () => {
+      const response = await fetch('/api/products/main-lines');
+      if (!response.ok) throw new Error('Failed to fetch main product lines');
+      return response.json();
+    },
   });
 
   const { data: blogPosts = [] } = useQuery({

@@ -34,6 +34,7 @@ export interface IStorage {
   getProductsByCategory(category: string): Promise<Product[]>;
   getProductWithSubProducts(slug: string): Promise<Product & { subProducts?: Product[] } | undefined>;
   getSubProductsByParent(parentId: number): Promise<Product[]>;
+  getMainProductLines(): Promise<Product[]>;
   createProduct(product: InsertProduct): Promise<Product>;
   updateProduct(id: number, product: InsertProduct): Promise<Product>;
   deleteProduct(id: number): Promise<void>;
@@ -102,57 +103,160 @@ export class MemStorage implements IStorage {
   }
 
   private seedData() {
-    // Seed products
+    // Seed products - 5 linhas principais conforme as imagens
     const sampleProducts: InsertProduct[] = [
-      // Linha Top Lime Pro - Produto principal
+      // 1. TITANIUM FOLIAR - Linha principal
       {
-        name: "Top Lime Pro",
-        slug: "top-lime-pro",
+        name: "TITANIUM FOLIAR",
+        slug: "titanium-foliar",
         category: "Fertilizantes",
-        description: "Linha completa de corretivos de solo com tecnologia avançada para máxima eficiência na correção de pH.",
-        features: "Correção rápida de pH, Melhora absorção de nutrientes, Reduz toxicidade do alumínio",
-        benefits: ["Aumento da produtividade", "Melhoria da estrutura do solo", "Redução da acidez"],
-        usage: "Aplicar 30 dias antes do plantio, incorporar ao solo",
-        composition: "Óxido de cálcio (CaO): 65%, Óxido de magnésio (MgO): 12%",
-        technicalSpecs: "PRNT: 95%, Granulometria: 0,3mm (70%)",
-        imageUrl: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop",
-        gallery: ["https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&h=600&fit=crop", "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop"],
+        description: "Linha completa de fertilizantes foliares com tecnologia avançada para nutrição rápida e eficiente.",
+        features: "Absorção rápida, Nutrição foliar, Tecnologia de ponta",
+        benefits: ["Nutrição rápida", "Maior eficiência", "Aumento da produtividade"],
+        usage: "Aplicar via foliar conforme recomendação técnica",
+        composition: "Macro e micronutrientes balanceados",
+        technicalSpecs: "pH: 5.5-6.5, Densidade: 1.2g/cm³",
+        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop"],
         active: true,
         isProductLine: true
       },
-      // Sub-produtos da linha Top Lime Pro
+      // 2. TITANIUM SOLLUS - Linha principal
       {
-        name: "Sub Produto Top Lime 1",
-        slug: "sub-produto-top-lime-1",
+        name: "TITANIUM SOLLUS",
+        slug: "titanium-sollus",
         category: "Fertilizantes",
-        description: "Primeira variação da linha Top Lime Pro com fórmula específica para solos arenosos.",
-        features: "Ação prolongada, Ideal para solos arenosos, Alta solubilidade",
-        benefits: ["Correção duradoura", "Melhoria da CTC", "Redução da lixiviação"],
-        usage: "Aplicar 200kg/ha, incorporar a 15cm de profundidade",
-        composition: "Óxido de cálcio (CaO): 70%, Óxido de magnésio (MgO): 8%",
-        technicalSpecs: "PRNT: 98%, Granulometria: 0,5mm (80%)",
+        description: "Linha especializada em condicionadores e melhoradores de solo com tecnologia inovadora.",
+        features: "Melhoria do solo, Condicionamento, Tecnologia avançada",
+        benefits: ["Estrutura do solo", "Retenção de água", "Melhor CTC"],
+        usage: "Aplicar no solo antes do plantio",
+        composition: "Condicionadores orgânicos e minerais",
+        technicalSpecs: "Granulometria: 0.3-2mm, pH: 6.0-7.0",
+        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: true
+      },
+      // 3. PROTECT - Linha principal
+      {
+        name: "PROTECT",
+        slug: "protect",
+        category: "Defensivos",
+        description: "Linha completa de produtos para proteção de cultivos com tecnologia de ponta.",
+        features: "Proteção eficiente, Tecnologia avançada, Controle específico",
+        benefits: ["Proteção das culturas", "Controle de pragas", "Maior segurança"],
+        usage: "Aplicar conforme bula e recomendação técnica",
+        composition: "Ingredientes ativos específicos para cada praga",
+        technicalSpecs: "Concentração variável conforme produto",
+        imageUrl: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: true
+      },
+      // 4. ADJUVANTES - Linha principal
+      {
+        name: "ADJUVANTES",
+        slug: "adjuvantes",
+        category: "Adjuvantes",
+        description: "Linha completa de adjuvantes para potencializar a eficiência dos tratamentos.",
+        features: "Potencialização, Eficiência, Tecnologia de aplicação",
+        benefits: ["Maior eficiência", "Melhor cobertura", "Redução de deriva"],
+        usage: "Adicionar ao tanque conforme recomendação",
+        composition: "Surfactantes e espalhantes adesivos",
+        technicalSpecs: "Concentração: 0.1-0.5% v/v",
+        imageUrl: "https://images.unsplash.com/photo-1560493676-04071c5f467b?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1560493676-04071c5f467b?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: true
+      },
+      // 5. VIGOR - Linha principal
+      {
+        name: "VIGOR",
+        slug: "vigor",
+        category: "Bioestimulantes",
+        description: "Linha de bioestimulantes para promover vigor e resistência das plantas.",
+        features: "Bioestimulação, Vigor vegetal, Resistência",
+        benefits: ["Maior vigor", "Resistência a estresses", "Melhor desenvolvimento"],
+        usage: "Aplicar via solo ou foliar",
+        composition: "Extratos vegetais e aminoácidos",
+        technicalSpecs: "Concentração de aminoácidos: 15%",
+        imageUrl: "https://images.unsplash.com/photo-1592428122012-32c8ae8ff73e?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1592428122012-32c8ae8ff73e?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: true
+      },
+      
+      // Sub-produtos conforme segunda imagem
+      // 1. TOP LIME PRO - Sub-produto da linha ADJUVANTES
+      {
+        name: "TOP LIME PRO",
+        slug: "top-lime-pro",
+        category: "Adjuvantes",
+        description: "Corretivo de solo líquido com tecnologia avançada para correção rápida de pH.",
+        features: "Correção rápida, pH balanceado, Tecnologia líquida",
+        benefits: ["Correção eficiente", "Aplicação fácil", "Ação rápida"],
+        usage: "Aplicar 2-3 L/ha via pulverização",
+        composition: "Óxido de cálcio solúvel 15%",
+        technicalSpecs: "pH: 12.5, Densidade: 1.3g/cm³",
         imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
         gallery: ["https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop"],
         active: true,
         isProductLine: false,
-        parentId: 1, // Referência ao Top Lime Pro
+        parentId: 4, // Referência ao ADJUVANTES
         lineOrder: 1
       },
+      // 2. REVOLUTION - Sub-produto da linha PROTECT
       {
-        name: "Sub Produto Top Lime 2",
-        slug: "sub-produto-top-lime-2",
-        category: "Fertilizantes",
-        description: "Segunda variação da linha Top Lime Pro desenvolvida para solos argilosos.",
-        features: "Penetração profunda, Ideal para solos argilosos, Liberação gradual",
-        benefits: ["Melhoria da estrutura", "Redução da compactação", "Aumento da porosidade"],
-        usage: "Aplicar 150kg/ha, incorporar a 20cm de profundidade",
-        composition: "Óxido de cálcio (CaO): 60%, Óxido de magnésio (MgO): 15%",
-        technicalSpecs: "PRNT: 92%, Granulometria: 0,2mm (75%)",
+        name: "REVOLUTION",
+        slug: "revolution",
+        category: "Defensivos",
+        description: "Fungicida sistêmico revolucionário para controle preventivo e curativo de doenças.",
+        features: "Ação sistêmica, Controle preventivo, Tecnologia avançada",
+        benefits: ["Controle eficaz", "Proteção duradoura", "Menor número de aplicações"],
+        usage: "Aplicar 1-2 L/ha conforme pressão da doença",
+        composition: "Ingrediente ativo: Tebuconazol 200g/L",
+        technicalSpecs: "Concentração: 200g/L, pH: 6.0-7.0",
         imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
         gallery: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop"],
         active: true,
         isProductLine: false,
-        parentId: 1, // Referência ao Top Lime Pro
+        parentId: 3, // Referência ao PROTECT
+        lineOrder: 1
+      },
+      // 3. GEL DE PLANTIO - Sub-produto da linha TITANIUM SOLLUS
+      {
+        name: "GEL DE PLANTIO",
+        slug: "gel-de-plantio",
+        category: "Fertilizantes",
+        description: "Gel nutritivo para plantio com tecnologia de liberação controlada de nutrientes.",
+        features: "Liberação controlada, Hidratação, Nutrição inicial",
+        benefits: ["Melhor pegamento", "Nutrição inicial", "Economia de água"],
+        usage: "Aplicar 50-100g por muda no plantio",
+        composition: "NPK 10-10-10 + gel hidratante",
+        technicalSpecs: "Capacidade de absorção: 300x seu peso",
+        imageUrl: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false,
+        parentId: 2, // Referência ao TITANIUM SOLLUS
+        lineOrder: 1
+      },
+      // 4. PROTETOR E700 - Sub-produto da linha PROTECT
+      {
+        name: "PROTETOR E700",
+        slug: "protetor-e700",
+        category: "Defensivos",
+        description: "Protetor avançado E700 para controle de pragas e doenças com tecnologia de ponta.",
+        features: "Controle múltiplo, Tecnologia E700, Proteção ampla",
+        benefits: ["Controle eficaz", "Amplo espectro", "Longa duração"],
+        usage: "Aplicar 0.5-1 L/ha conforme praga alvo",
+        composition: "Multiativos com tecnologia E700",
+        technicalSpecs: "Concentração variável, pH: 5.5-6.5",
+        imageUrl: "https://images.unsplash.com/photo-1592428122012-32c8ae8ff73e?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1592428122012-32c8ae8ff73e?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false,
+        parentId: 3, // Referência ao PROTECT
         lineOrder: 2
       },
       {
@@ -486,11 +590,9 @@ export class MemStorage implements IStorage {
     this.products.delete(id);
   }
 
-  async deleteProduct(id: number): Promise<void> {
-    if (!this.products.has(id)) {
-      throw new Error('Product not found');
-    }
-    this.products.delete(id);
+  async getMainProductLines(): Promise<Product[]> {
+    const products = Array.from(this.products.values());
+    return products.filter(p => p.isProductLine === true);
   }
 
   async getBlogPosts(): Promise<BlogPost[]> {
