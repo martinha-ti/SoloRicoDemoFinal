@@ -611,20 +611,21 @@ export class MemStorage implements IStorage {
   }
 
   async getProductLineProducts(): Promise<Product[]> {
-    // Retorna produtos que podem ser linhas (produtos principais)
+    // Retorna produtos que são linhas principais (isProductLine = true)
     return Array.from(this.products.values()).filter(p => 
-      p.slug === 'top-lime-pro' && p.active !== false
+      p.isProductLine === true && p.active !== false
     );
   }
 
   async getSubProductsForLine(lineSlug: string): Promise<Product[]> {
-    // Retorna sub-produtos de uma linha específica
-    if (lineSlug === 'top-lime-pro') {
-      return Array.from(this.products.values()).filter(p => 
-        (p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3') && p.active !== false
-      );
-    }
-    return [];
+    // Busca a linha de produto pelo slug
+    const parentProduct = Array.from(this.products.values()).find(p => p.slug === lineSlug && p.isProductLine === true);
+    if (!parentProduct) return [];
+    
+    // Retorna sub-produtos da linha específica usando parentId
+    return Array.from(this.products.values()).filter(p => 
+      p.parentId === parentProduct.id && p.active !== false
+    ).sort((a, b) => (a.lineOrder || 0) - (b.lineOrder || 0));
   }
 
   async markProductAsSubProduct(productId: number, parentLineSlug: string): Promise<void> {

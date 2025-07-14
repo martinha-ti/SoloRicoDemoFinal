@@ -79,6 +79,11 @@ export default function AdminPanel() {
     enabled: isAuthenticated,
   });
 
+  const { data: productLines = [], isLoading: productLinesLoading } = useQuery<Product[]>({
+    queryKey: ['/api/admin/product-lines'],
+    enabled: isAuthenticated,
+  });
+
   // Forms
   const productForm = useForm<InsertProduct>({
     resolver: zodResolver(insertProductSchema),
@@ -677,228 +682,85 @@ export default function AdminPanel() {
               <CardHeader>
                 <CardTitle>Gerenciamento de Linhas de Produtos</CardTitle>
                 <CardDescription>
-                  Configure as linhas de produtos e seus sub-produtos relacionados
+                  Configure as 5 linhas principais de produtos e seus sub-produtos relacionados
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
-                  {/* Top Lime Pro Line */}
-                  <div className="border rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="font-semibold text-lg">Linha Top Lime Pro</h3>
-                      <div className="text-sm text-gray-500">
-                        {productsLoading ? "Carregando..." : `${products.length} produtos carregados`}
-                      </div>
-                      <div className="flex gap-2">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <Button variant="outline" size="sm">
-                              <Plus className="w-4 h-4 mr-2" />
-                              Adicionar Sub-produto
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent className="max-w-2xl">
-                            <DialogHeader>
-                              <DialogTitle>Adicionar Sub-produto à Linha Top Lime Pro</DialogTitle>
-                              <DialogDescription>
-                                Adicione um novo produto à linha Top Lime Pro
-                              </DialogDescription>
-                            </DialogHeader>
-                            
-                            <Form {...productForm}>
-                              <form onSubmit={productForm.handleSubmit((data) => onSubmitProduct({ 
-                                ...data, 
-                                category: 'Fertilizantes', // Categoria padrão para linha Top Lime Pro
-                                parentId: null, // Não usar parent ID por enquanto
-                                isProductLine: false 
-                              }))} className="space-y-4">
-                                <div className="grid grid-cols-2 gap-4">
-                                  <FormField
-                                    control={productForm.control}
-                                    name="name"
-                                    render={({ field }) => (
-                                      <FormItem>
-                                        <FormLabel>Nome do Sub-produto</FormLabel>
-                                        <FormControl>
-                                          <Input placeholder="Ex: Top Lime Pro Ultra" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                      </FormItem>
-                                    )}
-                                  />
-                                  
-                                  <FormField
-                                    control={productForm.control}
-                                    name="slug"
-                                    render={({ field }) => (
-                                      <FormItem>
-                                        <FormLabel>Slug (URL)</FormLabel>
-                                        <FormControl>
-                                          <Input placeholder="top-lime-pro-ultra" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                      </FormItem>
-                                    )}
-                                  />
-                                </div>
-                                
-                                <FormField
-                                  control={productForm.control}
-                                  name="description"
-                                  render={({ field }) => (
-                                    <FormItem>
-                                      <FormLabel>Descrição</FormLabel>
-                                      <FormControl>
-                                        <Textarea placeholder="Descrição do sub-produto" {...field} />
-                                      </FormControl>
-                                      <FormMessage />
-                                    </FormItem>
-                                  )}
-                                />
-                                
-                                <div className="grid grid-cols-2 gap-4">
-                                  <FormField
-                                    control={productForm.control}
-                                    name="imageUrl"
-                                    render={({ field }) => (
-                                      <FormItem>
-                                        <FormLabel>URL da Imagem</FormLabel>
-                                        <FormControl>
-                                          <Input placeholder="https://..." {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                      </FormItem>
-                                    )}
-                                  />
-                                  
-                                  <FormField
-                                    control={productForm.control}
-                                    name="features"
-                                    render={({ field }) => (
-                                      <FormItem>
-                                        <FormLabel>Características</FormLabel>
-                                        <FormControl>
-                                          <Input placeholder="Ex: Ação rápida, pH neutro" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                      </FormItem>
-                                    )}
-                                  />
-                                </div>
-                                
-                                <div className="flex justify-end gap-2">
-                                  <Button type="submit" disabled={createProductMutation.isPending}>
-                                    {createProductMutation.isPending ? "Criando..." : "Criar Sub-produto"}
-                                  </Button>
-                                </div>
-                              </form>
-                            </Form>
-                          </DialogContent>
-                        </Dialog>
-                      </div>
+                  {productLinesLoading ? (
+                    <div className="text-center py-8">
+                      <p className="text-gray-500">Carregando linhas de produtos...</p>
                     </div>
-                    
-                    <p className="text-sm text-gray-600 mb-4">
-                      Gerenciar produtos da linha Top Lime Pro - quando um usuário acessa Top Lime Pro, 
-                      verá o produto principal e os sub-produtos relacionados.
-                    </p>
-                    
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
-                        <div>
-                          <span className="font-medium">Produto Principal: Top Lime Pro</span>
-                          <p className="text-sm text-gray-600">Fertilizante foliar com tecnologia avançada</p>
-                        </div>
-                        <Badge variant="default">Principal</Badge>
-                      </div>
-                      
-                      <div className="ml-4 space-y-2">
-                        <h4 className="font-medium text-sm text-gray-700 mb-2">Sub-produtos da linha:</h4>
-                        
-                        {/* Debug info */}
-                        <div className="text-xs text-gray-500 p-2 bg-gray-100 rounded">
-                          Debug: {products?.length || 0} produtos total | 
-                          Sub-produtos encontrados: {products?.filter(p => p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3').length || 0}
-                        </div>
-                        
-                        {/* Lista sub-produtos do Top Lime Pro */}
-                        {products?.filter(p => p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3').map((subProduct) => (
-                          <div key={subProduct.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                            <div>
-                              <span className="font-medium">{subProduct.name}</span>
-                              <p className="text-sm text-gray-600">{subProduct.description}</p>
-                            </div>
+                  ) : (
+                    <>
+                      {/* Linhas principais */}
+                      {productLines.map((line) => (
+                        <div key={line.id} className="border rounded-lg p-4">
+                          <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-semibold text-lg">{line.name}</h3>
                             <div className="flex items-center gap-2">
-                              <Badge variant="secondary">Sub-produto</Badge>
+                              <Badge variant="default">{line.category}</Badge>
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                onClick={() => handleEditProduct(subProduct)}
+                                onClick={() => handleEditProduct(line)}
                               >
                                 <Edit className="w-4 h-4" />
                               </Button>
                             </div>
                           </div>
-                        ))}
-                        
-                        {/* Mensagem se não houver sub-produtos */}
-                        {(!products || products.filter(p => p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3').length === 0) && (
-                          <div className="p-3 bg-gray-100 rounded-lg text-center">
-                            <p className="text-sm text-gray-600">
-                              Nenhum sub-produto encontrado. Use o botão "Adicionar Sub-produto" acima.
-                            </p>
+                          
+                          <p className="text-sm text-gray-600 mb-4">
+                            {line.description}
+                          </p>
+                          
+                          {/* Sub-produtos da linha */}
+                          <div className="ml-4 space-y-2">
+                            <h4 className="font-medium text-sm text-gray-700 mb-2">Sub-produtos:</h4>
+                            
+                            {/* Lista sub-produtos usando parentId */}
+                            {products?.filter(p => p.parentId === line.id).map((subProduct) => (
+                              <div key={subProduct.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                <div>
+                                  <span className="font-medium">{subProduct.name}</span>
+                                  <p className="text-sm text-gray-600">{subProduct.description}</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                  <Badge variant="secondary">Sub-produto</Badge>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => handleEditProduct(subProduct)}
+                                  >
+                                    <Edit className="w-4 h-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            ))}
+                            
+                            {/* Mensagem se não houver sub-produtos */}
+                            {(!products || products.filter(p => p.parentId === line.id).length === 0) && (
+                              <div className="p-3 bg-gray-100 rounded-lg text-center">
+                                <p className="text-sm text-gray-600">
+                                  Nenhum sub-produto encontrado para esta linha.
+                                </p>
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="mt-4 space-y-3">
-                      <div className="p-3 bg-yellow-50 rounded-lg">
-                        <p className="text-sm text-yellow-800">
-                          <strong>Como funciona:</strong> Quando alguém acessa /produtos/top-lime-pro, 
-                          verá a página do produto principal com os sub-produtos listados abaixo, 
-                          permitindo escolher entre as opções da linha.
-                        </p>
-                      </div>
-                      
-                      <div className="p-3 bg-blue-50 rounded-lg">
-                        <p className="text-sm text-blue-800">
-                          <strong>Gerenciamento:</strong> Para adicionar/remover sub-produtos da linha Top Lime Pro:
-                        </p>
-                        <ul className="text-sm text-blue-700 mt-2 space-y-1">
-                          <li>• <strong>Adicionar:</strong> Use o botão "Adicionar Sub-produto" acima</li>
-                          <li>• <strong>Editar:</strong> Clique no ícone de edição ao lado de cada sub-produto</li>
-                          <li>• <strong>Remover:</strong> Edite o produto e desative-o na aba "Produtos"</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Future Product Lines */}
-                  <div className="border rounded-lg p-4 bg-gray-50">
-                    <h3 className="font-semibold text-lg mb-3">Outras Linhas</h3>
-                    <p className="text-sm text-gray-600 mb-4">
-                      Você pode criar outras linhas de produtos seguindo o mesmo padrão.
-                    </p>
-                    
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between p-3 bg-white rounded-lg">
-                        <div>
-                          <span className="font-medium">Linha Protect</span>
-                          <p className="text-sm text-gray-600">Revolution, Protetor E700, Shield Guard</p>
                         </div>
-                        <Badge variant="outline">Disponível</Badge>
-                      </div>
+                      ))}
                       
-                      <div className="flex items-center justify-between p-3 bg-white rounded-lg">
-                        <div>
-                          <span className="font-medium">Linha Titanium Sollus</span>
-                          <p className="text-sm text-gray-600">Gel de Plantio, Titanium Raiz, Sollus Sementes</p>
+                      {/* Informações adicionais */}
+                      <div className="border rounded-lg p-4 bg-gray-50">
+                        <h4 className="font-medium text-sm text-gray-700 mb-2">Informações:</h4>
+                        <div className="space-y-2 text-sm text-gray-600">
+                          <p>• Para adicionar sub-produtos, edite a linha principal na aba "Produtos"</p>
+                          <p>• Sub-produtos são automaticamente vinculados à linha principal pelo parentId</p>
+                          <p>• Edite qualquer produto clicando no ícone de edição</p>
                         </div>
-                        <Badge variant="outline">Disponível</Badge>
                       </div>
-                    </div>
-                  </div>
+                    </>
+                  )}
                 </div>
               </CardContent>
             </Card>
