@@ -174,14 +174,6 @@ export default function ProductDetail() {
               {product.category}
             </Link>
             <ChevronRight className="h-4 w-4" />
-            {parentProduct && (
-              <>
-                <Link href={`/produtos/${parentProduct.slug}`} className="hover:text-brand-green">
-                  {parentProduct.name}
-                </Link>
-                <ChevronRight className="h-4 w-4" />
-              </>
-            )}
             <span className="text-brand-green font-medium">
               {product.name}
             </span>
