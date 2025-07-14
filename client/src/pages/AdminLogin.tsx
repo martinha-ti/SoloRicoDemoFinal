@@ -44,7 +44,9 @@ export default function AdminLogin() {
       if (data.success) {
         // Armazenar informações do admin (em produção, usar JWT)
         localStorage.setItem("adminAuth", JSON.stringify(data.admin));
-        setLocation("/admin-fixed");
+        // Abrir o painel administrativo em uma nova aba
+        window.open('/admin-panel', '_blank');
+        setLocation("/");
       }
     },
     onError: (error: any) => {

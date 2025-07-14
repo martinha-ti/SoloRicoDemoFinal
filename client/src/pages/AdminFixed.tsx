@@ -556,12 +556,6 @@ export default function AdminFixed() {
       value: stats.adminUsers,
       icon: Settings,
       color: 'bg-purple-500'
-    },
-    {
-      title: 'Notificações',
-      value: stats.notifications,
-      icon: MessageSquare,
-      color: 'bg-orange-500'
     }
   ];
 
@@ -582,7 +576,7 @@ export default function AdminFixed() {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="products">Produtos</TabsTrigger>
             <TabsTrigger value="blog">Blog</TabsTrigger>
@@ -592,7 +586,7 @@ export default function AdminFixed() {
 
           {/* Dashboard Tab */}
           <TabsContent value="dashboard" className="space-y-6">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {statsCards.map((card) => (
                 <Card key={card.title}>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
