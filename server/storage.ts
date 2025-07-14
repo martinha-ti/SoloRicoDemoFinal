@@ -186,6 +186,59 @@ export class MemStorage implements IStorage {
         isProductLine: true
       },
       
+      // Sub-produtos do TITANIUM FOLIAR (3 sub-produtos)
+      {
+        name: "TITANIUM FOLIAR NPK",
+        slug: "titanium-foliar-npk",
+        category: "Fertilizantes",
+        description: "Fertilizante foliar balanceado NPK com micronutrientes para nutrição completa.",
+        features: "NPK balanceado, Micronutrientes, Absorção rápida",
+        benefits: ["Nutrição completa", "Desenvolvimento equilibrado", "Produtividade"],
+        usage: "Aplicar 2-3 L/ha via foliar",
+        composition: "NPK 20-10-20 + micronutrientes",
+        technicalSpecs: "pH: 5.5-6.5, Densidade: 1.2g/cm³",
+        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false,
+        parentId: 1, // Referência ao TITANIUM FOLIAR
+        lineOrder: 1
+      },
+      {
+        name: "TITANIUM FOLIAR MICRO",
+        slug: "titanium-foliar-micro",
+        category: "Fertilizantes",
+        description: "Fertilizante foliar rico em micronutrientes para correção de deficiências.",
+        features: "Micronutrientes quelados, Correção rápida, Alta disponibilidade",
+        benefits: ["Correção de deficiências", "Melhor qualidade", "Resistência a doenças"],
+        usage: "Aplicar 1-2 L/ha conforme necessidade",
+        composition: "Zn, Mn, B, Cu, Fe, Mo quelados",
+        technicalSpecs: "pH: 6.0-7.0, Solubilidade: 100%",
+        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false,
+        parentId: 1, // Referência ao TITANIUM FOLIAR
+        lineOrder: 2
+      },
+      {
+        name: "TITANIUM FOLIAR BLOOM",
+        slug: "titanium-foliar-bloom",
+        category: "Fertilizantes",
+        description: "Fertilizante foliar especial para floração e frutificação.",
+        features: "Rico em P e K, Floração intensa, Frutificação abundante",
+        benefits: ["Melhor floração", "Maior frutificação", "Qualidade dos frutos"],
+        usage: "Aplicar 2-3 L/ha durante floração",
+        composition: "NPK 05-25-30 + aminoácidos",
+        technicalSpecs: "pH: 5.0-6.0, Densidade: 1.3g/cm³",
+        imageUrl: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false,
+        parentId: 1, // Referência ao TITANIUM FOLIAR
+        lineOrder: 3
+      },
+      
       // Sub-produtos conforme segunda imagem
       // 1. TOP LIME PRO - Sub-produto da linha ADJUVANTES
       {
@@ -221,6 +274,44 @@ export class MemStorage implements IStorage {
         active: true,
         isProductLine: false,
         parentId: 3, // Referência ao PROTECT
+        lineOrder: 2
+      },
+      
+      // Sub-produtos adicionais para completar as 5 linhas
+      // Sub-produto da linha TITANIUM SOLLUS
+      {
+        name: "TITANIUM SOLLUS PREMIUM",
+        slug: "titanium-sollus-premium",
+        category: "Fertilizantes",
+        description: "Condicionador de solo premium com tecnologia avançada de liberação controlada.",
+        features: "Liberação controlada, Melhoria estrutural, Retenção hídrica",
+        benefits: ["Estrutura do solo", "Economia de água", "Melhor CTC"],
+        usage: "Aplicar 100-200 kg/ha antes do plantio",
+        composition: "Condicionadores orgânicos + zeólita",
+        technicalSpecs: "Granulometria: 0.5-3mm, pH: 6.5-7.5",
+        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false,
+        parentId: 2, // Referência ao TITANIUM SOLLUS
+        lineOrder: 2
+      },
+      // Sub-produto da linha VIGOR
+      {
+        name: "VIGOR PLUS",
+        slug: "vigor-plus",
+        category: "Bioestimulantes",
+        description: "Bioestimulante avançado com aminoácidos e extratos vegetais para máximo vigor.",
+        features: "Aminoácidos livres, Extratos vegetais, Bioestimulação",
+        benefits: ["Vigor excepcional", "Resistência a estresses", "Desenvolvimento acelerado"],
+        usage: "Aplicar 1-2 L/ha via foliar ou fertirrigação",
+        composition: "Aminoácidos 20% + extratos vegetais",
+        technicalSpecs: "pH: 4.5-5.5, Densidade: 1.1g/cm³",
+        imageUrl: "https://images.unsplash.com/photo-1592428122012-32c8ae8ff73e?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1592428122012-32c8ae8ff73e?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false,
+        parentId: 5, // Referência ao VIGOR
         lineOrder: 1
       },
       // 3. GEL DE PLANTIO - Sub-produto da linha TITANIUM SOLLUS

@@ -170,11 +170,11 @@ export default function ProductDetail() {
               Home
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <Link href="/products" className="hover:text-brand-green">
+            <Link href="/produtos" className="hover:text-brand-green">
               Produtos
             </Link>
             <ChevronRight className="h-4 w-4" />
-            <Link href={`/products/${product.category.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-brand-green">
+            <Link href={`/produtos/${product.category.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-brand-green">
               {product.category}
             </Link>
             <ChevronRight className="h-4 w-4" />
