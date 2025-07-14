@@ -25,7 +25,12 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Para Empresas */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">{t('for_businesses')}</h3>
+              <h3 className="text-lg font-bold mb-4 text-white relative">
+                <span className="relative">
+                  {t('for_businesses')}
+                  <div className="absolute -bottom-1 left-0 w-8 h-0.5 bg-green-500"></div>
+                </span>
+              </h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link href="/para-empresas" className="text-gray-300 hover:text-green-400 transition-colors">
@@ -47,7 +52,12 @@ export default function Footer() {
 
             {/* Ajuda */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">{t('help')}</h3>
+              <h3 className="text-lg font-bold mb-4 text-white relative">
+                <span className="relative">
+                  {t('help')}
+                  <div className="absolute -bottom-1 left-0 w-8 h-0.5 bg-green-500"></div>
+                </span>
+              </h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link href="/sac" className="text-gray-300 hover:text-green-400 transition-colors">
@@ -69,7 +79,12 @@ export default function Footer() {
 
             {/* Atendimento */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">{t('footer_contact_info')}</h3>
+              <h3 className="text-lg font-bold mb-4 text-white relative">
+                <span className="relative">
+                  {t('footer_contact_info')}
+                  <div className="absolute -bottom-1 left-0 w-8 h-0.5 bg-green-500"></div>
+                </span>
+              </h3>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-center text-gray-300">
                   <Phone className="w-4 h-4 mr-2 text-yellow-400" />
@@ -95,7 +110,12 @@ export default function Footer() {
 
             {/* Siga-nos */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">Siga-nos</h3>
+              <h3 className="text-lg font-bold mb-4 text-white relative">
+                <span className="relative">
+                  Siga-nos
+                  <div className="absolute -bottom-1 left-0 w-8 h-0.5 bg-green-500"></div>
+                </span>
+              </h3>
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-green-400 transition-colors">
                   <Instagram className="w-6 h-6" />
@@ -118,7 +138,12 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Sobre a Solo Rico */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">Sobre a Solo Rico</h3>
+              <h3 className="text-lg font-bold mb-4 text-white relative">
+                <span className="relative">
+                  Sobre a Solo Rico
+                  <div className="absolute -bottom-1 left-0 w-8 h-0.5 bg-green-500"></div>
+                </span>
+              </h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link href="/empresa" className="text-gray-300 hover:text-green-400 transition-colors">
@@ -158,7 +183,12 @@ export default function Footer() {
 
             {/* Assuntos mais lidos */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">Assuntos mais lidos</h3>
+              <h3 className="text-lg font-bold mb-4 text-white relative">
+                <span className="relative">
+                  Assuntos mais lidos
+                  <div className="absolute -bottom-1 left-0 w-8 h-0.5 bg-green-500"></div>
+                </span>
+              </h3>
               <ul className="space-y-3 text-sm">
                 <li>
                   <Link href="/blog" className="text-gray-300 hover:text-green-400 transition-colors block">
@@ -183,7 +213,12 @@ export default function Footer() {
 
             {/* Categorias */}
             <div>
-              <h3 className="text-lg font-bold mb-4 text-white">Categorias</h3>
+              <h3 className="text-lg font-bold mb-4 text-white relative">
+                <span className="relative">
+                  Categorias
+                  <div className="absolute -bottom-1 left-0 w-8 h-0.5 bg-green-500"></div>
+                </span>
+              </h3>
               <ul className="space-y-2 text-sm">
                 <li>
                   <Link href="/blog" className="text-gray-300 hover:text-green-400 transition-colors">
@@ -216,7 +251,7 @@ export default function Footer() {
                 {/* Botão Provisório Admin */}
                 <div className="mb-4">
                   <Link 
-                    href="/admin" 
+                    href="/admin-panel" 
                     className="inline-block px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white text-xs rounded transition-colors"
                   >
                     🔧 Painel Admin
