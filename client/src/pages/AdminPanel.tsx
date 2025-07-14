@@ -812,7 +812,7 @@ export default function AdminPanel() {
                         <h4 className="font-medium text-sm text-gray-700 mb-2">Sub-produtos da linha:</h4>
                         
                         {/* Lista sub-produtos do Top Lime Pro */}
-                        {products?.filter(p => p.slug === 'acidificante-plus' || p.slug === 'espalhante-adesivo').map((subProduct) => (
+                        {products?.filter(p => p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3').map((subProduct) => (
                           <div key={subProduct.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
                             <div>
                               <span className="font-medium">{subProduct.name}</span>
@@ -832,7 +832,7 @@ export default function AdminPanel() {
                         ))}
                         
                         {/* Mensagem se não houver sub-produtos */}
-                        {(!products || products.filter(p => p.slug === 'acidificante-plus' || p.slug === 'espalhante-adesivo').length === 0) && (
+                        {(!products || products.filter(p => p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3').length === 0) && (
                           <div className="p-3 bg-gray-100 rounded-lg text-center">
                             <p className="text-sm text-gray-600">
                               Nenhum sub-produto encontrado. Use o botão "Adicionar Sub-produto" acima.

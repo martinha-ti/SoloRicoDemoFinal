@@ -103,19 +103,81 @@ export class MemStorage implements IStorage {
   private seedData() {
     // Seed products
     const sampleProducts: InsertProduct[] = [
-      // Linha Adjuvantes
+      // Linha Top Lime Pro - Produto principal
       {
         name: "Top Lime Pro",
         slug: "top-lime-pro",
-        category: "Adjuvantes",
-        description: "Adjuvante premium para maximizar a eficácia de aplicações foliares",
-        features: "pH neutro, Compatible com defensivos, Baixa espuma, Fácil aplicação",
-        benefits: ["Melhora a absorção", "Reduz tensão superficial", "Aumenta eficácia"],
-        usage: "Aplicar 50-100ml por 100 litros de água. Misturar bem antes da aplicação. Aplicar preferencialmente nas horas mais frescas do dia.",
-        composition: "Surfactante não-iônico 25%, Acidificante 15%, Veículo q.s.p. 100%",
-        technicalSpecs: "pH: 6.5-7.5, Densidade: 1.02 g/cm³, Temperatura de armazenamento: 5-35°C",
+        category: "Fertilizantes",
+        description: "Linha completa de corretivos de solo com tecnologia avançada para máxima eficiência na correção de pH.",
+        features: "Correção rápida de pH, Melhora absorção de nutrientes, Reduz toxicidade do alumínio",
+        benefits: ["Aumento da produtividade", "Melhoria da estrutura do solo", "Redução da acidez"],
+        usage: "Aplicar 30 dias antes do plantio, incorporar ao solo",
+        composition: "Óxido de cálcio (CaO): 65%, Óxido de magnésio (MgO): 12%",
+        technicalSpecs: "PRNT: 95%, Granulometria: 0,3mm (70%)",
         imageUrl: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop",
         gallery: ["https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=600&h=600&fit=crop", "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: true
+      },
+      // Sub-produtos da linha Top Lime Pro
+      {
+        name: "Sub Produto Top Lime 1",
+        slug: "sub-produto-top-lime-1",
+        category: "Fertilizantes",
+        description: "Primeira variação da linha Top Lime Pro com fórmula específica para solos arenosos.",
+        features: "Ação prolongada, Ideal para solos arenosos, Alta solubilidade",
+        benefits: ["Correção duradoura", "Melhoria da CTC", "Redução da lixiviação"],
+        usage: "Aplicar 200kg/ha, incorporar a 15cm de profundidade",
+        composition: "Óxido de cálcio (CaO): 70%, Óxido de magnésio (MgO): 8%",
+        technicalSpecs: "PRNT: 98%, Granulometria: 0,5mm (80%)",
+        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false
+      },
+      {
+        name: "Sub Produto Top Lime 2",
+        slug: "sub-produto-top-lime-2",
+        category: "Fertilizantes",
+        description: "Segunda variação da linha Top Lime Pro desenvolvida para solos argilosos.",
+        features: "Penetração profunda, Ideal para solos argilosos, Liberação gradual",
+        benefits: ["Melhoria da estrutura", "Redução da compactação", "Aumento da porosidade"],
+        usage: "Aplicar 150kg/ha, incorporar a 20cm de profundidade",
+        composition: "Óxido de cálcio (CaO): 60%, Óxido de magnésio (MgO): 15%",
+        technicalSpecs: "PRNT: 92%, Granulometria: 0,2mm (75%)",
+        imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false
+      },
+      {
+        name: "Sub Produto Top Lime 3",
+        slug: "sub-produto-top-lime-3",
+        category: "Fertilizantes",
+        description: "Terceira variação da linha Top Lime Pro para aplicação em culturas específicas.",
+        features: "Fórmula concentrada, Aplicação foliar, Ação sistêmica",
+        benefits: ["Absorção rápida", "Correção localizada", "Compatível com defensivos"],
+        usage: "Aplicar 100kg/ha via foliar, diluir em 300L de água",
+        composition: "Óxido de cálcio (CaO): 55%, Óxido de magnésio (MgO): 18%",
+        technicalSpecs: "PRNT: 88%, Granulometria: 0,1mm (90%)",
+        imageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&h=600&fit=crop"],
+        active: true,
+        isProductLine: false
+      },
+      // Linha Adjuvantes
+      {
+        name: "Acidificante Plus",
+        slug: "acidificante-plus",
+        category: "Adjuvantes",
+        description: "Acidificante de alta performance para otimizar pH das soluções",
+        features: "Ação rápida, Estabilizador de pH, Compatível com herbicidas, Não corrosivo",
+        benefits: ["Correção de pH", "Melhora eficácia", "Compatibilidade total"],
+        usage: "Aplicar 20-50ml por 100 litros de água. Adicionar primeiro à solução antes dos defensivos.",
+        composition: "Ácido fosfórico 30%, Ácido cítrico 20%, Antioxidante 5%, Veículo q.s.p. 100%",
+        technicalSpecs: "pH: 2.0-3.0, Densidade: 1.15 g/cm³, Validade: 24 meses",
+        imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
+        gallery: ["https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop", "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop"],
         active: true
       },
       {
@@ -333,12 +395,12 @@ export class MemStorage implements IStorage {
     const product = await this.getProductBySlug(slug);
     if (!product) return undefined;
     
-    // Para Top Lime Pro, retorna produtos relacionados da linha
+    // Para Top Lime Pro, retorna os sub-produtos específicos
     if (slug === 'top-lime-pro') {
-      const relatedProducts = Array.from(this.products.values()).filter(p => 
-        (p.slug === 'acidificante-plus' || p.slug === 'espalhante-adesivo') && p.active !== false
+      const subProducts = Array.from(this.products.values()).filter(p => 
+        (p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3') && p.active !== false
       );
-      return { ...product, subProducts: relatedProducts };
+      return { ...product, subProducts };
     }
     
     // Para outros produtos, usa a estrutura parent-child
@@ -357,7 +419,7 @@ export class MemStorage implements IStorage {
     // Retorna sub-produtos de uma linha específica
     if (lineSlug === 'top-lime-pro') {
       return Array.from(this.products.values()).filter(p => 
-        (p.slug === 'acidificante-plus' || p.slug === 'espalhante-adesivo') && p.active !== false
+        (p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3') && p.active !== false
       );
     }
     return [];
