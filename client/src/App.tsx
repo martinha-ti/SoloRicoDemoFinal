@@ -45,8 +45,7 @@ function Router() {
             <Route path="/trabalhe-conosco" component={WorkWithUs} />
             <Route path="/produtos/:category" component={ProductCategory} />
             <Route path="/produto/:slug" component={ProductDetail} />
-            <Route path="/admin" component={AdminFixed} />
-            <Route path="/admin-fixed" component={AdminFixed} />
+
             <Route component={NotFound} />
           </Switch>
         </Layout>
