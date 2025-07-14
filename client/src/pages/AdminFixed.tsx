@@ -581,7 +581,7 @@ export default function AdminFixed() {
             <TabsTrigger value="products">Produtos</TabsTrigger>
             <TabsTrigger value="blog">Blog</TabsTrigger>
             <TabsTrigger value="users">Usuários</TabsTrigger>
-            <TabsTrigger value="seo">SEO</TabsTrigger>
+
           </TabsList>
 
           {/* Dashboard Tab */}
