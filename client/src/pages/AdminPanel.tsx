@@ -683,7 +683,117 @@ export default function AdminPanel() {
                 <div className="space-y-6">
                   {/* Top Lime Pro Line */}
                   <div className="border rounded-lg p-4">
-                    <h3 className="font-semibold text-lg mb-3">Linha Top Lime Pro</h3>
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="font-semibold text-lg">Linha Top Lime Pro</h3>
+                      <div className="flex gap-2">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button variant="outline" size="sm">
+                              <Plus className="w-4 h-4 mr-2" />
+                              Adicionar Sub-produto
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-2xl">
+                            <DialogHeader>
+                              <DialogTitle>Adicionar Sub-produto à Linha Top Lime Pro</DialogTitle>
+                              <DialogDescription>
+                                Adicione um novo produto à linha Top Lime Pro
+                              </DialogDescription>
+                            </DialogHeader>
+                            
+                            <Form {...form}>
+                              <form onSubmit={form.handleSubmit((data) => onSubmitProduct({ 
+                                ...data, 
+                                category: 'Fertilizantes', // Categoria padrão para linha Top Lime Pro
+                                parentId: null, // Não usar parent ID por enquanto
+                                isProductLine: false 
+                              }))} className="space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                  <FormField
+                                    control={form.control}
+                                    name="name"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>Nome do Sub-produto</FormLabel>
+                                        <FormControl>
+                                          <Input placeholder="Ex: Top Lime Pro Ultra" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                  
+                                  <FormField
+                                    control={form.control}
+                                    name="slug"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>Slug (URL)</FormLabel>
+                                        <FormControl>
+                                          <Input placeholder="top-lime-pro-ultra" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                </div>
+                                
+                                <FormField
+                                  control={form.control}
+                                  name="description"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>Descrição</FormLabel>
+                                      <FormControl>
+                                        <Textarea placeholder="Descrição do sub-produto" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+                                
+                                <div className="grid grid-cols-2 gap-4">
+                                  <FormField
+                                    control={form.control}
+                                    name="imageUrl"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>URL da Imagem</FormLabel>
+                                        <FormControl>
+                                          <Input placeholder="https://..." {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                  
+                                  <FormField
+                                    control={form.control}
+                                    name="features"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>Características</FormLabel>
+                                        <FormControl>
+                                          <Input placeholder="Ex: Ação rápida, pH neutro" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                </div>
+                                
+                                <div className="flex justify-end gap-2">
+                                  <Button type="submit" disabled={createProductMutation.isPending}>
+                                    {createProductMutation.isPending ? "Criando..." : "Criar Sub-produto"}
+                                  </Button>
+                                </div>
+                              </form>
+                            </Form>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+                    </div>
+                    
                     <p className="text-sm text-gray-600 mb-4">
                       Gerenciar produtos da linha Top Lime Pro - quando um usuário acessa Top Lime Pro, 
                       verá o produto principal e os sub-produtos relacionados.
@@ -699,38 +809,58 @@ export default function AdminPanel() {
                       </div>
                       
                       <div className="ml-4 space-y-2">
-                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                          <div>
-                            <span className="font-medium">Top Lime Pro Base</span>
-                            <p className="text-sm text-gray-600">Produto base da linha</p>
-                          </div>
-                          <Badge variant="secondary">Sub-produto</Badge>
-                        </div>
+                        <h4 className="font-medium text-sm text-gray-700 mb-2">Sub-produtos da linha:</h4>
                         
-                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                          <div>
-                            <span className="font-medium">Acidificante Plus</span>
-                            <p className="text-sm text-gray-600">Acidificante da linha Top Lime Pro</p>
+                        {/* Lista sub-produtos do Top Lime Pro */}
+                        {products?.filter(p => p.slug === 'acidificante-plus' || p.slug === 'espalhante-adesivo').map((subProduct) => (
+                          <div key={subProduct.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                            <div>
+                              <span className="font-medium">{subProduct.name}</span>
+                              <p className="text-sm text-gray-600">{subProduct.description}</p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Badge variant="secondary">Sub-produto</Badge>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleEditProduct(subProduct)}
+                              >
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                            </div>
                           </div>
-                          <Badge variant="secondary">Sub-produto</Badge>
-                        </div>
+                        ))}
                         
-                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-                          <div>
-                            <span className="font-medium">Espalhante Adesivo</span>
-                            <p className="text-sm text-gray-600">Espalhante da linha Top Lime Pro</p>
+                        {/* Mensagem se não houver sub-produtos */}
+                        {(!products || products.filter(p => p.slug === 'acidificante-plus' || p.slug === 'espalhante-adesivo').length === 0) && (
+                          <div className="p-3 bg-gray-100 rounded-lg text-center">
+                            <p className="text-sm text-gray-600">
+                              Nenhum sub-produto encontrado. Use o botão "Adicionar Sub-produto" acima.
+                            </p>
                           </div>
-                          <Badge variant="secondary">Sub-produto</Badge>
-                        </div>
+                        )}
                       </div>
                     </div>
                     
-                    <div className="mt-4 p-3 bg-yellow-50 rounded-lg">
-                      <p className="text-sm text-yellow-800">
-                        <strong>Como funciona:</strong> Quando alguém acessa /produtos/top-lime-pro, 
-                        verá a página do produto principal com os 3 sub-produtos listados abaixo, 
-                        permitindo escolher entre as opções da linha.
-                      </p>
+                    <div className="mt-4 space-y-3">
+                      <div className="p-3 bg-yellow-50 rounded-lg">
+                        <p className="text-sm text-yellow-800">
+                          <strong>Como funciona:</strong> Quando alguém acessa /produtos/top-lime-pro, 
+                          verá a página do produto principal com os sub-produtos listados abaixo, 
+                          permitindo escolher entre as opções da linha.
+                        </p>
+                      </div>
+                      
+                      <div className="p-3 bg-blue-50 rounded-lg">
+                        <p className="text-sm text-blue-800">
+                          <strong>Gerenciamento:</strong> Para adicionar/remover sub-produtos da linha Top Lime Pro:
+                        </p>
+                        <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                          <li>• <strong>Adicionar:</strong> Use o botão "Adicionar Sub-produto" acima</li>
+                          <li>• <strong>Editar:</strong> Clique no ícone de edição ao lado de cada sub-produto</li>
+                          <li>• <strong>Remover:</strong> Edite o produto e desative-o na aba "Produtos"</li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                   

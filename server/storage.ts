@@ -341,8 +341,36 @@ export class MemStorage implements IStorage {
       return { ...product, subProducts: relatedProducts };
     }
     
+    // Para outros produtos, usa a estrutura parent-child
     const subProducts = await this.getSubProductsByParent(product.id);
     return { ...product, subProducts };
+  }
+
+  async getProductLineProducts(): Promise<Product[]> {
+    // Retorna produtos que podem ser linhas (produtos principais)
+    return Array.from(this.products.values()).filter(p => 
+      p.slug === 'top-lime-pro' && p.active !== false
+    );
+  }
+
+  async getSubProductsForLine(lineSlug: string): Promise<Product[]> {
+    // Retorna sub-produtos de uma linha específica
+    if (lineSlug === 'top-lime-pro') {
+      return Array.from(this.products.values()).filter(p => 
+        (p.slug === 'acidificante-plus' || p.slug === 'espalhante-adesivo') && p.active !== false
+      );
+    }
+    return [];
+  }
+
+  async markProductAsSubProduct(productId: number, parentLineSlug: string): Promise<void> {
+    // Marca um produto como sub-produto de uma linha específica
+    const product = this.products.get(productId);
+    if (product && parentLineSlug === 'top-lime-pro') {
+      // Por enquanto, apenas produtos com slugs específicos são considerados sub-produtos
+      // Em futuras versões, poderia usar um campo parentId
+      console.log(`Produto ${product.name} marcado como sub-produto da linha ${parentLineSlug}`);
+    }
   }
 
   async getSubProductsByParent(parentId: number): Promise<Product[]> {
