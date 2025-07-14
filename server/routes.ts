@@ -49,6 +49,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get('/api/products/id/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const product = await storage.getProductById(id);
+      if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch product' });
+    }
+  });
+
   app.get('/api/products/:slug', async (req, res) => {
     try {
       const product = await storage.getProductBySlug(req.params.slug);

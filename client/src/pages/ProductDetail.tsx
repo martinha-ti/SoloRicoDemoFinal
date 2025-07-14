@@ -43,6 +43,17 @@ export default function ProductDetail() {
     enabled: !!slug,
   });
 
+  // Buscar produto pai se este for um sub-produto
+  const { data: parentProduct } = useQuery<Product>({
+    queryKey: ['/api/products/id', product?.parentId],
+    queryFn: async () => {
+      const response = await fetch(`/api/products/id/${product?.parentId}`);
+      if (!response.ok) throw new Error('Produto pai não encontrado');
+      return response.json();
+    },
+    enabled: !!product?.parentId && product?.parentId > 0,
+  });
+
   if (isLoading) {
     return (
       <div>
@@ -167,6 +178,14 @@ export default function ProductDetail() {
               {product.category}
             </Link>
             <ChevronRight className="h-4 w-4" />
+            {parentProduct && (
+              <>
+                <Link href={`/produtos/${parentProduct.slug}`} className="hover:text-brand-green">
+                  {parentProduct.name}
+                </Link>
+                <ChevronRight className="h-4 w-4" />
+              </>
+            )}
             <span className="text-brand-green font-medium">
               {product.name}
             </span>
@@ -226,13 +245,16 @@ export default function ProductDetail() {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
-                <Button className="bg-brand-green hover:bg-brand-green-dark text-white">
-                  <Phone className="mr-2 h-4 w-4" />
-                  Entrar em contato
-                </Button>
+                <Link href="/contatos">
+                  <Button className="bg-brand-green hover:bg-brand-green-dark text-white">
+                    <Phone className="mr-2 h-4 w-4" />
+                    Entrar em contato
+                  </Button>
+                </Link>
                 <Button 
                   variant="outline" 
                   className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white"
+                  onClick={() => window.open('https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20produto:%20' + product.name, '_blank')}
                 >
                   <MessageCircle className="mr-2 h-4 w-4" />
                   WhatsApp
@@ -240,6 +262,15 @@ export default function ProductDetail() {
                 <Button 
                   variant="outline" 
                   className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                  onClick={() => {
+                    // Simular download de PDF
+                    const link = document.createElement('a');
+                    link.href = '#';
+                    link.download = `${product.name.replace(/\s+/g, '_')}_datasheet.pdf`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                  }}
                 >
                   <Download className="mr-2 h-4 w-4" />
                   Download PDF

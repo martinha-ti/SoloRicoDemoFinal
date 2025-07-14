@@ -29,6 +29,7 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   
   getProducts(): Promise<Product[]>;
+  getProductById(id: number): Promise<Product | undefined>;
   getProductBySlug(slug: string): Promise<Product | undefined>;
   getProductsByCategory(category: string): Promise<Product[]>;
   getProductWithSubProducts(slug: string): Promise<Product & { subProducts?: Product[] } | undefined>;
@@ -133,7 +134,9 @@ export class MemStorage implements IStorage {
         imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=300&fit=crop",
         gallery: ["https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&h=600&fit=crop"],
         active: true,
-        isProductLine: false
+        isProductLine: false,
+        parentId: 1, // Referência ao Top Lime Pro
+        lineOrder: 1
       },
       {
         name: "Sub Produto Top Lime 2",
@@ -148,7 +151,9 @@ export class MemStorage implements IStorage {
         imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=300&fit=crop",
         gallery: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=600&fit=crop"],
         active: true,
-        isProductLine: false
+        isProductLine: false,
+        parentId: 1, // Referência ao Top Lime Pro
+        lineOrder: 2
       },
       {
         name: "Sub Produto Top Lime 3",
@@ -163,7 +168,9 @@ export class MemStorage implements IStorage {
         imageUrl: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&h=300&fit=crop",
         gallery: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&h=600&fit=crop"],
         active: true,
-        isProductLine: false
+        isProductLine: false,
+        parentId: 1, // Referência ao Top Lime Pro
+        lineOrder: 3
       },
       // Linha Adjuvantes
       {
@@ -366,6 +373,10 @@ export class MemStorage implements IStorage {
     return this.users.get(id);
   }
 
+  async getProductById(id: number): Promise<Product | undefined> {
+    return this.products.get(id);
+  }
+
   async getUserByUsername(username: string): Promise<User | undefined> {
     return Array.from(this.users.values()).find(
       (user) => user.username === username,
@@ -395,17 +406,13 @@ export class MemStorage implements IStorage {
     const product = await this.getProductBySlug(slug);
     if (!product) return undefined;
     
-    // Para Top Lime Pro, retorna os sub-produtos específicos
-    if (slug === 'top-lime-pro') {
-      const subProducts = Array.from(this.products.values()).filter(p => 
-        (p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3') && p.active !== false
-      );
+    // Se for uma linha de produto, busca os sub-produtos
+    if (product.isProductLine) {
+      const subProducts = await this.getSubProductsByParent(product.id);
       return { ...product, subProducts };
     }
     
-    // Para outros produtos, usa a estrutura parent-child
-    const subProducts = await this.getSubProductsByParent(product.id);
-    return { ...product, subProducts };
+    return product;
   }
 
   async getProductLineProducts(): Promise<Product[]> {
