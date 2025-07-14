@@ -20,6 +20,7 @@ export default function ProductCategory() {
         'protect': 'Protect',
         'titanium-sollus': 'Titanium Sollus',
         'fertilizantes-foliares': 'Fertilizantes Foliares',
+        'fertilizantes': 'Fertilizantes',
         'defensivos': 'Defensivos',
         'nutricao-especial': 'Nutrição Especial',
       };
@@ -38,6 +39,7 @@ export default function ProductCategory() {
     'protect': { pt: 'Linha Protect', en: 'Protect Line' },
     'titanium-sollus': { pt: 'Titanium Sollus', en: 'Titanium Sollus' },
     'fertilizantes-foliares': { pt: 'Fertilizantes Foliares', en: 'Foliar Fertilizers' },
+    'fertilizantes': { pt: 'Fertilizantes', en: 'Fertilizers' },
     'defensivos': { pt: 'Defensivos', en: 'Defensives' },
     'nutricao-especial': { pt: 'Nutrição Especial', en: 'Special Nutrition' },
   };
