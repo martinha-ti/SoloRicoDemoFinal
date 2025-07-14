@@ -691,15 +691,15 @@ export class MemStorage implements IStorage {
   }
 
   async getBlogPosts(): Promise<BlogPost[]> {
-    return Array.from(this.blogPosts.values()).filter(p => p.published !== false);
+    return Array.from(this.blogPosts.values()).filter(p => p.isActive !== false);
   }
 
   async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
-    return Array.from(this.blogPosts.values()).find(p => p.slug === slug && p.published !== false);
+    return Array.from(this.blogPosts.values()).find(p => p.slug === slug && p.isActive !== false);
   }
 
   async getBlogPostsByCategory(category: string): Promise<BlogPost[]> {
-    return Array.from(this.blogPosts.values()).filter(p => p.category === category && p.published !== false);
+    return Array.from(this.blogPosts.values()).filter(p => p.category === category && p.isActive !== false);
   }
 
   async createBlogPost(insertBlogPost: InsertBlogPost): Promise<BlogPost> {
@@ -707,10 +707,13 @@ export class MemStorage implements IStorage {
     const blogPost: BlogPost = { 
       ...insertBlogPost, 
       id, 
+      publishedAt: typeof insertBlogPost.publishedAt === 'string' 
+        ? new Date(insertBlogPost.publishedAt) 
+        : insertBlogPost.publishedAt || new Date(),
       createdAt: new Date(),
       updatedAt: new Date(),
       imageUrl: insertBlogPost.imageUrl ?? null,
-      published: insertBlogPost.published ?? true
+      isActive: insertBlogPost.isActive ?? true
     };
     this.blogPosts.set(id, blogPost);
     return blogPost;
@@ -726,8 +729,11 @@ export class MemStorage implements IStorage {
       ...existingPost,
       ...insertBlogPost, 
       id,
+      publishedAt: typeof insertBlogPost.publishedAt === 'string' 
+        ? new Date(insertBlogPost.publishedAt) 
+        : insertBlogPost.publishedAt || existingPost.publishedAt,
       updatedAt: new Date(),
-      published: insertBlogPost.published ?? true
+      isActive: insertBlogPost.isActive ?? existingPost.isActive ?? true
     };
     this.blogPosts.set(id, blogPost);
     return blogPost;

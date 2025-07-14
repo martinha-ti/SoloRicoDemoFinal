@@ -102,6 +102,8 @@ export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  publishedAt: z.union([z.string(), z.date()]).optional()
 });
 
 export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({
