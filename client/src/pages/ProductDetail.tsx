@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, Link } from "wouter";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Layout from "@/components/Layout";
 import PageHeader from "@/components/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -56,7 +57,7 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <div>
+      <Layout>
         <PageHeader
           title="Carregando produto..."
           subtitle="Aguarde enquanto carregamos as informações"
@@ -75,13 +76,13 @@ export default function ProductDetail() {
             </div>
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
   if (error) {
     return (
-      <div>
+      <Layout>
         <PageHeader
           title="Produto não encontrado"
           subtitle="O produto que você está procurando não foi encontrado"
@@ -98,36 +99,15 @@ export default function ProductDetail() {
             </Link>
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
-  if (!product) {
-    return (
-      <div>
-        <PageHeader
-          title="Produto não encontrado"
-          subtitle="O produto que você está procurando não foi encontrado"
-        />
-        <div className="container mx-auto px-4 py-20 text-center">
-          <div className="max-w-md mx-auto">
-            <p className="text-gray-600 mb-8">
-              Verifique se o link está correto ou navegue pelos nossos produtos disponíveis.
-            </p>
-            <Link href="/">
-              <Button className="bg-brand-green hover:bg-brand-green-dark text-white">
-                Voltar ao Início
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+
 
   if (!product) {
     return (
-      <div>
+      <Layout>
         <PageHeader
           title="Produto não encontrado"
           subtitle="O produto que você está procurando não foi encontrado"
@@ -146,7 +126,7 @@ export default function ProductDetail() {
             </Button>
           </Link>
         </div>
-      </div>
+      </Layout>
     );
   }
 
@@ -155,7 +135,7 @@ export default function ProductDetail() {
   const gallery = Array.isArray(product.gallery) ? product.gallery : [];
 
   return (
-    <div>
+    <Layout>
       <PageHeader
         title={product.name}
         subtitle={product.category}
@@ -505,6 +485,6 @@ export default function ProductDetail() {
           </div>
         </section>
       )}
-    </div>
+    </Layout>
   );
 }
