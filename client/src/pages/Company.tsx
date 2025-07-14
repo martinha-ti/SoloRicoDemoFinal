@@ -1,9 +1,10 @@
 import PageHeader from "@/components/PageHeader";
+import Layout from "@/components/Layout";
 import { CheckCircle, Target, Eye, Heart, Users, Award, Globe } from "lucide-react";
 
 export default function Company() {
   return (
-    <div>
+    <Layout>
       <PageHeader
         title="A Empresa"
         subtitle="Conheça nossa história, missão e valores que nos guiam há mais de 30 anos"
@@ -206,6 +207,6 @@ export default function Company() {
           </div>
         </div>
       </section>
-    </div>
+    </Layout>
   );
 }

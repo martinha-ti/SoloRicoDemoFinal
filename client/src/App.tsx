@@ -29,27 +29,21 @@ function Router() {
       <Route path="/admin-login" component={AdminLogin} />
       <Route path="/admin-panel" component={AdminPanel} />
       
-      {/* Main site routes with layout */}
-      <Route>
-        <Layout>
-          <Switch>
-            <Route path="/" component={Home} />
-            <Route path="/empresa" component={Company} />
-            <Route path="/para-empresas" component={ForBusinesses} />
-            <Route path="/para-voce" component={ForYou} />
-            <Route path="/comex" component={Comex} />
-            <Route path="/blog" component={Blog} />
-            <Route path="/blog/:slug" component={BlogPostSimple} />
-            <Route path="/contatos" component={Contact} />
-            <Route path="/sac" component={Sac} />
-            <Route path="/trabalhe-conosco" component={WorkWithUs} />
-            <Route path="/produtos/:category" component={ProductCategory} />
-            <Route path="/produto/:slug" component={ProductDetail} />
+      {/* Main site routes */}
+      <Route path="/" component={Home} />
+      <Route path="/empresa" component={Company} />
+      <Route path="/para-empresas" component={ForBusinesses} />
+      <Route path="/para-voce" component={ForYou} />
+      <Route path="/comex" component={Comex} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/:slug" component={BlogPostSimple} />
+      <Route path="/contatos" component={Contact} />
+      <Route path="/sac" component={Sac} />
+      <Route path="/trabalhe-conosco" component={WorkWithUs} />
+      <Route path="/produtos/:category" component={ProductCategory} />
+      <Route path="/produto/:slug" component={ProductDetail} />
 
-            <Route component={NotFound} />
-          </Switch>
-        </Layout>
-      </Route>
+      <Route component={NotFound} />
     </Switch>
   );
 }

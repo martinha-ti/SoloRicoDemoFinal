@@ -1,4 +1,5 @@
 import PageHeader from "@/components/PageHeader";
+import Layout from "@/components/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,7 +14,7 @@ export default function ForBusinesses() {
   });
 
   return (
-    <div>
+    <Layout>
       <PageHeader
         title="Para Empresas"
         subtitle="Soluções completas para o agronegócio empresarial"
@@ -237,6 +238,6 @@ export default function ForBusinesses() {
           </div>
         </div>
       </section>
-    </div>
+    </Layout>
   );
 }

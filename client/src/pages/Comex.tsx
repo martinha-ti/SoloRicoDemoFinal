@@ -1,4 +1,5 @@
 import PageHeader from "@/components/PageHeader";
+import Layout from "@/components/Layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
@@ -6,7 +7,7 @@ import { Globe, Truck, FileText, Shield, CheckCircle, Target, TrendingUp, Users 
 
 export default function Comex() {
   return (
-    <div>
+    <Layout>
       <PageHeader
         title="Comércio Exterior"
         subtitle="Expandindo fronteiras, levando qualidade brasileira para o mundo"
@@ -335,6 +336,6 @@ export default function Comex() {
           </div>
         </div>
       </section>
-    </div>
+    </Layout>
   );
 }

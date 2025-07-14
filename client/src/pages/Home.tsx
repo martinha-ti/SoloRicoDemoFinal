@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Droplets, Shield, Sprout, Snowflake } from "lucide-react";
+import Layout from "@/components/Layout";
 
 export default function Home() {
   const { t } = useLanguage();
@@ -25,7 +26,8 @@ export default function Home() {
   });
 
   return (
-    <div className="relative">
+    <Layout>
+      <div className="relative">
       {/* 1. Banner Carousel - Automático 5 segundos */}
       <div className="relative -mt-20 pt-20">
         <Carousel 
@@ -276,6 +278,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </Layout>
   );
 }

@@ -1,4 +1,5 @@
 import PageHeader from "@/components/PageHeader";
+import Layout from "@/components/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,7 +16,7 @@ export default function ForYou() {
   });
 
   return (
-    <div>
+    <Layout>
       <PageHeader
         title={t("for_you_title")}
         subtitle={t("for_you_subtitle")}
@@ -315,6 +316,6 @@ export default function ForYou() {
           </div>
         </div>
       </section>
-    </div>
+    </Layout>
   );
 }

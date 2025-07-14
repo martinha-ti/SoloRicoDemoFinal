@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { api } from "@/lib/api";
 import PageHeader from "@/components/PageHeader";
+import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -65,7 +66,7 @@ export default function Contact() {
   };
 
   return (
-    <div>
+    <Layout>
       <PageHeader
         title="Contatos"
         subtitle="Entre em contato conosco e descubra como podemos ajudar sua agricultura"
@@ -339,6 +340,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-    </div>
+    </Layout>
   );
 }

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Link } from "wouter";
+import Layout from "@/components/Layout";
 import type { BlogPost } from "@shared/schema";
 
 export default function Blog() {
@@ -22,7 +23,7 @@ export default function Blog() {
 
   if (isLoading) {
     return (
-      <div>
+      <Layout>
         <PageHeader
           title={t('blog')}
           subtitle={t('blog_subtitle')}
@@ -39,7 +40,7 @@ export default function Blog() {
             ))}
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 
@@ -47,7 +48,7 @@ export default function Blog() {
   const regularPosts = blogPosts.slice(1);
 
   return (
-    <div>
+    <Layout>
       <PageHeader
         title={t('blog')}
         subtitle={t('blog_subtitle')}
@@ -215,6 +216,6 @@ export default function Blog() {
           </div>
         </div>
       </section>
-    </div>
+    </Layout>
   );
 }
