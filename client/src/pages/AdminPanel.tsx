@@ -686,6 +686,9 @@ export default function AdminPanel() {
                   <div className="border rounded-lg p-4">
                     <div className="flex items-center justify-between mb-4">
                       <h3 className="font-semibold text-lg">Linha Top Lime Pro</h3>
+                      <div className="text-sm text-gray-500">
+                        {productsLoading ? "Carregando..." : `${products.length} produtos carregados`}
+                      </div>
                       <div className="flex gap-2">
                         <Dialog>
                           <DialogTrigger asChild>
@@ -811,6 +814,12 @@ export default function AdminPanel() {
                       
                       <div className="ml-4 space-y-2">
                         <h4 className="font-medium text-sm text-gray-700 mb-2">Sub-produtos da linha:</h4>
+                        
+                        {/* Debug info */}
+                        <div className="text-xs text-gray-500 p-2 bg-gray-100 rounded">
+                          Debug: {products?.length || 0} produtos total | 
+                          Sub-produtos encontrados: {products?.filter(p => p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3').length || 0}
+                        </div>
                         
                         {/* Lista sub-produtos do Top Lime Pro */}
                         {products?.filter(p => p.slug === 'sub-produto-top-lime-1' || p.slug === 'sub-produto-top-lime-2' || p.slug === 'sub-produto-top-lime-3').map((subProduct) => (
