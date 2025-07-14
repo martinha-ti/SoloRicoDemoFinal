@@ -476,7 +476,8 @@ export class MemStorage implements IStorage {
         content: "O agronegócio brasileiro continua sendo um dos pilares da economia nacional...",
         category: "Agronegócio",
         imageUrl: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=400&h=250&fit=crop",
-        published: true
+        publishedAt: new Date().toISOString(),
+        isActive: true
       },
       {
         title: "Tendências da Volatilidade dos Preços das Commodities Agrícolas em 2024",
@@ -485,7 +486,8 @@ export class MemStorage implements IStorage {
         content: "A volatilidade dos preços das commodities agrícolas é um fenômeno complexo...",
         category: "Mercado",
         imageUrl: "https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=400&h=250&fit=crop",
-        published: true
+        publishedAt: new Date().toISOString(),
+        isActive: true
       },
       {
         title: "Novos Mercados: Abrindo Portas para Pequenos e Médios Produtores Brasileiros",
@@ -494,7 +496,8 @@ export class MemStorage implements IStorage {
         content: "O acesso a novos mercados é fundamental para o crescimento sustentável...",
         category: "Inovação",
         imageUrl: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&h=250&fit=crop",
-        published: true
+        publishedAt: new Date().toISOString(),
+        isActive: true
       }
     ];
 
