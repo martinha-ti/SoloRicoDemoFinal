@@ -21,10 +21,16 @@ export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const { t } = useLanguage();
   
-  const { data: product, isLoading, error } = useQuery<Product>({
+  const { data: product, isLoading, error } = useQuery<Product & { subProducts?: Product[] }>({
     queryKey: ['/api/products', slug],
     queryFn: async () => {
-      const response = await fetch(`/api/products/${slug}`);
+      // Para produtos específicos que têm sub-produtos, usa a rota especial
+      const isProductLine = slug === 'top-lime-pro';
+      const endpoint = isProductLine ? 
+        `/api/products/${slug}/with-subproducts` : 
+        `/api/products/${slug}`;
+      
+      const response = await fetch(endpoint);
       if (!response.ok) {
         if (response.status === 404) {
           throw new Error('Produto não encontrado');
@@ -359,65 +365,127 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Sub-produtos */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Variações do Produto
-            </h3>
-            <p className="text-gray-600">
-              Explore as diferentes opções disponíveis
-            </p>
-          </div>
-          
-          {/* Sub-produtos (simulados baseados no produto principal) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {[
-              { suffix: '1L', description: 'Embalagem de 1 litro - Ideal para pequenas propriedades' },
-              { suffix: '5L', description: 'Embalagem de 5 litros - Melhor custo-benefício' },
-              { suffix: '20L', description: 'Embalagem de 20 litros - Para grandes aplicações' },
-            ].map((variant) => (
-              <Card key={variant.suffix} className="hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 bg-brand-green rounded-full flex items-center justify-center text-white font-bold mr-4">
-                      {variant.suffix}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-lg">
-                        {product.name} {variant.suffix}
-                      </h4>
-                      <p className="text-gray-600 text-sm">
-                        {variant.description}
-                      </p>
-                    </div>
+      {/* Product Line Sub-Products */}
+      {product.subProducts && product.subProducts.length > 0 ? (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Produtos da Linha {product.name}
+              </h3>
+              <p className="text-gray-600">
+                Conheça todos os produtos disponíveis na linha {product.name} 
+                e escolha o que melhor atende às suas necessidades.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {product.subProducts.map((subProduct) => (
+                <Card key={subProduct.id} className="h-full hover:shadow-lg transition-shadow duration-300">
+                  <div className="aspect-video overflow-hidden rounded-t-lg">
+                    <img 
+                      src={subProduct.imageUrl || "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop"} 
+                      alt={subProduct.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <Button 
-                    className="w-full bg-brand-green hover:bg-brand-green-dark text-white"
-                  >
-                    <Phone className="mr-2 h-4 w-4" />
-                    Solicitar Orçamento
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                  <CardContent className="p-6">
+                    <h4 className="text-xl font-semibold text-gray-900 mb-2">
+                      {subProduct.name}
+                    </h4>
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      {subProduct.description}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-brand-green font-medium">
+                        {subProduct.category}
+                      </span>
+                      <Link href={`/produtos/${subProduct.slug}`}>
+                        <Button variant="outline" size="sm" className="text-brand-green border-brand-green hover:bg-brand-green hover:text-white">
+                          Ver Detalhes
+                          <ChevronRight className="w-4 h-4 ml-1" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
 
-          {/* Link para categoria */}
-          <div className="text-center">
-            <Link href={`/produtos/${product.category.toLowerCase().replace(/\s+/g, '-')}`}>
-              <Button 
-                variant="outline" 
-                className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white"
-              >
-                Ver todos os produtos da categoria
-                <ChevronRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+            {/* Link para categoria */}
+            <div className="text-center">
+              <Link href={`/produtos/categoria/${product.category.toLowerCase().replace(/\s+/g, '-')}`}>
+                <Button 
+                  variant="outline" 
+                  className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white"
+                >
+                  Ver todos os produtos da categoria
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                Variações do Produto
+              </h3>
+              <p className="text-gray-600">
+                Explore as diferentes opções disponíveis
+              </p>
+            </div>
+            
+            {/* Sub-produtos (simulados baseados no produto principal) */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {[
+                { suffix: '1L', description: 'Embalagem de 1 litro - Ideal para pequenas propriedades' },
+                { suffix: '5L', description: 'Embalagem de 5 litros - Melhor custo-benefício' },
+                { suffix: '20L', description: 'Embalagem de 20 litros - Para grandes aplicações' },
+              ].map((variant) => (
+                <Card key={variant.suffix} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 bg-brand-green rounded-full flex items-center justify-center text-white font-bold mr-4">
+                        {variant.suffix}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-lg">
+                          {product.name} {variant.suffix}
+                        </h4>
+                        <p className="text-gray-600 text-sm">
+                          {variant.description}
+                        </p>
+                      </div>
+                    </div>
+                    <Button 
+                      className="w-full bg-brand-green hover:bg-brand-green-dark text-white"
+                    >
+                      <Phone className="mr-2 h-4 w-4" />
+                      Solicitar Orçamento
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* Link para categoria */}
+            <div className="text-center">
+              <Link href={`/produtos/categoria/${product.category.toLowerCase().replace(/\s+/g, '-')}`}>
+                <Button 
+                  variant="outline" 
+                  className="border-brand-green text-brand-green hover:bg-brand-green hover:text-white"
+                >
+                  Ver todos os produtos da categoria
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }

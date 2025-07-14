@@ -22,6 +22,10 @@ export const products = pgTable("products", {
   imageUrl: text("image_url"),
   gallery: text("gallery").array(), // Galeria de imagens
   active: boolean("active").default(true),
+  // Campos para sub-produtos
+  parentId: integer("parent_id"),
+  isProductLine: boolean("is_product_line").default(false),
+  lineOrder: integer("line_order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
 });
@@ -89,6 +93,7 @@ export const insertUserSchema = createInsertSchema(users).pick({
 export const insertProductSchema = createInsertSchema(products).omit({
   id: true,
   createdAt: true,
+  updatedAt: true,
 });
 
 export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({

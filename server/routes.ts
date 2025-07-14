@@ -61,6 +61,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get('/api/products/:slug/with-subproducts', async (req, res) => {
+    try {
+      const productWithSubs = await storage.getProductWithSubProducts(req.params.slug);
+      if (!productWithSubs) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+      res.json(productWithSubs);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch product with sub-products' });
+    }
+  });
+
   app.get('/api/products/category/:category', async (req, res) => {
     try {
       const products = await storage.getProductsByCategory(req.params.category);

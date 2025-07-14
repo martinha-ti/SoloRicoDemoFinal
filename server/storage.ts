@@ -31,6 +31,8 @@ export interface IStorage {
   getProducts(): Promise<Product[]>;
   getProductBySlug(slug: string): Promise<Product | undefined>;
   getProductsByCategory(category: string): Promise<Product[]>;
+  getProductWithSubProducts(slug: string): Promise<Product & { subProducts?: Product[] } | undefined>;
+  getSubProductsByParent(parentId: number): Promise<Product[]>;
   createProduct(product: InsertProduct): Promise<Product>;
   updateProduct(id: number, product: InsertProduct): Promise<Product>;
   deleteProduct(id: number): Promise<void>;
@@ -325,6 +327,28 @@ export class MemStorage implements IStorage {
 
   async getProductsByCategory(category: string): Promise<Product[]> {
     return Array.from(this.products.values()).filter(p => p.category === category && p.active !== false);
+  }
+
+  async getProductWithSubProducts(slug: string): Promise<Product & { subProducts?: Product[] } | undefined> {
+    const product = await this.getProductBySlug(slug);
+    if (!product) return undefined;
+    
+    // Para Top Lime Pro, retorna produtos relacionados da linha
+    if (slug === 'top-lime-pro') {
+      const relatedProducts = Array.from(this.products.values()).filter(p => 
+        (p.slug === 'acidificante-plus' || p.slug === 'espalhante-adesivo') && p.active !== false
+      );
+      return { ...product, subProducts: relatedProducts };
+    }
+    
+    const subProducts = await this.getSubProductsByParent(product.id);
+    return { ...product, subProducts };
+  }
+
+  async getSubProductsByParent(parentId: number): Promise<Product[]> {
+    return Array.from(this.products.values())
+      .filter(p => p.parentId === parentId && p.active !== false)
+      .sort((a, b) => (a.lineOrder || 0) - (b.lineOrder || 0));
   }
 
   async createProduct(insertProduct: InsertProduct): Promise<Product> {

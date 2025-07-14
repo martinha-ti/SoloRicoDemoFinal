@@ -505,9 +505,10 @@ export default function AdminPanel() {
 
         {/* Tabs */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
             <TabsTrigger value="products">Produtos</TabsTrigger>
+            <TabsTrigger value="product-lines">Linhas</TabsTrigger>
             <TabsTrigger value="blog">Blog</TabsTrigger>
             <TabsTrigger value="users">Usuários</TabsTrigger>
             <TabsTrigger value="seo">SEO</TabsTrigger>
@@ -665,6 +666,100 @@ export default function AdminPanel() {
                     )}
                   </div>
                 )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Product Lines Tab */}
+          <TabsContent value="product-lines" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Gerenciamento de Linhas de Produtos</CardTitle>
+                <CardDescription>
+                  Configure as linhas de produtos e seus sub-produtos relacionados
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Top Lime Pro Line */}
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-semibold text-lg mb-3">Linha Top Lime Pro</h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Gerenciar produtos da linha Top Lime Pro - quando um usuário acessa Top Lime Pro, 
+                      verá o produto principal e os sub-produtos relacionados.
+                    </p>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                        <div>
+                          <span className="font-medium">Produto Principal: Top Lime Pro</span>
+                          <p className="text-sm text-gray-600">Fertilizante foliar com tecnologia avançada</p>
+                        </div>
+                        <Badge variant="default">Principal</Badge>
+                      </div>
+                      
+                      <div className="ml-4 space-y-2">
+                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                          <div>
+                            <span className="font-medium">Top Lime Pro Base</span>
+                            <p className="text-sm text-gray-600">Produto base da linha</p>
+                          </div>
+                          <Badge variant="secondary">Sub-produto</Badge>
+                        </div>
+                        
+                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                          <div>
+                            <span className="font-medium">Acidificante Plus</span>
+                            <p className="text-sm text-gray-600">Acidificante da linha Top Lime Pro</p>
+                          </div>
+                          <Badge variant="secondary">Sub-produto</Badge>
+                        </div>
+                        
+                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                          <div>
+                            <span className="font-medium">Espalhante Adesivo</span>
+                            <p className="text-sm text-gray-600">Espalhante da linha Top Lime Pro</p>
+                          </div>
+                          <Badge variant="secondary">Sub-produto</Badge>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-4 p-3 bg-yellow-50 rounded-lg">
+                      <p className="text-sm text-yellow-800">
+                        <strong>Como funciona:</strong> Quando alguém acessa /produtos/top-lime-pro, 
+                        verá a página do produto principal com os 3 sub-produtos listados abaixo, 
+                        permitindo escolher entre as opções da linha.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Future Product Lines */}
+                  <div className="border rounded-lg p-4 bg-gray-50">
+                    <h3 className="font-semibold text-lg mb-3">Outras Linhas</h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Você pode criar outras linhas de produtos seguindo o mesmo padrão.
+                    </p>
+                    
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between p-3 bg-white rounded-lg">
+                        <div>
+                          <span className="font-medium">Linha Protect</span>
+                          <p className="text-sm text-gray-600">Revolution, Protetor E700, Shield Guard</p>
+                        </div>
+                        <Badge variant="outline">Disponível</Badge>
+                      </div>
+                      
+                      <div className="flex items-center justify-between p-3 bg-white rounded-lg">
+                        <div>
+                          <span className="font-medium">Linha Titanium Sollus</span>
+                          <p className="text-sm text-gray-600">Gel de Plantio, Titanium Raiz, Sollus Sementes</p>
+                        </div>
+                        <Badge variant="outline">Disponível</Badge>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
